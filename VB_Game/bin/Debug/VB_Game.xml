@@ -1,0 +1,86 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+VB_Game
+</name>
+</assembly>
+<members>
+<member name="T:VB_Game.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:VB_Game.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:VB_Game.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+<member name="T:VB_Game.Camera">
+ <summary>
+ Represents the current viewport
+ </summary>
+</member>
+<member name="M:VB_Game.Camera.update">
+ <summary>
+ Called every update frame
+ </summary>
+</member>
+<member name="M:VB_Game.Camera.toWorldCoords(OpenTK.Vector2)">
+ <summary>
+ Takes a screen cordinate and converts it into world coordinates based on transform matrix
+ </summary>
+ <param name="screenCoord"></param>
+ <returns></returns>
+</member>
+<member name="M:VB_Game.ContentPipe.loadTexture(System.String)">
+ <summary>
+ Loads texture into memory under OpenGL Texture
+ </summary>
+ <param name="path"></param>
+ <returns></returns>
+</member>
+<member name="M:VB_Game.SpriteBatch.drawImage(VB_Game.Texture2d,OpenTK.Vector2,OpenTK.Vector2,System.Drawing.Color,OpenTK.Vector2)">
+ <summary>
+ Draws an image on the screen
+ </summary>
+ <param name="texture"></param>
+ <param name="pos"></param>
+ <param name="scale"></param>
+ <param name="color"></param>
+ <param name="origin"></param>
+</member>
+<member name="M:VB_Game.SpriteBatch.drawImage(VB_Game.Texture2d,OpenTK.Vector2,OpenTK.Vector2)">
+ <summary>
+ Draws an image on the screen
+ </summary>
+ <param name="texture"></param>
+ <param name="pos"></param>
+ <param name="scale"></param>
+</member>
+<member name="M:VB_Game.SpriteBatch.drawRect(OpenTK.Vector2,OpenTK.Vector2,System.Drawing.Color)">
+ <summary>
+ Draws a rectangle on screen
+ </summary>
+ <param name="size"></param>
+ <param name="pos"></param>
+ <param name="color"></param>
+</member>
+<member name="T:VB_Game.KeyListener">
+ <summary>
+ Interface providing ability to register for key events
+ </summary>
+</member>
+<member name="T:VB_Game.MouseListener">
+ <summary>
+ Interface providing ability to register for mouse events
+ </summary>
+</member>
+</members>
+</doc>
