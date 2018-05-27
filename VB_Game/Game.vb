@@ -13,6 +13,8 @@ Public Class Game : Inherits GameWindow : Implements KeyListener
     Private texture As ImageTexture
     Private camera As Camera
     Private audioMaster As AudioMaster
+    Private testEntity As Entity
+    Private testEntity2 As Entity
 
     Public Function getCamera() As Camera
         Return camera
@@ -34,6 +36,8 @@ Public Class Game : Inherits GameWindow : Implements KeyListener
         InputHandler.init(Me)
         InputHandler.keyListeners.Add(Me)
         camera = New Camera(New Vector2(0.5, 0.5), 0, 0.2)
+        testEntity = New Entity(New Vector2(0, 0), New ShapeTexture(32, 32, Color.Black, ShapeTexture.ShapeType.Rectangle))
+        testEntity2 = New Entity(New Vector2(48, 48), New ShapeTexture(32, 32, Color.Black, ShapeTexture.ShapeType.Rectangle))
     End Sub
 
     Protected Overrides Sub OnLoad(ByVal e As EventArgs)
@@ -46,8 +50,7 @@ Public Class Game : Inherits GameWindow : Implements KeyListener
 
     Protected Overrides Sub OnUpdateFrame(ByVal e As FrameEventArgs)
         camera.update()
-        xPos += 4
-        'yPos += 1
+        testEntity.tick(0)
     End Sub
 
     Protected Overrides Sub OnRenderFrame(ByVal e As FrameEventArgs)
@@ -66,13 +69,16 @@ Public Class Game : Inherits GameWindow : Implements KeyListener
         SpriteBatch.begin(Me.ClientSize.Width, Me.ClientSize.Height)
         camera.applyTransform()
 
+        SpriteBatch.drawImage(texture, New Vector2(-1024, -1024), New Vector2(1, 1), Color.White, New Vector2(0, 0))
+
         'Performance testing on a large draw
         For i = 0 To 10
             For n = 0 To 10
                 SpriteBatch.drawImage(texture, New Vector2(i * 512, n * 512), New Vector2(1, 1), Color.White, New Vector2(0, 0))
             Next
         Next
-
+        testEntity.render()
+        testEntity2.render()
         Me.SwapBuffers()
     End Sub
 

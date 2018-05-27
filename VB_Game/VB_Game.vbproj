@@ -82,6 +82,7 @@
     <Compile Include="graphics\GameObject.vb" />
     <Compile Include="graphics\SpriteBatch.vb" />
     <Compile Include="graphics\texture\ImageTexture.vb" />
+    <Compile Include="graphics\texture\ShapeTexture.vb" />
     <Compile Include="graphics\texture\Texture.vb" />
     <Compile Include="input\InputHandler.vb" />
     <Compile Include="input\KeyListener.vb" />

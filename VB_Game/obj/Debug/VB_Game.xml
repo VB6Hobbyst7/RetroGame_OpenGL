@@ -116,6 +116,13 @@ VB_Game
  <param name="pos"></param>
  <param name="color"></param>
 </member>
+<member name="M:VB_Game.SpriteBatch.begin(System.Object,System.Object)">
+ <summary>
+ Prepares screen for rendering by setting up viewport and projection matricies
+ </summary>
+ <param name="screenWidth"></param>
+ <param name="screenHeight"></param>
+</member>
 <member name="T:VB_Game.KeyListener">
  <summary>
  Interface providing ability to register for key events

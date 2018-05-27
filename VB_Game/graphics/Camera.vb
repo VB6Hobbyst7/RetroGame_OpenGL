@@ -6,7 +6,7 @@ Imports VB_Game
 ''' <summary>
 ''' Represents the current viewport
 ''' </summary>
-Public Class Camera : Implements MouseListener
+Public Class Camera : Implements MouseListener, KeyListener
 
     Public position As Vector2
 
@@ -19,6 +19,7 @@ Public Class Camera : Implements MouseListener
         Me.rotation = rotation
         Me.zoomLevel = zoomLevel
         InputHandler.mouseListeners.Add(Me)
+        InputHandler.keyListeners.Add(Me)
     End Sub
 
 #Region "Input Handling"
@@ -51,6 +52,18 @@ Public Class Camera : Implements MouseListener
         transform = Matrix4.Mult(transform, Matrix4.CreateRotationZ(-rotation))
         transform = Matrix4.Mult(transform, Matrix4.CreateScale(zoomLevel, zoomLevel, 1))
         GL.MultMatrix(transform)
+    End Sub
+
+    Public Sub KeyUp(e As KeyboardKeyEventArgs) Implements KeyListener.KeyUp
+    End Sub
+
+    Public Sub KeyDown(e As KeyboardKeyEventArgs) Implements KeyListener.KeyDown
+        If e.Key = Key.D Then
+            position.X += 5
+        End If
+        If e.Key = Key.A Then
+            position.X -= 5
+        End If
     End Sub
 
     ''' <summary>
