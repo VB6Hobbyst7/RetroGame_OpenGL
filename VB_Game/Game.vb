@@ -4,8 +4,10 @@ Imports OpenTK
 Imports OpenTK.Audio
 Imports OpenTK.Graphics
 Imports OpenTK.Graphics.OpenGL
+Imports OpenTK.Input
+Imports VB_Game
 
-Public Class Game : Inherits GameWindow
+Public Class Game : Inherits GameWindow : Implements KeyListener
 
     Private Shared instance As Game
     Private texture As ImageTexture
@@ -22,20 +24,19 @@ Public Class Game : Inherits GameWindow
     Dim yPos = 0
 
     Private Sub New()
-        MyBase.New(800, 600, New GraphicsMode(32, 0, 0, 4))
+        MyBase.New(Constants.INIT_SCREEN_WIDTH, Constants.INIT_SCREEN_HEIGHT, New GraphicsMode(32, 0, 0, 4))
 
         'Initialise OpenGL Settings
         GL.Enable(EnableCap.Texture2D)
         GL.Enable(EnableCap.Blend)
         GL.BlendFunc(CType(BlendingFactorSrc.SrcAlpha, BlendingFactor), CType(BlendingFactorSrc.OneMinusSrcAlpha, BlendingFactor))
-
         audioMaster = AudioMaster.getInstance()
         InputHandler.init(Me)
+        InputHandler.keyListeners.Add(Me)
         camera = New Camera(New Vector2(0.5, 0.5), 0, 0.2)
     End Sub
 
     Protected Overrides Sub OnLoad(ByVal e As EventArgs)
-        GL.ClearColor(Color.MidnightBlue)
         texture = ContentPipe.loadTexture("grass_tile_1.png")
     End Sub
 
@@ -60,10 +61,9 @@ Public Class Game : Inherits GameWindow
         End If
 
         GL.Clear(ClearBufferMask.ColorBufferBit)
-        GL.ClearColor(Color.White)
-
+        GL.ClearColor(Color.Black)
         'Setup drawing
-        SpriteBatch.begin(Me.Width, Me.Height)
+        SpriteBatch.begin(Me.ClientSize.Width, Me.ClientSize.Height)
         camera.applyTransform()
 
         'Performance testing on a large draw
@@ -72,8 +72,6 @@ Public Class Game : Inherits GameWindow
                 SpriteBatch.drawImage(texture, New Vector2(i * 512, n * 512), New Vector2(1, 1), Color.White, New Vector2(0, 0))
             Next
         Next
-
-        SpriteBatch.drawRect(New Vector2(64, 64), New Vector2(xPos, 0), Color.Crimson)
 
         Me.SwapBuffers()
     End Sub
@@ -89,4 +87,22 @@ Public Class Game : Inherits GameWindow
         End If
         Return instance
     End Function
+
+    Private Sub KeyListener_KeyUp(e As KeyboardKeyEventArgs) Implements KeyListener.KeyUp
+
+    End Sub
+
+    Private Sub KeyListener_KeyDown(e As KeyboardKeyEventArgs) Implements KeyListener.KeyDown
+        If e.Key = Key.Q Then
+            Me.Close()
+        End If
+
+        If e.Key = Key.F Then
+            If WindowState = OpenTK.WindowState.Fullscreen Then
+                WindowState = OpenTK.WindowState.Normal
+            Else
+                WindowState = OpenTK.WindowState.Fullscreen
+            End If
+        End If
+    End Sub
 End Class

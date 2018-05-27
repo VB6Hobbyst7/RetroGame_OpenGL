@@ -125,13 +125,32 @@ Public Class SpriteBatch
         drawTexture(obj.texture, obj.pos)
     End Sub
 
+
+
     Public Shared Sub begin(screenWidth, screenHeight)
+        Dim scale_w As Single = CSng(screenWidth) / CSng(Constants.INIT_SCREEN_WIDTH)
+        Dim scale_h As Single = CSng(screenHeight) / CSng(Constants.INIT_SCREEN_HEIGHT)
+        Dim ar_new As Single = screenWidth / screenHeight
+        If ar_new > Constants.ASPECT_RATIO Then
+            scale_w = scale_h
+        Else
+            scale_h = scale_w
+        End If
+
+        Dim margin_x As Single = (screenWidth - 1280 * scale_w) / 2
+        Dim margin_y As Single = (screenHeight - 720 * scale_h) / 2
+
+        GL.Viewport(margin_x, margin_y, 1280 * scale_w, 720 * scale_h)
         GL.MatrixMode(MatrixMode.Projection)
         GL.LoadIdentity()
         'Sets up coordinate system on drawing canvas
-        GL.Ortho(-screenWidth / 2, screenWidth / 2, screenHeight / 2, -screenHeight / 2, 0, 1)
+        GL.Ortho((-screenWidth / 2) / Constants.ASPECT_RATIO, (screenWidth / 2) / Constants.ASPECT_RATIO,
+                 (screenHeight / 2) / Constants.ASPECT_RATIO, (-screenHeight / 2) / Constants.ASPECT_RATIO, 0, 1)
+        GL.MatrixMode(MatrixMode.Modelview)
+        GL.LoadIdentity()
+
+        'Draws Viewport on Screen
+        drawRect(New Vector2(screenWidth, screenHeight), New Vector2(-screenWidth / 2, -screenHeight / 2), Color.White)
     End Sub
-
-
 
 End Class

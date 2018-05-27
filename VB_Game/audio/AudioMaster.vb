@@ -27,7 +27,7 @@ Public Class AudioMaster : Implements MouseListener, IDisposable
         Dim source2 As New Source()
         source2.shouldLoop = True
 
-        source.play(buffer)
+        'source.play(buffer)
         'source2.play(buffer2)
     End Sub
 
@@ -49,7 +49,7 @@ Public Class AudioMaster : Implements MouseListener, IDisposable
     End Sub
 
     Public Sub MouseButtonDown(e As MouseEventArgs) Implements MouseListener.MouseButtonDown
-        Throw New NotImplementedException()
+        'Throw New NotImplementedException()
     End Sub
 
     Public Sub Dispose() Implements IDisposable.Dispose

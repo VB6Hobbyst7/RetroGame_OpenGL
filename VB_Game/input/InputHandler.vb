@@ -23,4 +23,16 @@ Public Class InputHandler
         Next
     End Sub
 
+    Private Shared Sub KeyDown(sender As Object, e As KeyboardKeyEventArgs) Handles game.KeyDown
+        For i = 0 To keyListeners.Count - 1
+            keyListeners(i).KeyDown(e)
+        Next
+    End Sub
+
+    Private Shared Sub KeyUp(sender As Object, e As KeyboardKeyEventArgs) Handles game.KeyUp
+        For i = 0 To keyListeners.Count - 1
+            keyListeners(i).KeyUp(e)
+        Next
+    End Sub
+
 End Class
