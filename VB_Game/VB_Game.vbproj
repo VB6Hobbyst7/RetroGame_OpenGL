@@ -73,12 +73,16 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="audio\AudioMaster.vb" />
+    <Compile Include="audio\Source.vb" />
     <Compile Include="graphics\Camera.vb" />
     <Compile Include="graphics\ContentPipe.vb" />
     <Compile Include="Game.vb" />
     <Compile Include="graphics\Entity.vb" />
+    <Compile Include="graphics\GameObject.vb" />
     <Compile Include="graphics\SpriteBatch.vb" />
-    <Compile Include="graphics\texture\Texture2d.vb" />
+    <Compile Include="graphics\texture\ImageTexture.vb" />
+    <Compile Include="graphics\texture\Texture.vb" />
     <Compile Include="input\InputHandler.vb" />
     <Compile Include="input\KeyListener.vb" />
     <Compile Include="input\MouseListener.vb" />
@@ -123,10 +127,16 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="res\test2.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="res\img\grass_tile_1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="res\img\test.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\test.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

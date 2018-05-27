@@ -22,6 +22,11 @@ VB_Game
   resource lookups using this strongly typed resource class.
 </summary>
 </member>
+<member name="T:VB_Game.AudioMaster">
+ <summary>
+ Manages all game audio and the audio context
+ </summary>
+</member>
 <member name="T:VB_Game.Camera">
  <summary>
  Represents the current viewport
@@ -46,7 +51,39 @@ VB_Game
  <param name="path"></param>
  <returns></returns>
 </member>
-<member name="M:VB_Game.SpriteBatch.drawImage(VB_Game.Texture2d,OpenTK.Vector2,OpenTK.Vector2,System.Drawing.Color,OpenTK.Vector2)">
+<member name="M:VB_Game.ContentPipe.loadWave(System.String)">
+ <summary>
+ Loads a wav file and places it in buffer
+ </summary>
+ <param name="path"></param>
+ <returns></returns>
+</member>
+<member name="M:VB_Game.ContentPipe.loadWave(System.IO.Stream)">
+ <summary>
+ Loads a wav file and places it in buffer
+ </summary>
+ <param name="stream"></param>
+ <returns></returns>
+</member>
+<member name="M:VB_Game.ContentPipe.GetSoundFormat(System.Int32,System.Int32)">
+ <summary>
+ Determines wave file sound format from number of channels and bits
+ </summary>
+ <param name="channels"></param>
+ <param name="bits"></param>
+ <returns></returns>
+</member>
+<member name="T:VB_Game.Entity">
+ <summary>
+ Represents an on screen game object
+ </summary>
+</member>
+<member name="T:VB_Game.GameObject">
+ <summary>
+ Represents any graphical game object
+ </summary>
+</member>
+<member name="M:VB_Game.SpriteBatch.drawImage(VB_Game.ImageTexture,OpenTK.Vector2,OpenTK.Vector2,System.Drawing.Color,OpenTK.Vector2)">
  <summary>
  Draws an image on the screen
  </summary>
@@ -56,13 +93,20 @@ VB_Game
  <param name="color"></param>
  <param name="origin"></param>
 </member>
-<member name="M:VB_Game.SpriteBatch.drawImage(VB_Game.Texture2d,OpenTK.Vector2,OpenTK.Vector2)">
+<member name="M:VB_Game.SpriteBatch.drawImage(VB_Game.ImageTexture,OpenTK.Vector2,OpenTK.Vector2)">
  <summary>
  Draws an image on the screen
  </summary>
  <param name="texture"></param>
  <param name="pos"></param>
  <param name="scale"></param>
+</member>
+<member name="M:VB_Game.SpriteBatch.drawImage(VB_Game.ImageTexture,OpenTK.Vector2)">
+ <summary>
+ Draws an image on the screen
+ </summary>
+ <param name="texture"></param>
+ <param name="pos"></param>
 </member>
 <member name="M:VB_Game.SpriteBatch.drawRect(OpenTK.Vector2,OpenTK.Vector2,System.Drawing.Color)">
  <summary>

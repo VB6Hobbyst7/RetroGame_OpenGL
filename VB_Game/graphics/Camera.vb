@@ -24,7 +24,7 @@ Public Class Camera : Implements MouseListener
 #Region "Input Handling"
 
     Public Sub MouseScroll(e As MouseWheelEventArgs) Implements MouseListener.MouseScroll
-        zoomLevel += e.Delta / 500
+        zoomLevel += e.Delta / 200
     End Sub
 
     Public Sub MouseButtonDown(e As MouseEventArgs) Implements MouseListener.MouseButtonDown

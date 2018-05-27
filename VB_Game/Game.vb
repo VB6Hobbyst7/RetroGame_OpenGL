@@ -1,13 +1,16 @@
 ﻿Imports System.Drawing
+Imports System.IO
 Imports OpenTK
+Imports OpenTK.Audio
 Imports OpenTK.Graphics
 Imports OpenTK.Graphics.OpenGL
 
 Public Class Game : Inherits GameWindow
 
     Private Shared instance As Game
-    Private texture As Texture2d
+    Private texture As ImageTexture
     Private camera As Camera
+    Private audioMaster As AudioMaster
 
     Public Function getCamera() As Camera
         Return camera
@@ -18,14 +21,17 @@ Public Class Game : Inherits GameWindow
     Dim xPos = 0
     Dim yPos = 0
 
-    Public Sub New()
+    Private Sub New()
         MyBase.New(800, 600, New GraphicsMode(32, 0, 0, 4))
+
         'Initialise OpenGL Settings
         GL.Enable(EnableCap.Texture2D)
         GL.Enable(EnableCap.Blend)
         GL.BlendFunc(CType(BlendingFactorSrc.SrcAlpha, BlendingFactor), CType(BlendingFactorSrc.OneMinusSrcAlpha, BlendingFactor))
+
+        audioMaster = AudioMaster.getInstance()
         InputHandler.init(Me)
-        camera = New Camera(New Vector2(0.5, 0.5), 0, 1)
+        camera = New Camera(New Vector2(0.5, 0.5), 0, 0.2)
     End Sub
 
     Protected Overrides Sub OnLoad(ByVal e As EventArgs)
@@ -39,7 +45,7 @@ Public Class Game : Inherits GameWindow
 
     Protected Overrides Sub OnUpdateFrame(ByVal e As FrameEventArgs)
         camera.update()
-        'xPos += 1
+        xPos += 4
         'yPos += 1
     End Sub
 
@@ -67,9 +73,14 @@ Public Class Game : Inherits GameWindow
             Next
         Next
 
-        SpriteBatch.drawRect(New Vector2(64, 64), New Vector2(0, 0), Color.Crimson)
+        SpriteBatch.drawRect(New Vector2(64, 64), New Vector2(xPos, 0), Color.Crimson)
 
         Me.SwapBuffers()
+    End Sub
+
+    Public Overloads Sub Dispose()
+        MyBase.Dispose()
+        audioMaster.Dispose()
     End Sub
 
     Public Shared Function getInstance() As Game
