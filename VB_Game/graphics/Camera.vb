@@ -6,7 +6,7 @@ Imports VB_Game
 ''' <summary>
 ''' Represents the current viewport
 ''' </summary>
-Public Class Camera : Implements MouseListener, KeyListener
+Public Class Camera
 
     Public position As Vector2
 
@@ -18,24 +18,7 @@ Public Class Camera : Implements MouseListener, KeyListener
         Me.position = position
         Me.rotation = rotation
         Me.zoomLevel = zoomLevel
-        InputHandler.mouseListeners.Add(Me)
-        InputHandler.keyListeners.Add(Me)
     End Sub
-
-#Region "Input Handling"
-
-    Public Sub MouseScroll(e As MouseWheelEventArgs) Implements MouseListener.MouseScroll
-        zoomLevel += e.Delta / 200
-    End Sub
-
-    Public Sub MouseButtonDown(e As MouseEventArgs) Implements MouseListener.MouseButtonDown
-        Dim pos = New Vector2(e.X, e.Y)
-        pos -= New Vector2(Game.getInstance().Width, Game.getInstance().Height) / 2
-        pos = toWorldCoords(pos)
-        position = pos
-    End Sub
-
-#End Region
 
 #Region "Helper Functions"
 
@@ -52,18 +35,6 @@ Public Class Camera : Implements MouseListener, KeyListener
         transform = Matrix4.Mult(transform, Matrix4.CreateRotationZ(-rotation))
         transform = Matrix4.Mult(transform, Matrix4.CreateScale(zoomLevel, zoomLevel, 1))
         GL.MultMatrix(transform)
-    End Sub
-
-    Public Sub KeyUp(e As KeyboardKeyEventArgs) Implements KeyListener.KeyUp
-    End Sub
-
-    Public Sub KeyDown(e As KeyboardKeyEventArgs) Implements KeyListener.KeyDown
-        If e.Key = Key.D Then
-            position.X += 5
-        End If
-        If e.Key = Key.A Then
-            position.X -= 5
-        End If
     End Sub
 
     ''' <summary>

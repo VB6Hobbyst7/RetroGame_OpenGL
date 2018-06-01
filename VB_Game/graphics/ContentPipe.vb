@@ -8,21 +8,16 @@ Public Class ContentPipe
 
     Private Shared IMG_DIR As String = "res/img/"
 
+
     ''' <summary>
     ''' Loads texture into memory under OpenGL Texture
     ''' </summary>
-    ''' <param name="path"></param>
+    ''' <param name="img">Bitmap of texture</param>
     ''' <returns></returns>
-    Public Shared Function loadTexture(path As String) As ImageTexture
-
-        'If Not System.IO.File.Exists(path) Then
-        'Throw New FileNotFoundException(IMG_DIR + path + " => not found")
-        'End If
+    Public Shared Function loadTexture(img As Bitmap) As ImageTexture
 
         Dim id As Integer = GL.GenTexture
         GL.BindTexture(TextureTarget.Texture2D, id)
-
-        Dim img As New Bitmap(IMG_DIR + path)
 
         Dim data As BitmapData = img.LockBits(
             New Rectangle(0, 0, img.Width, img.Height),
@@ -41,6 +36,15 @@ Public Class ContentPipe
         GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, TextureMagFilter.Linear)
 
         Return New ImageTexture(id, img.Width, img.Height)
+    End Function
+
+    ''' <summary>
+    ''' Loads texture into memory under OpenGL Texture
+    ''' </summary>
+    ''' <param name="path"></param>
+    ''' <returns></returns>
+    Public Shared Function loadTexture(path As String) As ImageTexture
+        Return loadTexture(New Bitmap(IMG_DIR + path))
     End Function
 
     ''' <summary>

@@ -1,20 +1,24 @@
 ﻿Imports System.Drawing
-Imports System.IO
 Imports OpenTK
-Imports OpenTK.Audio
 Imports OpenTK.Graphics
 Imports OpenTK.Graphics.OpenGL
 Imports OpenTK.Input
-Imports VB_Game
 
 Public Class Game : Inherits GameWindow : Implements KeyListener
 
     Private Shared instance As Game
-    Private texture As ImageTexture
     Private camera As Camera
     Private audioMaster As AudioMaster
-    Private testEntity As Entity
-    Private testEntity2 As Entity
+
+    Private _currentScreen As Screen
+    Public Property currentScreen() As Screen
+        Get
+            Return _currentScreen
+        End Get
+        Set(ByVal value As Screen)
+            _currentScreen = value
+        End Set
+    End Property
 
     Public Function getCamera() As Camera
         Return camera
@@ -22,12 +26,10 @@ Public Class Game : Inherits GameWindow : Implements KeyListener
 
     Private frame As Integer = 0
     Private totalFPS As Decimal = 0
-    Dim xPos = 0
-    Dim yPos = 0
 
     Private Sub New()
         MyBase.New(Constants.INIT_SCREEN_WIDTH, Constants.INIT_SCREEN_HEIGHT, New GraphicsMode(32, 0, 0, 4))
-
+        currentScreen = GameScreen.getInstance()
         'Initialise OpenGL Settings
         GL.Enable(EnableCap.Texture2D)
         GL.Enable(EnableCap.Blend)
@@ -35,22 +37,21 @@ Public Class Game : Inherits GameWindow : Implements KeyListener
         audioMaster = AudioMaster.getInstance()
         InputHandler.init(Me)
         InputHandler.keyListeners.Add(Me)
-        camera = New Camera(New Vector2(0.5, 0.5), 0, 0.2)
-        testEntity = New Entity(New Vector2(0, 0), New ShapeTexture(32, 32, Color.Black, ShapeTexture.ShapeType.Rectangle))
-        testEntity2 = New Entity(New Vector2(48, 48), New ShapeTexture(32, 32, Color.Black, ShapeTexture.ShapeType.Rectangle))
+        camera = New Camera(New Vector2(0.5, 0.5), 0, 1)
+        _currentScreen = GameScreen.getInstance()
     End Sub
 
     Protected Overrides Sub OnLoad(ByVal e As EventArgs)
-        texture = ContentPipe.loadTexture("grass_tile_1.png")
     End Sub
 
     Protected Overrides Sub OnResize(ByVal e As EventArgs)
         MyBase.OnResize(e)
+        _currentScreen.onResize()
     End Sub
 
     Protected Overrides Sub OnUpdateFrame(ByVal e As FrameEventArgs)
         camera.update()
-        testEntity.tick(0)
+        _currentScreen.update(e.Time)
     End Sub
 
     Protected Overrides Sub OnRenderFrame(ByVal e As FrameEventArgs)
@@ -65,25 +66,15 @@ Public Class Game : Inherits GameWindow : Implements KeyListener
 
         GL.Clear(ClearBufferMask.ColorBufferBit)
         GL.ClearColor(Color.Black)
-        'Setup drawing
         SpriteBatch.begin(Me.ClientSize.Width, Me.ClientSize.Height)
         camera.applyTransform()
-
-        SpriteBatch.drawImage(texture, New Vector2(-1024, -1024), New Vector2(1, 1), Color.White, New Vector2(0, 0))
-
-        'Performance testing on a large draw
-        For i = 0 To 10
-            For n = 0 To 10
-                SpriteBatch.drawImage(texture, New Vector2(i * 512, n * 512), New Vector2(1, 1), Color.White, New Vector2(0, 0))
-            Next
-        Next
-        testEntity.render()
-        testEntity2.render()
+        _currentScreen.render(e.Time)
         Me.SwapBuffers()
     End Sub
 
     Public Overloads Sub Dispose()
         MyBase.Dispose()
+        _currentScreen.dispose()
         audioMaster.Dispose()
     End Sub
 
@@ -95,7 +86,6 @@ Public Class Game : Inherits GameWindow : Implements KeyListener
     End Function
 
     Private Sub KeyListener_KeyUp(e As KeyboardKeyEventArgs) Implements KeyListener.KeyUp
-
     End Sub
 
     Private Sub KeyListener_KeyDown(e As KeyboardKeyEventArgs) Implements KeyListener.KeyDown

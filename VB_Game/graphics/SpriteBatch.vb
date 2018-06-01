@@ -85,8 +85,12 @@ Public Class SpriteBatch
     End Sub
 
     Public Shared Sub drawTexture(texture As Texture, pos As Vector2)
+        drawTexture(texture, pos, New Vector2(1, 1))
+    End Sub
+
+    Public Shared Sub drawTexture(texture As Texture, pos As Vector2, scale As Vector2)
         If texture.GetType.IsAssignableFrom(GetType(ImageTexture)) Then
-            drawImage(CType(texture, ImageTexture), pos)
+            drawImage(CType(texture, ImageTexture), pos, scale)
         ElseIf texture.GetType.IsAssignableFrom(GetType(ShapeTexture)) Then
             Dim shapeTexture As ShapeTexture = CType(texture, ShapeTexture)
 
@@ -94,16 +98,28 @@ Public Class SpriteBatch
                 Case ShapeTexture.ShapeType.Ellipse
 
                 Case ShapeTexture.ShapeType.Rectangle
-                    drawRect(New Vector2(shapeTexture.width, shapeTexture.height), pos, shapeTexture.color)
+                    drawRect(New Vector2(shapeTexture.width * scale.X, shapeTexture.height * scale.Y), pos, shapeTexture.color)
             End Select
 
         End If
     End Sub
 
+    ''' <summary>
+    ''' Draws a game object
+    ''' </summary>
+    ''' <param name="obj"></param>
     Public Shared Sub drawObject(obj As GameObject)
         drawTexture(obj.texture, obj.pos)
     End Sub
 
+    ''' <summary>
+    ''' Draws game object applying a scale
+    ''' </summary>
+    ''' <param name="obj"></param>
+    ''' <param name="scale"></param>
+    Public Shared Sub drawObject(obj As GameObject, scale As Vector2)
+        drawTexture(obj.texture, obj.pos, scale)
+    End Sub
 
     ''' <summary>
     ''' Prepares screen for rendering by setting up viewport and projection matricies

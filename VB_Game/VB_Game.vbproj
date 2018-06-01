@@ -47,6 +47,9 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="OpenTK, Version=3.0.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
       <HintPath>..\packages\OpenTK.3.0.0\lib\net20\OpenTK.dll</HintPath>
     </Reference>
@@ -78,7 +81,10 @@
     <Compile Include="graphics\Camera.vb" />
     <Compile Include="graphics\ContentPipe.vb" />
     <Compile Include="Game.vb" />
+    <Compile Include="screens\GameScreen.vb" />
+    <Compile Include="screens\Screen.vb" />
     <Compile Include="graphics\Entity.vb" />
+    <Compile Include="graphics\font\TextLabel.vb" />
     <Compile Include="graphics\GameObject.vb" />
     <Compile Include="graphics\SpriteBatch.vb" />
     <Compile Include="graphics\texture\ImageTexture.vb" />
@@ -87,6 +93,9 @@
     <Compile Include="input\InputHandler.vb" />
     <Compile Include="input\KeyListener.vb" />
     <Compile Include="input\MouseListener.vb" />
+    <Compile Include="level\Map.vb" />
+    <Compile Include="level\Tile.vb" />
+    <Compile Include="level\TileMapHandler.vb" />
     <Compile Include="Module1.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -126,19 +135,19 @@
     <None Include="App.config" />
     <None Include="OpenTK.dll.config" />
     <None Include="packages.config" />
+    <None Include="res\HappySans.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="graphics\controls\" />
-    <Folder Include="graphics\font\" />
+    <Folder Include="utils\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="res\img\tiles\tile_1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="res\test2.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="res\img\grass_tile_1.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="res\img\test.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="res\test.wav">

@@ -25,7 +25,7 @@ Public Class GameObject
         End Set
     End Property
 
-    Public Sub render()
+    Public Overridable Sub render()
         SpriteBatch.drawObject(Me)
     End Sub
 

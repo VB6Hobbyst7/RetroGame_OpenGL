@@ -44,6 +44,13 @@ VB_Game
  <param name="screenCoord"></param>
  <returns></returns>
 </member>
+<member name="M:VB_Game.ContentPipe.loadTexture(System.Drawing.Bitmap)">
+ <summary>
+ Loads texture into memory under OpenGL Texture
+ </summary>
+ <param name="img">Bitmap of texture</param>
+ <returns></returns>
+</member>
 <member name="M:VB_Game.ContentPipe.loadTexture(System.String)">
  <summary>
  Loads texture into memory under OpenGL Texture
@@ -73,9 +80,19 @@ VB_Game
  <param name="bits"></param>
  <returns></returns>
 </member>
+<member name="T:VB_Game.Screen">
+ <summary>
+ Represents a screen in the game (e.g. gamescreen, pausescreen)
+ </summary>
+</member>
 <member name="T:VB_Game.Entity">
  <summary>
  Represents an on screen game object
+ </summary>
+</member>
+<member name="T:VB_Game.TextLabel">
+ <summary>
+ Represents a text string drawn on screen
  </summary>
 </member>
 <member name="T:VB_Game.GameObject">
@@ -116,6 +133,19 @@ VB_Game
  <param name="pos"></param>
  <param name="color"></param>
 </member>
+<member name="M:VB_Game.SpriteBatch.drawObject(VB_Game.GameObject)">
+ <summary>
+ Draws a game object
+ </summary>
+ <param name="obj"></param>
+</member>
+<member name="M:VB_Game.SpriteBatch.drawObject(VB_Game.GameObject,OpenTK.Vector2)">
+ <summary>
+ Draws game object applying a scale
+ </summary>
+ <param name="obj"></param>
+ <param name="scale"></param>
+</member>
 <member name="M:VB_Game.SpriteBatch.begin(System.Object,System.Object)">
  <summary>
  Prepares screen for rendering by setting up viewport and projection matricies
@@ -131,6 +161,26 @@ VB_Game
 <member name="T:VB_Game.MouseListener">
  <summary>
  Interface providing ability to register for mouse events
+ </summary>
+</member>
+<member name="T:VB_Game.Map">
+ <summary>
+ Represents a tile map consisting of a grid of tiles
+ </summary>
+</member>
+<member name="T:VB_Game.Tile">
+ <summary>
+ A single tile in the tile map grid
+ </summary>
+</member>
+<member name="T:VB_Game.TileMapHandler">
+ <summary>
+ Handles map resources
+ </summary>
+</member>
+<member name="M:VB_Game.TileMapHandler.loadAllTileTextures">
+ <summary>
+ Loads all tile textures fomr res/img/tiles into memory
  </summary>
 </member>
 </members>
