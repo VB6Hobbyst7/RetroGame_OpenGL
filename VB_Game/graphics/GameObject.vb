@@ -25,6 +25,19 @@ Public Class GameObject
         End Set
     End Property
 
+    ''' <summary>
+    ''' Refers to whether this obj remains stationery (e.g. not effected by gravity)
+    ''' </summary>
+    Private _isStatic As Boolean
+    Public Property isStatic() As Boolean
+        Get
+            Return _isStatic
+        End Get
+        Set(ByVal value As Boolean)
+            _isStatic = value
+        End Set
+    End Property
+
     Public Overridable Sub render()
         SpriteBatch.drawObject(Me)
     End Sub

@@ -100,6 +100,11 @@ VB_Game
  Represents any graphical game object
  </summary>
 </member>
+<member name="F:VB_Game.GameObject._isStatic">
+ <summary>
+ Refers to whether this obj remains stationery (e.g. not effected by gravity)
+ </summary>
+</member>
 <member name="M:VB_Game.SpriteBatch.drawImage(VB_Game.ImageTexture,OpenTK.Vector2,OpenTK.Vector2,System.Drawing.Color,OpenTK.Vector2)">
  <summary>
  Draws an image on the screen
@@ -166,6 +171,16 @@ VB_Game
 <member name="T:VB_Game.Map">
  <summary>
  Represents a tile map consisting of a grid of tiles
+ </summary>
+</member>
+<member name="M:VB_Game.Map.loadMap">
+ <summary>
+ Loads Json Formatted map into memory
+ </summary>
+</member>
+<member name="M:VB_Game.Map.render">
+ <summary>
+ Renders the map to screen
  </summary>
 </member>
 <member name="T:VB_Game.Tile">

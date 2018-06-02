@@ -10,7 +10,14 @@ Public Class Tile : Inherits GameObject : Implements ICloneable
     End Function
 
     Public Sub New(name As String)
+        Debug.WriteLine("constructor call")
         Me.name = name
+        Me.texture = ContentPipe.loadTexture(Constants.TILE_RES_DIR + name)
+    End Sub
+
+    'Creates an empty tile with no texture
+    Public Sub New()
+
     End Sub
 
     Public Overrides Sub render()

@@ -6,9 +6,6 @@ Imports OpenTK.Audio.OpenAL
 
 Public Class ContentPipe
 
-    Private Shared IMG_DIR As String = "res/img/"
-
-
     ''' <summary>
     ''' Loads texture into memory under OpenGL Texture
     ''' </summary>
@@ -44,7 +41,7 @@ Public Class ContentPipe
     ''' <param name="path"></param>
     ''' <returns></returns>
     Public Shared Function loadTexture(path As String) As ImageTexture
-        Return loadTexture(New Bitmap(IMG_DIR + path))
+        Return loadTexture(New Bitmap(path))
     End Function
 
     ''' <summary>

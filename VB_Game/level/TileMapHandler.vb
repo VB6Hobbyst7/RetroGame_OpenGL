@@ -13,6 +13,7 @@ Public Class TileMapHandler
 
     Private Sub New()
         loadAllTileTextures()
+        Dim m As New Map()
     End Sub
 
     ''' <summary>

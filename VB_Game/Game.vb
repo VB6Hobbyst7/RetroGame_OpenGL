@@ -24,9 +24,6 @@ Public Class Game : Inherits GameWindow : Implements KeyListener
         Return camera
     End Function
 
-    Private frame As Integer = 0
-    Private totalFPS As Decimal = 0
-
     Private Sub New()
         MyBase.New(Constants.INIT_SCREEN_WIDTH, Constants.INIT_SCREEN_HEIGHT, New GraphicsMode(32, 0, 0, 4))
         currentScreen = GameScreen.getInstance()
@@ -52,18 +49,10 @@ Public Class Game : Inherits GameWindow : Implements KeyListener
     Protected Overrides Sub OnUpdateFrame(ByVal e As FrameEventArgs)
         camera.update()
         _currentScreen.update(e.Time)
+        DebugHandler.update(e.Time, Me.RenderFrequency)
     End Sub
 
     Protected Overrides Sub OnRenderFrame(ByVal e As FrameEventArgs)
-        frame += 1
-        totalFPS += Me.RenderFrequency
-
-        If frame = 60 Then
-            Debug.WriteLine(String.Format("FPS: {0}", Math.Round(totalFPS / frame)))
-            frame = 0
-            totalFPS = 0
-        End If
-
         GL.Clear(ClearBufferMask.ColorBufferBit)
         GL.ClearColor(Color.Black)
         SpriteBatch.begin(Me.ClientSize.Width, Me.ClientSize.Height)

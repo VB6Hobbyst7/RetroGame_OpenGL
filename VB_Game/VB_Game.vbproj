@@ -113,6 +113,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="res\Constants.vb" />
+    <Compile Include="utils\DebugHandler.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -138,10 +139,12 @@
     <None Include="res\HappySans.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="res\maps\map1.ldat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="graphics\controls\" />
-    <Folder Include="utils\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="res\img\tiles\tile_1.png">
