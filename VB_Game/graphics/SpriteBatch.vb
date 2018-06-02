@@ -109,7 +109,7 @@ Public Class SpriteBatch
     ''' </summary>
     ''' <param name="obj"></param>
     Public Shared Sub drawObject(obj As GameObject)
-        drawTexture(obj.texture, obj.pos)
+        drawTexture(obj.texture, obj.pos, obj.scale)
     End Sub
 
     ''' <summary>

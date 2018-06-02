@@ -1,5 +1,6 @@
 ﻿Imports Newtonsoft.Json
 Imports System.IO
+Imports OpenTK
 
 ''' <summary>
 ''' Represents a tile map consisting of a grid of tiles
@@ -9,13 +10,17 @@ Public Class Map
     Public tiles(Constants.MAP_WIDTH, Constants.MAP_HEIGHT) As Tile
     Private mapFileName As String
     Private name As String
+    Private tileMapHandler
+    Private startX As Integer = -Constants.INIT_SCREEN_WIDTH / 2
+    Private startY As Integer = -Constants.INIT_SCREEN_HEIGHT / 2
 
     Public Function getName() As String
         Return name
     End Function
 
-    Public Sub New()
-        Me.mapFileName = "map1.ldat"
+    Public Sub New(tileMapHandler As TileMapHandler, mapFileName As String)
+        Me.tileMapHandler = tileMapHandler
+        Me.mapFileName = mapFileName
         loadMap()
     End Sub
 
@@ -23,25 +28,28 @@ Public Class Map
     ''' Loads Json Formatted map into memory
     ''' </summary>
     Public Sub loadMap()
-        Dim reader As New JsonTextReader(New StreamReader(New FileStream(Constants.MAP_RES_DIR + mapFileName, FileMode.Open)))
+        Debug.WriteLine("loading map")
+        Dim f As StreamReader = File.OpenText(Constants.MAP_RES_DIR + mapFileName)
+        Dim reader As New JsonTextReader(f)
         Dim currentTile As Tile
         Dim x As Integer = 0
-        Dim y As Integer = 0
+        Dim y As Integer = -1
         While (reader.Read())
             If Not reader.Value Is Nothing Then
                 Select Case CStr(reader.Value)
                     Case "mapName"
                         reader.Read()
                         Me.name = reader.Value
-                    Case "name"
+                    Case "n"
                         reader.Read()
                         If reader.Value = "" Then
                             currentTile = New Tile()
+                            currentTile.pos = New Vector2(startX + (x * Constants.TILE_SIZE), startY + (y * Constants.TILE_SIZE))
                         Else
-                            currentTile = TileMapHandler.getInstance().getTileCopyByName(reader.Value)
+                            currentTile = tileMapHandler.getTileCopyByName(reader.Value)
+                            currentTile.pos = New Vector2(startX + (x * Constants.TILE_SIZE), startY + (y * Constants.TILE_SIZE))
                         End If
-
-                    Case "collidable"
+                    Case "c"
                         tiles(x, y) = currentTile
                         x += 1
                         'TODO: Implement collision setup
@@ -50,10 +58,10 @@ Public Class Map
                         y += 1
                         x = 0
                 End Select
-                'Debug.WriteLine(reader.Value)
             End If
         End While
-        Debug.WriteLine(Me.name)
+        f.Close()
+        reader.Close()
     End Sub
 
     ''' <summary>

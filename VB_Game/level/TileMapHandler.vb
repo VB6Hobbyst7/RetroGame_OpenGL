@@ -13,7 +13,8 @@ Public Class TileMapHandler
 
     Private Sub New()
         loadAllTileTextures()
-        Dim m As New Map()
+        loadAllMaps()
+        currentMap = maps(1)
     End Sub
 
     ''' <summary>
@@ -26,6 +27,13 @@ Public Class TileMapHandler
         Next
     End Sub
 
+    Public Sub loadAllMaps()
+        Dim dir As New DirectoryInfo(".\res\maps\")
+        For Each file In dir.GetFiles()
+            maps.Add(New Map(Me, file.Name))
+        Next
+    End Sub
+
     Public Shared Function getInstance() As TileMapHandler
         If instance Is Nothing Then
             instance = New TileMapHandler()
@@ -35,7 +43,7 @@ Public Class TileMapHandler
 
     Public Sub loadMap()
         'Temp filler
-        currentMap = New Map()
+        'currentMap = New Map(Me)
     End Sub
 
     Public Sub render()

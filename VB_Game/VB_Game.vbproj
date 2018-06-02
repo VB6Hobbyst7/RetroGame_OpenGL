@@ -81,6 +81,8 @@
     <Compile Include="graphics\Camera.vb" />
     <Compile Include="graphics\ContentPipe.vb" />
     <Compile Include="Game.vb" />
+    <Compile Include="physics\PhysicUtils.vb" />
+    <Compile Include="physics\PhysicsHandler.vb" />
     <Compile Include="screens\GameScreen.vb" />
     <Compile Include="screens\Screen.vb" />
     <Compile Include="graphics\Entity.vb" />
@@ -140,6 +142,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="res\maps\map1.ldat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="res\maps\map2.ldat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

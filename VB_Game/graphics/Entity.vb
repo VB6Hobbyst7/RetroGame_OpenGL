@@ -27,7 +27,14 @@ Public Class Entity : Inherits GameObject
 
     Public Sub tick(delta As Decimal)
         'Update position based on current velocity
+        'pos = New Vector2(pos.X + 1, pos.Y + 1)
+
+        'Temp bottom col code
+        If pos.Y + velocity.Y * delta > 200 Then
+            velocity = New Vector2(velocity.X, 0)
+        End If
         pos = New Vector2(pos.X + velocity.X * delta, pos.Y + velocity.Y * delta)
+        'Debug.WriteLine(pos)
     End Sub
 
 End Class

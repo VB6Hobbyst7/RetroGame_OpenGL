@@ -80,6 +80,34 @@ VB_Game
  <param name="bits"></param>
  <returns></returns>
 </member>
+<member name="T:VB_Game.PhysicsHandler">
+ <summary>
+ Handles all physics related calculations and operations
+ </summary>
+</member>
+<member name="F:VB_Game.PhysicsHandler.delta">
+ <summary>
+ Time since last update
+ </summary>
+</member>
+<member name="F:VB_Game.PhysicsHandler.physicsBodies">
+ <summary>
+ List of all entities affected by physics (e.g. gravity)
+ </summary>
+</member>
+<member name="M:VB_Game.PhysicsHandler.applyAcceleration(VB_Game.Entity,OpenTK.Vector2)">
+ <summary>
+ Applies a constant acceleration to an entity
+ </summary>
+ <param name="e">Target Entity</param>
+ <param name="acc">Acceleration in ms-2</param>
+</member>
+<member name="M:VB_Game.PhysicsHandler.update(System.Double)">
+ <summary>
+ Updates physic
+ </summary>
+ <param name="d">Time delta since last update</param>
+</member>
 <member name="T:VB_Game.Screen">
  <summary>
  Represents a screen in the game (e.g. gamescreen, pausescreen)
@@ -98,6 +126,11 @@ VB_Game
 <member name="T:VB_Game.GameObject">
  <summary>
  Represents any graphical game object
+ </summary>
+</member>
+<member name="F:VB_Game.GameObject._scale">
+ <summary>
+ Scale propery defaulting to (1, 1)
  </summary>
 </member>
 <member name="F:VB_Game.GameObject._isStatic">
@@ -187,6 +220,12 @@ VB_Game
  <summary>
  A single tile in the tile map grid
  </summary>
+</member>
+<member name="M:VB_Game.Tile.Clone">
+ <summary>
+ Creates a clone of this object with same properties (avoiding reloading of textures)
+ </summary>
+ <returns></returns>
 </member>
 <member name="T:VB_Game.TileMapHandler">
  <summary>

@@ -13,6 +13,7 @@ Public Class Tile : Inherits GameObject : Implements ICloneable
         Debug.WriteLine("constructor call")
         Me.name = name
         Me.texture = ContentPipe.loadTexture(Constants.TILE_RES_DIR + name)
+        Me.scale = New OpenTK.Vector2(Constants.TILE_SIZE / texture.width, Constants.TILE_SIZE / texture.height)
     End Sub
 
     'Creates an empty tile with no texture
@@ -21,9 +22,16 @@ Public Class Tile : Inherits GameObject : Implements ICloneable
     End Sub
 
     Public Overrides Sub render()
-        MyBase.render()
+        'If tile has texture then render
+        If Not texture Is Nothing Then
+            MyBase.render()
+        End If
     End Sub
 
+    ''' <summary>
+    ''' Creates a clone of this object with same properties (avoiding reloading of textures)
+    ''' </summary>
+    ''' <returns></returns>
     Public Function Clone() As Object Implements ICloneable.Clone
         Return Me.MemberwiseClone()
     End Function

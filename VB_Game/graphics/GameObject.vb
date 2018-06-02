@@ -26,6 +26,19 @@ Public Class GameObject
     End Property
 
     ''' <summary>
+    ''' Scale propery defaulting to (1, 1)
+    ''' </summary>
+    Private _scale As New Vector2(1, 1)
+    Public Property scale() As Vector2
+        Get
+            Return _scale
+        End Get
+        Set(ByVal value As Vector2)
+            _scale = value
+        End Set
+    End Property
+
+    ''' <summary>
     ''' Refers to whether this obj remains stationery (e.g. not effected by gravity)
     ''' </summary>
     Private _isStatic As Boolean
