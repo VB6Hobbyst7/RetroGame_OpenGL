@@ -26,7 +26,7 @@ Public Class PhysicUtils
     ''' <param name="categoryBitmask"></param>
     ''' <returns></returns>
     Public Shared Function canCollide(collisionBitmask As Integer, categoryBitmask As Integer) As Boolean
-        Return collisionBitmask & categoryBitmask <> 0
+        Return collisionBitmask And categoryBitmask <> 0
     End Function
 
     ''' <summary>
@@ -40,6 +40,13 @@ Public Class PhysicUtils
             bodyA.pos.X + bodyA.width > bodyB.pos.X And
             bodyA.pos.Y < bodyB.pos.Y + bodyB.height And
             bodyA.pos.Y + bodyA.height > bodyB.pos.Y)
+    End Function
+
+    Public Shared Function doesCollide(objA As GameObject, objB As GameObject)
+        Return (objA.pos.X < objB.pos.X + objB.getWidth() And
+            objA.pos.X + objA.getWidth() > objB.pos.X And
+            objA.pos.Y < objB.pos.Y + objB.getHeight() And
+            objA.pos.Y + objA.getHeight() > objB.pos.Y)
     End Function
 
 End Class

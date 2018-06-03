@@ -63,7 +63,7 @@ Public Class PhysicsHandler
         'Apply gravity to physic bodies
         For i = 0 To physicsBodies.Count - 1
             'Checks if body is instance of entity
-            If physicsBodies(i).parent.GetType.IsAssignableFrom(GetType(Entity)) Then
+            If physicsBodies(i).parent.GetType.IsAssignableFrom(GetType(Player)) Then
                 applyGravity(physicsBodies(i).parent)
             End If
         Next

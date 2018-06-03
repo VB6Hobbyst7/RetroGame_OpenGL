@@ -81,13 +81,14 @@
     <Compile Include="graphics\Camera.vb" />
     <Compile Include="graphics\ContentPipe.vb" />
     <Compile Include="Game.vb" />
+    <Compile Include="graphics\entities\Player.vb" />
     <Compile Include="physics\CollisionListener.vb" />
     <Compile Include="physics\PhysicUtils.vb" />
     <Compile Include="physics\PhysicsHandler.vb" />
     <Compile Include="physics\RigidBody.vb" />
     <Compile Include="screens\GameScreen.vb" />
     <Compile Include="screens\Screen.vb" />
-    <Compile Include="graphics\Entity.vb" />
+    <Compile Include="graphics\entities\Entity.vb" />
     <Compile Include="graphics\font\TextLabel.vb" />
     <Compile Include="graphics\GameObject.vb" />
     <Compile Include="graphics\SpriteBatch.vb" />

@@ -51,8 +51,12 @@ Public Class Map
                         End If
                     Case "c"
                         tiles(x, y) = currentTile
+                        reader.Read()
+                        Dim catCollision = If(CBool(reader.Value),
+                            Constants.Physics_CATEGORY.LEVEL, Constants.Physics_CATEGORY.NO_COLLISION) 'Set appropriate bitmask
+
                         PhysicsHandler.addPhysicsBody(New RigidBody(currentTile,
-                            Constants.Physics_CATEGORY.LEVEL, Constants.Physics_COLLISION.LEVEL))
+                            catCollision, Constants.Physics_COLLISION.LEVEL))
                         x += 1
                         'TODO: Implement collision setup
                     Case "tiles"

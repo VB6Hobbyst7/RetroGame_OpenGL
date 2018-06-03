@@ -30,8 +30,8 @@
     ''' </summary>
     Enum Physics_CATEGORY
         NO_COLLISION = 0
-        PLAYER = 3
-        LEVEL = 2
+        PLAYER = 0 'Nothing collides with player (player collides with others)
+        LEVEL = 2 '010
     End Enum
 
     ''' <summary>
@@ -39,8 +39,8 @@
     ''' </summary>
     Enum Physics_COLLISION
         NO_COLLISION = 0
-        PLAYER = 3
-        LEVEL = 2
+        PLAYER = 2 '010
+        LEVEL = 0 'level doesn't collide (things collide with level)
     End Enum
 
 End Class

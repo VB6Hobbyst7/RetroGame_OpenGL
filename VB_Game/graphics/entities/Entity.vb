@@ -30,9 +30,9 @@ Public Class Entity : Inherits GameObject
         'pos = New Vector2(pos.X + 1, pos.Y + 1)
 
         'Temp bottom col code
-        If pos.Y + velocity.Y * delta > 200 Then
-            velocity = New Vector2(velocity.X, 0)
-        End If
+        'If pos.Y + velocity.Y * delta > 200 Then
+        '    velocity = New Vector2(velocity.X, 0)
+        'End If
         pos = New Vector2(pos.X + velocity.X * delta, pos.Y + velocity.Y * delta)
     End Sub
 

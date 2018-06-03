@@ -10,16 +10,15 @@ Public Class GameScreen : Inherits Screen : Implements MouseListener
 
     Private Shared instance As GameScreen
     Private tileMapHandler As TileMapHandler
-    Private testEntity As Entity
+    Private player As Player
 
     Private Sub New()
         InputHandler.mouseListeners.Add(Me)
         PhysicsHandler.init()
         tileMapHandler = TileMapHandler.getInstance()
-        testEntity = New Entity(New Vector2(0, 0), New ShapeTexture(32, 32, Color.Black, ShapeTexture.ShapeType.Rectangle))
-        testEntity.velocity = New Vector2(0, -68.6)
-        PhysicsHandler.addPhysicsBody(New RigidBody(testEntity,
-            Constants.Physics_CATEGORY.PLAYER, Constants.Physics_CATEGORY.PLAYER))
+        player = New Player(New Vector2(0, 0), New ShapeTexture(32, 32, Color.Black, ShapeTexture.ShapeType.Rectangle))
+        PhysicsHandler.addPhysicsBody(New RigidBody(player,
+            Constants.Physics_CATEGORY.PLAYER, Constants.Physics_COLLISION.PLAYER))
     End Sub
 
     Public Shared Function getInstance() As GameScreen
@@ -31,12 +30,12 @@ Public Class GameScreen : Inherits Screen : Implements MouseListener
 
     Public Overrides Sub render(delta As Double)
         tileMapHandler.render()
-        testEntity.render()
+        player.render()
     End Sub
 
     Public Overrides Sub update(delta As Double)
         PhysicsHandler.update(delta)
-        testEntity.tick(delta)
+        player.tick(delta)
     End Sub
 
     Public Overrides Sub dispose()
@@ -52,6 +51,6 @@ Public Class GameScreen : Inherits Screen : Implements MouseListener
     End Sub
 
     Public Sub MouseButtonDown(e As MouseEventArgs) Implements MouseListener.MouseButtonDown
-        testEntity.velocity = New Vector2(0, -500)
+        player.velocity = New Vector2(0, -500)
     End Sub
 End Class
