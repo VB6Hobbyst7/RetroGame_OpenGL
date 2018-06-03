@@ -1,11 +1,11 @@
-﻿''' <summary>
-''' Main screen where the game is run
-''' </summary>
-Imports OpenTK
+﻿Imports OpenTK
 Imports System.Drawing
 Imports OpenTK.Input
 Imports VB_Game
 
+''' <summary>
+''' Main screen where the game is run
+''' </summary>
 Public Class GameScreen : Inherits Screen : Implements MouseListener
 
     Private Shared instance As GameScreen
@@ -14,10 +14,12 @@ Public Class GameScreen : Inherits Screen : Implements MouseListener
 
     Private Sub New()
         InputHandler.mouseListeners.Add(Me)
+        PhysicsHandler.init()
         tileMapHandler = TileMapHandler.getInstance()
         testEntity = New Entity(New Vector2(0, 0), New ShapeTexture(32, 32, Color.Black, ShapeTexture.ShapeType.Rectangle))
         testEntity.velocity = New Vector2(0, -68.6)
-        PhysicsHandler.physicsBodies.Add(testEntity)
+        PhysicsHandler.addPhysicsBody(New RigidBody(testEntity,
+            Constants.Physics_CATEGORY.PLAYER, Constants.Physics_CATEGORY.PLAYER))
     End Sub
 
     Public Shared Function getInstance() As GameScreen

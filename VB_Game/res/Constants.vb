@@ -20,4 +20,27 @@
     Public Const IMG_RES_DIR As String = "./res/img/"
     Public Const TILE_RES_DIR = IMG_RES_DIR + "tiles/"
 
+    ''' <summary>
+    ''' All possible collidable obj bit mask signatures
+    ''' </summary>
+    Public Shared COLLISION_CATEGORIES() As Integer = {Physics_CATEGORY.LEVEL, Physics_CATEGORY.PLAYER}
+
+    ''' <summary>
+    ''' Different types of physics bodies mapping to category bitmasks
+    ''' </summary>
+    Enum Physics_CATEGORY
+        NO_COLLISION = 0
+        PLAYER = 3
+        LEVEL = 2
+    End Enum
+
+    ''' <summary>
+    ''' Different types of physics bodies mapping to collision bitmasks
+    ''' </summary>
+    Enum Physics_COLLISION
+        NO_COLLISION = 0
+        PLAYER = 3
+        LEVEL = 2
+    End Enum
+
 End Class

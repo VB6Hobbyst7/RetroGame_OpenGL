@@ -80,6 +80,39 @@ VB_Game
  <param name="bits"></param>
  <returns></returns>
 </member>
+<member name="T:VB_Game.CollisionListener">
+ <summary>
+ Events occuring related to collisions
+ </summary>
+</member>
+<member name="M:VB_Game.CollisionListener.onCollide(VB_Game.GameObject,VB_Game.GameObject)">
+ <summary>
+ Event called when two objects collide
+ </summary>
+ <param name="objA"></param>
+ <param name="objB"></param>
+</member>
+<member name="T:VB_Game.PhysicUtils">
+ <summary>
+ Handles miscellaneous physics related calculations
+ </summary>
+</member>
+<member name="M:VB_Game.PhysicUtils.canCollide(System.Int32,System.Int32)">
+ <summary>
+ Checks whether the bitmask signatures can collide
+ </summary>
+ <param name="collisionBitmask"></param>
+ <param name="categoryBitmask"></param>
+ <returns></returns>
+</member>
+<member name="M:VB_Game.PhysicUtils.doesCollide(VB_Game.RigidBody,VB_Game.RigidBody)">
+ <summary>
+ Performs an AABB collision detection test
+ </summary>
+ <param name="bodyA"></param>
+ <param name="bodyB"></param>
+ <returns></returns>
+</member>
 <member name="T:VB_Game.PhysicsHandler">
  <summary>
  Handles all physics related calculations and operations
@@ -95,6 +128,23 @@ VB_Game
  List of all entities affected by physics (e.g. gravity)
  </summary>
 </member>
+<member name="F:VB_Game.PhysicsHandler.collisionListeners">
+ <summary>
+ Subscribers to collision events
+ </summary>
+</member>
+<member name="M:VB_Game.PhysicsHandler.addPhysicsBody(VB_Game.RigidBody)">
+ <summary>
+ Adds body to physics bodies and does setup for bitmasks
+ </summary>
+ <param name="rigidBody"></param>
+</member>
+<member name="M:VB_Game.PhysicsHandler.applyGravity(VB_Game.Entity)">
+ <summary>
+ Applies acceleration due to gravity as defined by constant to entity
+ </summary>
+ <param name="e">Target entity</param>
+</member>
 <member name="M:VB_Game.PhysicsHandler.applyAcceleration(VB_Game.Entity,OpenTK.Vector2)">
  <summary>
  Applies a constant acceleration to an entity
@@ -107,6 +157,38 @@ VB_Game
  Updates physic
  </summary>
  <param name="d">Time delta since last update</param>
+</member>
+<member name="M:VB_Game.PhysicsHandler.collisionsCheck">
+ <summary>
+ Checks collisions between all compatible bodies
+ </summary>
+</member>
+<member name="M:VB_Game.PhysicsHandler.handleCollision(VB_Game.RigidBody,VB_Game.RigidBody)">
+ <summary>
+ Handles collision events, sending out events to subscribers
+ </summary>
+ <param name="bodyA">Primary Body</param>
+ <param name="bodyB">Secondary Body</param>
+</member>
+<member name="T:VB_Game.RigidBody">
+ <summary>
+ Represents a body on which physics simulations are run on
+ </summary>
+</member>
+<member name="F:VB_Game.RigidBody.categoryBitMask">
+ <summary>
+ Bit mask for what can collide with this object
+ </summary>
+</member>
+<member name="F:VB_Game.RigidBody.collisionBitMask">
+ <summary>
+ Bit mask for what this object can collide with
+ </summary>
+</member>
+<member name="T:VB_Game.GameScreen">
+ <summary>
+ Main screen where the game is run
+ </summary>
 </member>
 <member name="T:VB_Game.Screen">
  <summary>
@@ -235,6 +317,21 @@ VB_Game
 <member name="M:VB_Game.TileMapHandler.loadAllTileTextures">
  <summary>
  Loads all tile textures fomr res/img/tiles into memory
+ </summary>
+</member>
+<member name="F:VB_Game.Constants.COLLISION_CATEGORIES">
+ <summary>
+ All possible collidable obj bit mask signatures
+ </summary>
+</member>
+<member name="T:VB_Game.Constants.Physics_CATEGORY">
+ <summary>
+ Different types of physics bodies mapping to category bitmasks
+ </summary>
+</member>
+<member name="T:VB_Game.Constants.Physics_COLLISION">
+ <summary>
+ Different types of physics bodies mapping to collision bitmasks
  </summary>
 </member>
 </members>

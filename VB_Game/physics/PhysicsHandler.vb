@@ -13,8 +13,34 @@ Public Class PhysicsHandler
     ''' <summary>
     ''' List of all entities affected by physics (e.g. gravity)
     ''' </summary>
-    Public Shared physicsBodies As New List(Of Entity)
+    Private Shared physicsBodies As New List(Of RigidBody)
 
+    Private Shared categoryBitMaskBodies As New Dictionary(Of Integer, List(Of RigidBody))
+
+    ''' <summary>
+    ''' Subscribers to collision events
+    ''' </summary>
+    Public Shared collisionListeners As New List(Of CollisionListener)
+
+    Public Shared Sub init()
+        For Each categoryBitmask In Constants.COLLISION_CATEGORIES
+            categoryBitMaskBodies.Add(categoryBitmask, New List(Of RigidBody))
+        Next
+    End Sub
+
+    ''' <summary>
+    ''' Adds body to physics bodies and does setup for bitmasks
+    ''' </summary>
+    ''' <param name="rigidBody"></param>
+    Public Shared Sub addPhysicsBody(rigidBody As RigidBody)
+        physicsBodies.Add(rigidBody)
+        categoryBitMaskBodies.Item(rigidBody.categoryBitMask).Add(rigidBody)
+    End Sub
+
+    ''' <summary>
+    ''' Applies acceleration due to gravity as defined by constant to entity
+    ''' </summary>
+    ''' <param name="e">Target entity</param>
     Public Shared Sub applyGravity(e As Entity)
         applyAcceleration(e, Constants.ACC_GRAVITY)
     End Sub
@@ -26,7 +52,6 @@ Public Class PhysicsHandler
     ''' <param name="acc">Acceleration in ms-2</param>
     Public Shared Sub applyAcceleration(e As Entity, acc As Vector2)
         e.velocity += (PhysicUtils.metersToPixels(acc) * delta)
-        Debug.WriteLine(e.velocity)
     End Sub
 
     ''' <summary>
@@ -37,10 +62,44 @@ Public Class PhysicsHandler
         delta = d
         'Apply gravity to physic bodies
         For i = 0 To physicsBodies.Count - 1
-            applyGravity(physicsBodies(i))
+            'Checks if body is instance of entity
+            If physicsBodies(i).parent.GetType.IsAssignableFrom(GetType(Entity)) Then
+                applyGravity(physicsBodies(i).parent)
+            End If
         Next
+        collisionsCheck()
+    End Sub
 
-        'Handle collisions
+    ''' <summary>
+    ''' Checks collisions between all compatible bodies
+    ''' </summary>
+    Private Shared Sub collisionsCheck()
+        For i = 0 To physicsBodies.Count - 1
+            Dim currentBody = physicsBodies(i)
+            If currentBody.collisionBitMask <> Constants.Physics_COLLISION.NO_COLLISION Then 'Object can collide with others
+                For Each categoryBitmask In Constants.COLLISION_CATEGORIES
+                    If PhysicUtils.canCollide(currentBody.collisionBitMask, categoryBitmask) Then
+                        'Bitmasks can collide so check all corresponding bodies for collisions
+                        For Each body In categoryBitMaskBodies.Item(categoryBitmask)
+                            If PhysicUtils.doesCollide(currentBody, body) Then
+                                handleCollision(currentBody, body)
+                            End If
+                        Next
+                    End If
+                Next
+            End If
+        Next
+    End Sub
+
+    ''' <summary>
+    ''' Handles collision events, sending out events to subscribers
+    ''' </summary>
+    ''' <param name="bodyA">Primary Body</param>
+    ''' <param name="bodyB">Secondary Body</param>
+    Private Shared Sub handleCollision(bodyA As RigidBody, bodyB As RigidBody)
+        For i = 0 To collisionListeners.Count - 1
+            collisionListeners(i).onCollide(bodyA.parent, bodyB.parent)
+        Next
     End Sub
 
 

@@ -34,7 +34,6 @@ Public Class Entity : Inherits GameObject
             velocity = New Vector2(velocity.X, 0)
         End If
         pos = New Vector2(pos.X + velocity.X * delta, pos.Y + velocity.Y * delta)
-        'Debug.WriteLine(pos)
     End Sub
 
 End Class

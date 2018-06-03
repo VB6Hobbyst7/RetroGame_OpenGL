@@ -9,6 +9,14 @@ Public Class Tile : Inherits GameObject : Implements ICloneable
         Return name
     End Function
 
+    Public Overrides Function getWidth() As Integer
+        Return Constants.TILE_SIZE
+    End Function
+
+    Public Overrides Function getHeight() As Integer
+        Return Constants.TILE_SIZE
+    End Function
+
     Public Sub New(name As String)
         Debug.WriteLine("constructor call")
         Me.name = name

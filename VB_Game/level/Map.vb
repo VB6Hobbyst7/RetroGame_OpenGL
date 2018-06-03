@@ -51,6 +51,8 @@ Public Class Map
                         End If
                     Case "c"
                         tiles(x, y) = currentTile
+                        PhysicsHandler.addPhysicsBody(New RigidBody(currentTile,
+                            Constants.Physics_CATEGORY.LEVEL, Constants.Physics_COLLISION.LEVEL))
                         x += 1
                         'TODO: Implement collision setup
                     Case "tiles"

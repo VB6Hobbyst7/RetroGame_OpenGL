@@ -25,6 +25,14 @@ Public Class GameObject
         End Set
     End Property
 
+    Public Overridable Function getWidth() As Integer
+        Return texture.width
+    End Function
+
+    Public Overridable Function getHeight() As Integer
+        Return texture.width
+    End Function
+
     ''' <summary>
     ''' Scale propery defaulting to (1, 1)
     ''' </summary>

@@ -38,6 +38,4 @@ Public Class ShapeTexture : Inherits Texture
 
 #End Region
 
-
-
 End Class
