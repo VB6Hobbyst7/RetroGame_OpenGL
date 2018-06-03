@@ -18,7 +18,6 @@ Public Class Tile : Inherits GameObject : Implements ICloneable
     End Function
 
     Public Sub New(name As String)
-        Debug.WriteLine("constructor call")
         Me.name = name
         Me.texture = ContentPipe.loadTexture(Constants.TILE_RES_DIR + name)
         Me.scale = New OpenTK.Vector2(Constants.TILE_SIZE / texture.width, Constants.TILE_SIZE / texture.height)

@@ -21,9 +21,7 @@ Public Class Player : Inherits Entity : Implements KeyListener
 
     Public Overrides Sub tick(delta As Double)
         Me.delta = delta
-
         pos = New Vector2(pos.X + velocity.X * delta, pos.Y + velocity.Y * delta)
-        Debug.WriteLine(pos)
     End Sub
 
     'Overriding base method called by Physics handler

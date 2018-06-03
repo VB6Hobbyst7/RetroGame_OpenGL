@@ -8,7 +8,6 @@
             frame += 1
 
             If frame = 60 Then
-                'Debug.WriteLine(String.Format("FPS: {0}", Math.Round(totalFPS / frame)))
                 fpsLabel.Text = String.Format("FPS: {0}", CInt(1 / time))
                 frame = 0
             End If

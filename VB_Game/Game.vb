@@ -1,4 +1,6 @@
-﻿Imports System.Drawing
+﻿Imports System.ComponentModel
+Imports System.Drawing
+Imports System.Threading
 Imports OpenTK
 Imports OpenTK.Graphics
 Imports OpenTK.Graphics.OpenGL
@@ -9,6 +11,7 @@ Public Class Game : Inherits GameWindow : Implements KeyListener
     Private Shared instance As Game
     Private camera As Camera
     Private audioMaster As AudioMaster
+    Private maxDelta As Double = 0
 
     Private _currentScreen As Screen
     Public Property currentScreen() As Screen
@@ -36,6 +39,8 @@ Public Class Game : Inherits GameWindow : Implements KeyListener
         InputHandler.keyListeners.Add(Me)
         camera = New Camera(New Vector2(0.5, 0.5), 0, 1)
         _currentScreen = GameScreen.getInstance()
+        VSync = True
+
     End Sub
 
     Protected Overrides Sub OnLoad(ByVal e As EventArgs)
@@ -50,6 +55,8 @@ Public Class Game : Inherits GameWindow : Implements KeyListener
         camera.update()
         _currentScreen.update(e.Time)
         DebugHandler.update(e.Time)
+        'maxDelta = Math.Max(e.Time, maxDelta)
+        'Debug.WriteLine(maxDelta)
     End Sub
 
     Protected Overrides Sub OnRenderFrame(ByVal e As FrameEventArgs)
@@ -60,7 +67,13 @@ Public Class Game : Inherits GameWindow : Implements KeyListener
         _currentScreen.render(e.Time)
         DebugHandler.render(e.Time)
         Me.SwapBuffers()
+
     End Sub
+
+    Protected Overrides Sub OnClosing(e As CancelEventArgs)
+        MyBase.OnClosing(e)
+    End Sub
+
 
     Public Overloads Sub Dispose()
         MyBase.Dispose()

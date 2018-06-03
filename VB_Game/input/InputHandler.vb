@@ -44,6 +44,7 @@ Public Class InputHandler
     ''' <param name="keyCode"></param>
     ''' <returns></returns>
     Public Shared Function isKeyDown(keyCode As Integer) As Boolean
+
         If Not keys.Keys.Contains(keyCode) Then
             Return False
         End If
