@@ -14,7 +14,7 @@ Public Class TileMapHandler
     Private Sub New()
         loadAllTileTextures()
         loadAllMaps()
-        currentMap = maps(1)
+        currentMap = maps(2)
     End Sub
 
     ''' <summary>

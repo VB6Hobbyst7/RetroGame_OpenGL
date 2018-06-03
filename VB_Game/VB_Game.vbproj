@@ -150,6 +150,9 @@
     <None Include="res\maps\map2.ldat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="res\maps\map3.ldat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="graphics\controls\" />

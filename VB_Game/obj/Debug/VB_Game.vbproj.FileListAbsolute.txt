@@ -55,3 +55,4 @@ C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\obj\Debug\VB_Game.xml
 C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\obj\Debug\VB_Game.pdb
 C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\obj\Debug\VB_Game.vbprojResolveAssemblyReference.cache
 C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\bin\Debug\res\maps\map2.ldat
+C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\bin\Debug\res\maps\map3.ldat
