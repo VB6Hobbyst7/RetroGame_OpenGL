@@ -1,6 +1,6 @@
 ﻿Public Class Constants
 
-    Public Const FPS_DEBUG = False
+    Public Const FPS_DEBUG = True
 
     Public Const INIT_SCREEN_WIDTH As Integer = 1280
     Public Const INIT_SCREEN_HEIGHT As Integer = 960

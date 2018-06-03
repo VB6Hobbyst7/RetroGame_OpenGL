@@ -67,4 +67,12 @@ Public Class GameObject
         SpriteBatch.drawObject(Me)
     End Sub
 
+    ''' <summary>
+    ''' Override this method to subscribe to collision events
+    ''' </summary>
+    ''' <param name="objB">Other object colliding with</param>
+    Public Overridable Sub onCollide(objB As GameObject)
+
+    End Sub
+
 End Class

@@ -17,11 +17,6 @@ Public Class PhysicsHandler
 
     Private Shared categoryBitMaskBodies As New Dictionary(Of Integer, List(Of RigidBody))
 
-    ''' <summary>
-    ''' Subscribers to collision events
-    ''' </summary>
-    Public Shared collisionListeners As New List(Of CollisionListener)
-
     Public Shared Sub init()
         For Each categoryBitmask In Constants.COLLISION_CATEGORIES
             categoryBitMaskBodies.Add(categoryBitmask, New List(Of RigidBody))
@@ -92,14 +87,12 @@ Public Class PhysicsHandler
     End Sub
 
     ''' <summary>
-    ''' Handles collision events, sending out events to subscribers
+    ''' Handles collision events, sending out events primary collider
     ''' </summary>
     ''' <param name="bodyA">Primary Body</param>
     ''' <param name="bodyB">Secondary Body</param>
     Private Shared Sub handleCollision(bodyA As RigidBody, bodyB As RigidBody)
-        For i = 0 To collisionListeners.Count - 1
-            collisionListeners(i).onCollide(bodyA.parent, bodyB.parent)
-        Next
+        bodyA.parent.onCollide(bodyB.parent)
     End Sub
 
     Public Shared Function getBodiesByCategory(categoryBitmask As Integer) As List(Of RigidBody)

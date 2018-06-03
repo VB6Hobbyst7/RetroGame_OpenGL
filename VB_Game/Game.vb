@@ -49,7 +49,7 @@ Public Class Game : Inherits GameWindow : Implements KeyListener
     Protected Overrides Sub OnUpdateFrame(ByVal e As FrameEventArgs)
         camera.update()
         _currentScreen.update(e.Time)
-        DebugHandler.update(e.Time, Me.RenderFrequency)
+        DebugHandler.update(e.Time)
     End Sub
 
     Protected Overrides Sub OnRenderFrame(ByVal e As FrameEventArgs)
@@ -58,6 +58,7 @@ Public Class Game : Inherits GameWindow : Implements KeyListener
         SpriteBatch.begin(Me.ClientSize.Width, Me.ClientSize.Height)
         camera.applyTransform()
         _currentScreen.render(e.Time)
+        DebugHandler.render(e.Time)
         Me.SwapBuffers()
     End Sub
 

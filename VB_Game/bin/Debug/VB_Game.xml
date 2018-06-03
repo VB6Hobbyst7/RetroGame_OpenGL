@@ -90,18 +90,6 @@ VB_Game
  Rectangle bounding objects
  </summary>
 </member>
-<member name="T:VB_Game.CollisionListener">
- <summary>
- Events occuring related to collisions
- </summary>
-</member>
-<member name="M:VB_Game.CollisionListener.onCollide(VB_Game.GameObject,VB_Game.GameObject)">
- <summary>
- Event called when two objects collide
- </summary>
- <param name="objA"></param>
- <param name="objB"></param>
-</member>
 <member name="T:VB_Game.PhysicUtils">
  <summary>
  Handles miscellaneous physics related calculations
@@ -146,11 +134,6 @@ VB_Game
  List of all entities affected by physics (e.g. gravity)
  </summary>
 </member>
-<member name="F:VB_Game.PhysicsHandler.collisionListeners">
- <summary>
- Subscribers to collision events
- </summary>
-</member>
 <member name="M:VB_Game.PhysicsHandler.addPhysicsBody(VB_Game.RigidBody)">
  <summary>
  Adds body to physics bodies and does setup for bitmasks
@@ -183,7 +166,7 @@ VB_Game
 </member>
 <member name="M:VB_Game.PhysicsHandler.handleCollision(VB_Game.RigidBody,VB_Game.RigidBody)">
  <summary>
- Handles collision events, sending out events to subscribers
+ Handles collision events, sending out events primary collider
  </summary>
  <param name="bodyA">Primary Body</param>
  <param name="bodyB">Secondary Body</param>
@@ -237,6 +220,12 @@ VB_Game
  <summary>
  Refers to whether this obj remains stationery (e.g. not effected by gravity)
  </summary>
+</member>
+<member name="M:VB_Game.GameObject.onCollide(VB_Game.GameObject)">
+ <summary>
+ Override this method to subscribe to collision events
+ </summary>
+ <param name="objB">Other object colliding with</param>
 </member>
 <member name="M:VB_Game.SpriteBatch.drawImage(VB_Game.ImageTexture,OpenTK.Vector2,OpenTK.Vector2,System.Drawing.Color,OpenTK.Vector2)">
  <summary>

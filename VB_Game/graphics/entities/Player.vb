@@ -22,57 +22,43 @@ Public Class Player : Inherits Entity : Implements KeyListener
     Public Overrides Sub tick(delta As Double)
         Me.delta = delta
 
-        velocity += (PhysicUtils.metersToPixels(Constants.ACC_GRAVITY) * delta)
         pos = New Vector2(pos.X + velocity.X * delta, pos.Y + velocity.Y * delta)
-        handleCollision()
+        Debug.WriteLine(pos)
     End Sub
 
-    Private Sub handleCollision()
-        Dim top = False
-        Dim bottom = False
-        Dim right = False
-        Dim left = False
-        For Each categoryBitmask In Constants.COLLISION_CATEGORIES
-            If PhysicUtils.canCollide(collisionBitmask, categoryBitmask) Then
-                'Bitmasks can collide so check all corresponding bodies for collisions
-                For Each body In PhysicsHandler.getBodiesByCategory(categoryBitmask)
-                    If PhysicUtils.doesCollide(Me, body.parent) Then
+    'Overriding base method called by Physics handler
+    Public Overrides Sub onCollide(objB As GameObject)
+        'Distances needed to stop colliding (smallest gives which side is most likely colliding, not full proof solution)
+        'but works for my needs if physics gets more complicated this may need to change
+        Dim deltaL = Math.Abs(pos.X + getWidth() - objB.pos.X)
+        Dim deltaR = Math.Abs(pos.X - (objB.pos.X + objB.getWidth()))
+        Dim deltaD = Math.Abs(pos.Y + getHeight() - objB.pos.Y)
+        Dim deltaU = Math.Abs(pos.Y - (objB.pos.Y + objB.getHeight()))
 
-                        Dim deltaL = Math.Abs(Me.pos.X + getWidth() - body.pos.X)
-                        Dim deltaR = Math.Abs(Me.pos.X - (body.pos.X + body.width))
-                        Dim deltaD = Math.Abs(Me.pos.Y + getHeight() - body.pos.Y)
-                        Dim deltaU = Math.Abs(Me.pos.Y - (body.pos.Y + body.height))
+        Dim smallest = Math.Min(deltaL, deltaR)
+        smallest = Math.Min(smallest, deltaD)
+        smallest = Math.Min(smallest, deltaU)
 
-                        Dim smallest = Math.Min(deltaL, deltaR)
-                        smallest = Math.Min(smallest, deltaD)
-                        smallest = Math.Min(smallest, deltaU)
+        If deltaL = smallest Then
+            pos = New Vector2(objB.pos.X - getWidth(), pos.Y)
+            velocity = New Vector2(0, velocity.Y)
+        End If
 
-                        If deltaL = smallest Then
-                            pos = New Vector2(body.pos.X - getWidth(), pos.Y)
-                            velocity = New Vector2(0, velocity.Y)
-                        End If
+        If deltaR = smallest Then
+            pos = New Vector2(objB.pos.X + objB.getHeight(), pos.Y)
+            velocity = New Vector2(0, velocity.Y)
+        End If
 
-                        If deltaR = smallest Then
-                            pos = New Vector2(body.pos.X + body.height, pos.Y)
-                            velocity = New Vector2(0, velocity.Y)
-                        End If
+        If deltaD = smallest Then
+            velocity = New Vector2(velocity.X, 0)
+            pos = New Vector2(pos.X, objB.pos.Y - getHeight())
+            isGrounded = True
+        End If
 
-                        If deltaD = smallest Then
-                            velocity = New Vector2(velocity.X, 0)
-                            pos = New Vector2(pos.X, body.pos.Y - getHeight())
-                            isGrounded = True
-                        End If
-
-                        If deltaU = smallest Then
-                            velocity = New Vector2(velocity.X, 0)
-                            pos = New Vector2(pos.X, body.pos.Y + body.height)
-                        End If
-
-                    End If
-
-                Next
-            End If
-        Next
+        If deltaU = smallest Then
+            velocity = New Vector2(velocity.X, 0)
+            pos = New Vector2(pos.X, objB.pos.Y + objB.getWidth())
+        End If
     End Sub
 
     Public Overrides Sub render(delta As Double)

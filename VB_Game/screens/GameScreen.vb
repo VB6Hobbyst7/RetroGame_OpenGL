@@ -18,7 +18,7 @@ Public Class GameScreen : Inherits Screen : Implements MouseListener
         tileMapHandler = TileMapHandler.getInstance()
         player = New Player(New Vector2(0, 0), New ShapeTexture(32, 32, Color.Black, ShapeTexture.ShapeType.Rectangle))
         PhysicsHandler.addPhysicsBody(New RigidBody(player,
-            Constants.Physics_CATEGORY.PLAYER, Constants.Physics_COLLISION.NO_COLLISION)) 'No collision as player handles own collision
+            Constants.Physics_CATEGORY.PLAYER, Constants.Physics_COLLISION.PLAYER))
     End Sub
 
     Public Shared Function getInstance() As GameScreen
@@ -34,8 +34,8 @@ Public Class GameScreen : Inherits Screen : Implements MouseListener
     End Sub
 
     Public Overrides Sub update(delta As Double)
-        PhysicsHandler.update(delta)
         player.tick(delta)
+        PhysicsHandler.update(delta)
     End Sub
 
     Public Overrides Sub dispose()
@@ -51,6 +51,5 @@ Public Class GameScreen : Inherits Screen : Implements MouseListener
     End Sub
 
     Public Sub MouseButtonDown(e As MouseEventArgs) Implements MouseListener.MouseButtonDown
-        player.velocity = New Vector2(0, -500)
     End Sub
 End Class
