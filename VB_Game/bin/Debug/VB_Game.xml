@@ -111,7 +111,15 @@ VB_Game
  </summary>
  <param name="bodyA"></param>
  <param name="bodyB"></param>
- <returns></returns>
+ <returns>Collide</returns>
+</member>
+<member name="M:VB_Game.PhysicUtils.doesCollide(VB_Game.GameObject,VB_Game.GameObject)">
+ <summary>
+ Performs an AABB collision detection test
+ </summary>
+ <param name="objA"></param>
+ <param name="objB"></param>
+ <returns>Collide</returns>
 </member>
 <member name="T:VB_Game.PhysicsHandler">
  <summary>
@@ -141,7 +149,7 @@ VB_Game
 </member>
 <member name="M:VB_Game.PhysicsHandler.applyGravity(VB_Game.Entity)">
  <summary>
- Applies acceleration due to gravity as defined by constant to entity
+ Applies acceleration due to gravity (defined by constant) to entity
  </summary>
  <param name="e">Target entity</param>
 </member>
@@ -273,6 +281,13 @@ VB_Game
  <param name="screenWidth"></param>
  <param name="screenHeight"></param>
 </member>
+<member name="M:VB_Game.InputHandler.isKeyDown(System.Int32)">
+ <summary>
+ Returns whether specified key is currently pressed
+ </summary>
+ <param name="keyCode"></param>
+ <returns></returns>
+</member>
 <member name="T:VB_Game.KeyListener">
  <summary>
  Interface providing ability to register for key events
@@ -293,7 +308,7 @@ VB_Game
  Loads Json Formatted map into memory
  </summary>
 </member>
-<member name="M:VB_Game.Map.render">
+<member name="M:VB_Game.Map.render(System.Double)">
  <summary>
  Renders the map to screen
  </summary>

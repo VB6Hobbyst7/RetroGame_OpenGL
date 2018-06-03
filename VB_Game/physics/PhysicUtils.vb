@@ -34,15 +34,18 @@ Public Class PhysicUtils
     ''' </summary>
     ''' <param name="bodyA"></param>
     ''' <param name="bodyB"></param>
-    ''' <returns></returns>
-    Public Shared Function doesCollide(bodyA As RigidBody, bodyB As RigidBody)
-        Return (bodyA.pos.X < bodyB.pos.X + bodyB.width And
-            bodyA.pos.X + bodyA.width > bodyB.pos.X And
-            bodyA.pos.Y < bodyB.pos.Y + bodyB.height And
-            bodyA.pos.Y + bodyA.height > bodyB.pos.Y)
+    ''' <returns>Collide</returns>
+    Public Shared Function doesCollide(bodyA As RigidBody, bodyB As RigidBody) As Boolean
+        Return doesCollide(bodyA.parent, bodyB.parent)
     End Function
 
-    Public Shared Function doesCollide(objA As GameObject, objB As GameObject)
+    ''' <summary>
+    ''' Performs an AABB collision detection test
+    ''' </summary>
+    ''' <param name="objA"></param>
+    ''' <param name="objB"></param>
+    ''' <returns>Collide</returns>
+    Public Shared Function doesCollide(objA As GameObject, objB As GameObject) As Boolean
         Return (objA.pos.X < objB.pos.X + objB.getWidth() And
             objA.pos.X + objA.getWidth() > objB.pos.X And
             objA.pos.Y < objB.pos.Y + objB.getHeight() And

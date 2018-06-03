@@ -59,7 +59,7 @@ Public Class GameObject
         End Set
     End Property
 
-    Public Overridable Sub render()
+    Public Overridable Sub render(delta As Double)
         SpriteBatch.drawObject(Me)
     End Sub
 

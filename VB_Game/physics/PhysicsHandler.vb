@@ -38,7 +38,7 @@ Public Class PhysicsHandler
     End Sub
 
     ''' <summary>
-    ''' Applies acceleration due to gravity as defined by constant to entity
+    ''' Applies acceleration due to gravity (defined by constant) to entity
     ''' </summary>
     ''' <param name="e">Target entity</param>
     Public Shared Sub applyGravity(e As Entity)

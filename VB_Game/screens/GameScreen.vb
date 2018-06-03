@@ -29,13 +29,14 @@ Public Class GameScreen : Inherits Screen : Implements MouseListener
     End Function
 
     Public Overrides Sub render(delta As Double)
-        tileMapHandler.render()
-        player.render()
+        tileMapHandler.render(delta)
+        player.render(delta)
     End Sub
 
     Public Overrides Sub update(delta As Double)
-        PhysicsHandler.update(delta)
         player.tick(delta)
+        PhysicsHandler.update(delta)
+
     End Sub
 
     Public Overrides Sub dispose()

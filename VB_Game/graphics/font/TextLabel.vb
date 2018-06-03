@@ -5,6 +5,8 @@ Imports System.Windows.Forms
 ''' </summary>
 Public Class TextLabel : Inherits GameObject
 
+    Private refreshingTexture As Boolean = False
+
     Private _size As Integer
     Public Property size() As Integer
         Get
@@ -12,6 +14,7 @@ Public Class TextLabel : Inherits GameObject
         End Get
         Set(ByVal value As Integer)
             _size = value
+            genTexture()
         End Set
     End Property
 
@@ -22,6 +25,7 @@ Public Class TextLabel : Inherits GameObject
         End Get
         Set(ByVal value As Font)
             _font = value
+            genTexture()
         End Set
     End Property
 
@@ -32,25 +36,30 @@ Public Class TextLabel : Inherits GameObject
         End Get
         Set(ByVal value As String)
             _text = value
+            genTexture()
         End Set
     End Property
 
-    Public Sub New(text As String)
+    Public Sub New(text As String, pos As OpenTK.Vector2)
         'Testing 
+        Me.pos = pos
         _text = text
         genTexture()
     End Sub
 
-    Private Function genTexture() As ImageTexture
-
+    Private Sub genTexture()
+        If refreshingTexture Then
+            OpenTK.Graphics.OpenGL.GL.DeleteTexture(CType(texture, ImageTexture).id)
+        End If
+        refreshingTexture = True
         'Dim texture As New ImageTexture()
-        Dim f As Font = New Font("Arial", 350, FontStyle.Regular)
+        Dim f As Font = New Font("Arial", 32, FontStyle.Regular)
         Dim TestSize As Size = TextRenderer.MeasureText(_text, f)
         Dim bitmap As New Bitmap(TestSize.Width, TestSize.Height)
         Dim g As Graphics = Graphics.FromImage(bitmap)
         g.TextRenderingHint = Drawing.Text.TextRenderingHint.AntiAlias
         g.DrawString(_text, f, Brushes.Black, 0, 0)
         Me.texture = ContentPipe.loadTexture(bitmap)
-    End Function
+    End Sub
 
 End Class

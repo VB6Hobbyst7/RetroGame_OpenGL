@@ -29,10 +29,10 @@ Public Class Tile : Inherits GameObject : Implements ICloneable
 
     End Sub
 
-    Public Overrides Sub render()
+    Public Overrides Sub render(delta As Double)
         'If tile has texture then render
         If Not texture Is Nothing Then
-            MyBase.render()
+            MyBase.render(delta)
         End If
     End Sub
 

@@ -46,9 +46,9 @@ Public Class TileMapHandler
         'currentMap = New Map(Me)
     End Sub
 
-    Public Sub render()
+    Public Sub render(delta As Double)
         If Not currentMap Is Nothing Then
-            currentMap.render()
+            currentMap.render(delta)
         End If
     End Sub
 

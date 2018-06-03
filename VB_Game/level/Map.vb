@@ -73,11 +73,11 @@ Public Class Map
     ''' <summary>
     ''' Renders the map to screen
     ''' </summary>
-    Public Sub render()
+    Public Sub render(delta As Double)
         For x = 0 To Constants.MAP_WIDTH - 1
             For y = 0 To Constants.MAP_HEIGHT - 1
                 If Not tiles(x, y) Is Nothing Then
-                    tiles(x, y).render()
+                    tiles(x, y).render(delta)
                 End If
             Next
         Next
