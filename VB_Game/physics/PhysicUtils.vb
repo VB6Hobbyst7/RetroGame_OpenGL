@@ -48,8 +48,15 @@ Public Class PhysicUtils
     Public Shared Function doesCollide(objA As GameObject, objB As GameObject) As Boolean
         Return (objA.pos.X < objB.pos.X + objB.getWidth() And
             objA.pos.X + objA.getWidth() > objB.pos.X And
-            objA.pos.Y < objB.pos.Y + objB.getHeight() And
-            objA.pos.Y + objA.getHeight() > objB.pos.Y)
+            objA.pos.Y + 1 < objB.pos.Y + objB.getHeight() And
+            objA.pos.Y + objA.getHeight() + 1 > objB.pos.Y)
+    End Function
+
+    Public Shared Function doesCollide(objA As BoundingRect, objB As BoundingRect) As Boolean
+        Return (objA.pos.X < objB.pos.X + objB.size.X And
+            objA.pos.X + objA.size.X > objB.pos.X And
+            objA.pos.Y < objB.pos.Y + objB.size.Y And
+            objA.pos.Y + objA.size.Y > objB.pos.Y)
     End Function
 
 End Class

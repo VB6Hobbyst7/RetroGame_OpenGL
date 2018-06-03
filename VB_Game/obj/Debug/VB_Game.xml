@@ -80,6 +80,16 @@ VB_Game
  <param name="bits"></param>
  <returns></returns>
 </member>
+<member name="F:VB_Game.Player.boundingRectTest">
+ <summary>
+ Used for collision detection
+ </summary>
+</member>
+<member name="T:VB_Game.BoundingRect">
+ <summary>
+ Rectangle bounding objects
+ </summary>
+</member>
 <member name="T:VB_Game.CollisionListener">
  <summary>
  Events occuring related to collisions

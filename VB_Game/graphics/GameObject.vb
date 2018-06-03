@@ -33,6 +33,10 @@ Public Class GameObject
         Return texture.width
     End Function
 
+    Public Function getBoundingRect() As BoundingRect
+        Return New BoundingRect(New Vector2(getWidth(), getHeight()), pos)
+    End Function
+
     ''' <summary>
     ''' Scale propery defaulting to (1, 1)
     ''' </summary>
