@@ -25,6 +25,16 @@ Public Class GameObject
         End Set
     End Property
 
+    Private _textureAtlas As TextureAtlas
+    Public Property textureAtlas() As TextureAtlas
+        Get
+            Return _textureAtlas
+        End Get
+        Set(ByVal value As TextureAtlas)
+            _textureAtlas = value
+        End Set
+    End Property
+
     Public Overridable Function getWidth() As Integer
         Return texture.width
     End Function

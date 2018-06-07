@@ -28,6 +28,14 @@ Public Class Entity : Inherits GameObject
         Me.velocity = New Vector2(0, 0)
     End Sub
 
+    Public Sub New(pos As Vector2, textureAtlas As TextureAtlas)
+        MyBase.New(False)
+        Me.pos = pos
+        Me.textureAtlas = textureAtlas
+        Me.texture = textureAtlas.getTextures()(0)
+        Me.velocity = New Vector2(0, 0)
+    End Sub
+
     Public Overrides Sub tick(delta As Double)
         pos = New Vector2(pos.X + velocity.X * delta, pos.Y + velocity.Y * delta)
     End Sub

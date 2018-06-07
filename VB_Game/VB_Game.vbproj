@@ -83,6 +83,7 @@
     <Compile Include="Game.vb" />
     <Compile Include="graphics\entities\Enemy.vb" />
     <Compile Include="graphics\entities\Player.vb" />
+    <Compile Include="graphics\texture\TextureAtlas.vb" />
     <Compile Include="physics\BoundingRect.vb" />
     <Compile Include="physics\PhysicUtils.vb" />
     <Compile Include="physics\PhysicsHandler.vb" />
@@ -160,6 +161,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="res\img\tiles\tile_1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\sprites\player.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\sprites\player_atlas.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="res\test2.wav">

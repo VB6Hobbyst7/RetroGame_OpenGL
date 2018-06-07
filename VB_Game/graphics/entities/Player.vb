@@ -4,8 +4,8 @@ Imports VB_Game
 
 Public Class Player : Inherits Entity : Implements KeyListener
 
-    Public Sub New(pos As Vector2, texture As Texture)
-        MyBase.New(pos, texture)
+    Public Sub New(pos As Vector2, textureAtlas As TextureAtlas)
+        MyBase.New(pos, textureAtlas)
         InputHandler.keyListeners.Add(Me)
     End Sub
 
@@ -42,8 +42,10 @@ Public Class Player : Inherits Entity : Implements KeyListener
         'Handle horizontal input movement
         If InputHandler.isKeyDown(Key.A) And Not InputHandler.isKeyDown(Key.D) Then
             Me.velocity = New Vector2(-300, Me.velocity.Y)
+            Me.texture = textureAtlas.getTextures()(1)
         ElseIf InputHandler.isKeyDown(Key.D) And Not InputHandler.isKeyDown(Key.A) Then
             Me.velocity = New Vector2(300, Me.velocity.Y)
+            Me.texture = textureAtlas.getTextures()(0)
         Else
             Me.velocity = New Vector2(0, Me.velocity.Y)
         End If

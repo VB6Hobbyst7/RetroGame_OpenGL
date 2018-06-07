@@ -12,6 +12,7 @@ Public Class GameScreen : Inherits Screen : Implements MouseListener
     Private tileMapHandler As TileMapHandler
     Private player As Player
     Private testEnemy As Entity
+    Private testAtlas As TextureAtlas
 
     Private gameObjects As New List(Of GameObject)
 
@@ -19,7 +20,8 @@ Public Class GameScreen : Inherits Screen : Implements MouseListener
         InputHandler.mouseListeners.Add(Me)
         PhysicsHandler.init()
         tileMapHandler = TileMapHandler.getInstance()
-        player = New Player(New Vector2(0, 0), New ShapeTexture(32, 32, Color.Black, ShapeTexture.ShapeType.Rectangle))
+        testAtlas = New TextureAtlas("./res/sprites/player_atlas.png", New Vector2(32, 32))
+        player = New Player(New Vector2(0, 0), testAtlas)
         testEnemy = New Enemy(New Vector2(200, -400), New ShapeTexture(32, 32, Color.Fuchsia, ShapeTexture.ShapeType.Rectangle))
         gameObjects.Add(player)
         gameObjects.Add(testEnemy)
@@ -27,6 +29,7 @@ Public Class GameScreen : Inherits Screen : Implements MouseListener
             Constants.Physics_CATEGORY.PLAYER, Constants.Physics_COLLISION.PLAYER))
         PhysicsHandler.addPhysicsBody(New RigidBody(testEnemy,
             Constants.Physics_CATEGORY.ENEMY, Constants.Physics_COLLISION.ENEMY))
+
     End Sub
 
     Public Shared Function getInstance() As GameScreen

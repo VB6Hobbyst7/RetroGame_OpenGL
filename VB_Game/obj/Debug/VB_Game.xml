@@ -80,6 +80,11 @@ VB_Game
  <param name="bits"></param>
  <returns></returns>
 </member>
+<member name="T:VB_Game.TextureAtlas">
+ <summary>
+ Loads in and stores a collection of sub images from one image
+ </summary>
+</member>
 <member name="T:VB_Game.BoundingRect">
  <summary>
  Rectangle bounding objects
