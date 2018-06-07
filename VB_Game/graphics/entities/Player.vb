@@ -49,5 +49,9 @@ Public Class Player : Inherits Entity : Implements KeyListener
         Else
             Me.velocity = New Vector2(0, Me.velocity.Y)
         End If
+
+        If InputHandler.isKeyDown(Key.Space) Then
+
+        End If
     End Sub
 End Class

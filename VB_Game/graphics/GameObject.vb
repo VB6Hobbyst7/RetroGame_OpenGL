@@ -60,20 +60,20 @@ Public Class GameObject
         End Set
     End Property
 
-    Public Sub New(isStatic As Boolean)
-        Me.isStatic = isStatic
+    Public Sub New(gravity As Boolean)
+        Me.affectedByGravity = gravity
     End Sub
 
     ''' <summary>
-    ''' Refers to whether this obj remains stationery (e.g. not effected by gravity)
+    ''' Should obj be affected by gravitational force
     ''' </summary>
-    Private _isStatic As Boolean
-    Public Property isStatic() As Boolean
+    Private _affectedByGravity As Boolean
+    Public Property affectedByGravity() As Boolean
         Get
-            Return _isStatic
+            Return _affectedByGravity
         End Get
         Set(ByVal value As Boolean)
-            _isStatic = value
+            _affectedByGravity = value
         End Set
     End Property
 
