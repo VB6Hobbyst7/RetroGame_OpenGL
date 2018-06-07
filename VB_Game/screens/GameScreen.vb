@@ -11,14 +11,22 @@ Public Class GameScreen : Inherits Screen : Implements MouseListener
     Private Shared instance As GameScreen
     Private tileMapHandler As TileMapHandler
     Private player As Player
+    Private testEnemy As Entity
+
+    Private gameObjects As New List(Of GameObject)
 
     Private Sub New()
         InputHandler.mouseListeners.Add(Me)
         PhysicsHandler.init()
         tileMapHandler = TileMapHandler.getInstance()
         player = New Player(New Vector2(0, 0), New ShapeTexture(32, 32, Color.Black, ShapeTexture.ShapeType.Rectangle))
+        testEnemy = New Enemy(New Vector2(200, -400), New ShapeTexture(32, 32, Color.Fuchsia, ShapeTexture.ShapeType.Rectangle))
+        gameObjects.Add(player)
+        gameObjects.Add(testEnemy)
         PhysicsHandler.addPhysicsBody(New RigidBody(player,
             Constants.Physics_CATEGORY.PLAYER, Constants.Physics_COLLISION.PLAYER))
+        PhysicsHandler.addPhysicsBody(New RigidBody(testEnemy,
+            Constants.Physics_CATEGORY.ENEMY, Constants.Physics_COLLISION.ENEMY))
     End Sub
 
     Public Shared Function getInstance() As GameScreen
@@ -30,12 +38,20 @@ Public Class GameScreen : Inherits Screen : Implements MouseListener
 
     Public Overrides Sub render(delta As Double)
         tileMapHandler.render(delta)
-        player.render(delta)
+        For i = 0 To gameObjects.Count - 1
+            gameObjects(i).render(delta)
+        Next
     End Sub
 
     Public Overrides Sub update(delta As Double)
-        player.tick(delta)
+        For i = 0 To gameObjects.Count - 1
+            gameObjects(i).tick(delta)
+        Next
         PhysicsHandler.update(delta)
+    End Sub
+
+    Public Sub removeGameObject(obj As GameObject)
+        gameObjects.Remove(obj)
     End Sub
 
     Public Overrides Sub dispose()

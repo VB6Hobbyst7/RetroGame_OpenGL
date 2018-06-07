@@ -80,11 +80,6 @@ VB_Game
  <param name="bits"></param>
  <returns></returns>
 </member>
-<member name="F:VB_Game.Player.boundingRectTest">
- <summary>
- Used for collision detection
- </summary>
-</member>
 <member name="T:VB_Game.BoundingRect">
  <summary>
  Rectangle bounding objects
@@ -159,6 +154,12 @@ VB_Game
  </summary>
  <param name="d">Time delta since last update</param>
 </member>
+<member name="M:VB_Game.PhysicsHandler.doDisposals">
+ <summary>
+ Disposes all items currently in queue
+ </summary>
+ <returns></returns>
+</member>
 <member name="M:VB_Game.PhysicsHandler.collisionsCheck">
  <summary>
  Checks collisions between all compatible bodies
@@ -166,10 +167,17 @@ VB_Game
 </member>
 <member name="M:VB_Game.PhysicsHandler.handleCollision(VB_Game.RigidBody,VB_Game.RigidBody)">
  <summary>
- Handles collision events, sending out events primary collider
+ Handles collision events, sending out events to colliders
  </summary>
  <param name="bodyA">Primary Body</param>
  <param name="bodyB">Secondary Body</param>
+</member>
+<member name="M:VB_Game.PhysicsHandler.scheduleDispose(VB_Game.GameObject)">
+ <summary>
+ Schedules the obj to be disposed once collections are not being used
+ </summary>
+ <param name="obj"></param>
+ <returns></returns>
 </member>
 <member name="T:VB_Game.RigidBody">
  <summary>
@@ -201,6 +209,11 @@ VB_Game
  Represents an on screen game object
  </summary>
 </member>
+<member name="M:VB_Game.Entity.postCollisionHandlingEvent(VB_Game.GameObject)">
+ <summary>
+ Override method to add custom object collision event handling
+ </summary>
+</member>
 <member name="T:VB_Game.TextLabel">
  <summary>
  Represents a text string drawn on screen
@@ -226,6 +239,11 @@ VB_Game
  Override this method to subscribe to collision events
  </summary>
  <param name="objB">Other object colliding with</param>
+</member>
+<member name="M:VB_Game.GameObject.dispose">
+ <summary>
+ Removes GameObject from all relevant containers
+ </summary>
 </member>
 <member name="M:VB_Game.SpriteBatch.drawImage(VB_Game.ImageTexture,OpenTK.Vector2,OpenTK.Vector2,System.Drawing.Color,OpenTK.Vector2)">
  <summary>

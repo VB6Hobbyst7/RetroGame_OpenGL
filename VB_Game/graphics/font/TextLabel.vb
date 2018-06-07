@@ -41,7 +41,7 @@ Public Class TextLabel : Inherits GameObject
     End Property
 
     Public Sub New(text As String, pos As OpenTK.Vector2)
-        'Testing 
+        MyBase.New(True)
         Me.pos = pos
         _text = text
         genTexture()

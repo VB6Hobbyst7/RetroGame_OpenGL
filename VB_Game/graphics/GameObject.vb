@@ -50,6 +50,10 @@ Public Class GameObject
         End Set
     End Property
 
+    Public Sub New(isStatic As Boolean)
+        Me.isStatic = isStatic
+    End Sub
+
     ''' <summary>
     ''' Refers to whether this obj remains stationery (e.g. not effected by gravity)
     ''' </summary>
@@ -73,6 +77,17 @@ Public Class GameObject
     ''' <param name="objB">Other object colliding with</param>
     Public Overridable Sub onCollide(objB As GameObject)
 
+    End Sub
+
+    Public Overridable Sub tick(delta As Double)
+    End Sub
+
+    ''' <summary>
+    ''' Removes GameObject from all relevant containers
+    ''' </summary>
+    Public Overridable Sub dispose()
+        GameScreen.getInstance().removeGameObject(Me)
+        PhysicsHandler.scheduleDispose(Me)
     End Sub
 
 End Class

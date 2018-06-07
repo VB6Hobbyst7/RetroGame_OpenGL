@@ -81,6 +81,7 @@
     <Compile Include="graphics\Camera.vb" />
     <Compile Include="graphics\ContentPipe.vb" />
     <Compile Include="Game.vb" />
+    <Compile Include="graphics\entities\Enemy.vb" />
     <Compile Include="graphics\entities\Player.vb" />
     <Compile Include="physics\BoundingRect.vb" />
     <Compile Include="physics\PhysicUtils.vb" />

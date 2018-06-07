@@ -21,7 +21,6 @@ Public Class Map
     Public Sub New(tileMapHandler As TileMapHandler, mapFileName As String)
         Me.tileMapHandler = tileMapHandler
         Me.mapFileName = mapFileName
-        loadMap()
     End Sub
 
     ''' <summary>
@@ -54,7 +53,6 @@ Public Class Map
                         reader.Read()
                         Dim catCollision = If(CBool(reader.Value),
                             Constants.Physics_CATEGORY.LEVEL, Constants.Physics_CATEGORY.NO_COLLISION) 'Set appropriate bitmask
-
                         PhysicsHandler.addPhysicsBody(New RigidBody(currentTile,
                             catCollision, Constants.Physics_COLLISION.LEVEL))
                         x += 1
@@ -82,5 +80,17 @@ Public Class Map
             Next
         Next
     End Sub
+
+    Public Overrides Function ToString() As String
+        Dim rows As New List(Of String)
+        For y = 0 To Constants.MAP_HEIGHT - 1
+            Dim row As New List(Of String)
+            For x = 0 To Constants.MAP_WIDTH - 1
+                row.Add(tiles(x, y).ToString())
+            Next
+            rows.Add(String.Join(",", row))
+        Next
+        Return String.Join(vbLf, rows)
+    End Function
 
 End Class

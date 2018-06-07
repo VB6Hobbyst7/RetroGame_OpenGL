@@ -15,6 +15,8 @@ Public Class PhysicsHandler
     ''' </summary>
     Private Shared physicsBodies As New List(Of RigidBody)
 
+    Private Shared scheduledDisposalObjs As New Queue(Of GameObject)
+
     Private Shared categoryBitMaskBodies As New Dictionary(Of Integer, List(Of RigidBody))
 
     Public Shared Sub init()
@@ -58,12 +60,23 @@ Public Class PhysicsHandler
         'Apply gravity to physic bodies
         For i = 0 To physicsBodies.Count - 1
             'Checks if body is instance of entity
-            If physicsBodies(i).parent.GetType.IsAssignableFrom(GetType(Player)) Then
+            If Not physicsBodies(i).parent.isStatic Then
                 applyGravity(physicsBodies(i).parent)
             End If
         Next
         collisionsCheck()
+        doDisposals()
     End Sub
+
+    ''' <summary>
+    ''' Disposes all items currently in queue
+    ''' </summary>
+    ''' <returns></returns>
+    Private Shared Function doDisposals()
+        While scheduledDisposalObjs.Count > 0
+            removeBody(scheduledDisposalObjs.Dequeue())
+        End While
+    End Function
 
     ''' <summary>
     ''' Checks collisions between all compatible bodies
@@ -75,8 +88,9 @@ Public Class PhysicsHandler
                 For Each categoryBitmask In Constants.COLLISION_CATEGORIES
                     If PhysicUtils.canCollide(currentBody.collisionBitMask, categoryBitmask) Then
                         'Bitmasks can collide so check all corresponding bodies for collisions
-                        For Each body In categoryBitMaskBodies.Item(categoryBitmask)
-                            If PhysicUtils.doesCollide(currentBody, body) Then
+                        For j = 0 To categoryBitMaskBodies.Item(categoryBitmask).Count - 1
+                            Dim body = categoryBitMaskBodies.Item(categoryBitmask)(j)
+                            If Not body Is currentBody And PhysicUtils.doesCollide(currentBody, body) Then
                                 handleCollision(currentBody, body)
                             End If
                         Next
@@ -87,16 +101,37 @@ Public Class PhysicsHandler
     End Sub
 
     ''' <summary>
-    ''' Handles collision events, sending out events primary collider
+    ''' Handles collision events, sending out events to colliders
     ''' </summary>
     ''' <param name="bodyA">Primary Body</param>
     ''' <param name="bodyB">Secondary Body</param>
     Private Shared Sub handleCollision(bodyA As RigidBody, bodyB As RigidBody)
         bodyA.parent.onCollide(bodyB.parent)
+        bodyB.parent.onCollide(bodyA.parent)
     End Sub
 
     Public Shared Function getBodiesByCategory(categoryBitmask As Integer) As List(Of RigidBody)
         Return categoryBitMaskBodies.Item(categoryBitmask)
+    End Function
+
+    ''' <summary>
+    ''' Schedules the obj to be disposed once collections are not being used
+    ''' </summary>
+    ''' <param name="obj"></param>
+    ''' <returns></returns>
+    Public Shared Sub scheduleDispose(obj As GameObject)
+        scheduledDisposalObjs.Enqueue(obj)
+    End Sub
+
+    Private Shared Function removeBody(obj As GameObject)
+        For i = 0 To physicsBodies.Count - 1
+            If physicsBodies(i).parent.Equals(obj) Then
+                For Each keyValue As KeyValuePair(Of Integer, List(Of RigidBody)) In categoryBitMaskBodies
+                    keyValue.Value.Remove(physicsBodies(i))
+                Next
+                physicsBodies.Remove(physicsBodies(i))
+            End If
+        Next
     End Function
 
 
