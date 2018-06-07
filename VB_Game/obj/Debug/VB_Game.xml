@@ -27,6 +27,11 @@ VB_Game
  Manages all game audio and the audio context
  </summary>
 </member>
+<member name="F:VB_Game.Gun.FIRE_RATE">
+ <summary>
+ Fire rate of gun in seconds
+ </summary>
+</member>
 <member name="T:VB_Game.Camera">
  <summary>
  Represents the current viewport
@@ -79,6 +84,23 @@ VB_Game
  <param name="channels"></param>
  <param name="bits"></param>
  <returns></returns>
+</member>
+<member name="F:VB_Game.Player.xOrientation">
+ <summary>
+ Current orientation on x axis (-1 facing left, 1 facing right)
+ </summary>
+</member>
+<member name="T:VB_Game.SimpleProjectile">
+ <summary>
+ Projectile goes straight (no gravity affect)
+ </summary>
+</member>
+<member name="M:VB_Game.SimpleProjectile.#ctor(OpenTK.Vector2,System.Int32)">
+ <summary>
+ Creates new projectile
+ </summary>
+ <param name="startPos"></param>
+ <param name="dx">direction of profile (1 --> right, -1 --> left)</param>
 </member>
 <member name="T:VB_Game.TextureAtlas">
  <summary>
@@ -214,11 +236,6 @@ VB_Game
  Represents an on screen game object
  </summary>
 </member>
-<member name="M:VB_Game.Entity.postCollisionHandlingEvent(VB_Game.GameObject)">
- <summary>
- Override method to add custom object collision event handling
- </summary>
-</member>
 <member name="T:VB_Game.TextLabel">
  <summary>
  Represents a text string drawn on screen
@@ -234,9 +251,9 @@ VB_Game
  Scale propery defaulting to (1, 1)
  </summary>
 </member>
-<member name="F:VB_Game.GameObject._isStatic">
+<member name="F:VB_Game.GameObject._affectedByGravity">
  <summary>
- Refers to whether this obj remains stationery (e.g. not effected by gravity)
+ Should obj be affected by gravitational force
  </summary>
 </member>
 <member name="M:VB_Game.GameObject.onCollide(VB_Game.GameObject)">

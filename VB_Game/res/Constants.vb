@@ -33,6 +33,7 @@
         PLAYER = 0 'Nothing collides with player (player collides with others)
         LEVEL = 2 '010
         ENEMY = 3 '011
+        PROJECTILE = 2 '010
     End Enum
 
     ''' <summary>
@@ -43,6 +44,7 @@
         PLAYER = 3 '011
         LEVEL = 0 'level doesn't collide (things collide with level)
         ENEMY = 2 '010
+        PROJECTILE = 3 '011
     End Enum
 
 End Class

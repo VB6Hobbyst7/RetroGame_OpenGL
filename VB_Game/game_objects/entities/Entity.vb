@@ -22,14 +22,14 @@ Public Class Entity : Inherits GameObject
 #End Region
 
     Public Sub New(pos As Vector2, texture As Texture)
-        MyBase.New(False)
+        MyBase.New(True)
         Me.pos = pos
         Me.texture = texture
         Me.velocity = New Vector2(0, 0)
     End Sub
 
     Public Sub New(pos As Vector2, textureAtlas As TextureAtlas)
-        MyBase.New(False)
+        MyBase.New(True)
         Me.pos = pos
         Me.textureAtlas = textureAtlas
         Me.texture = textureAtlas.getTextures()(0)
@@ -74,14 +74,6 @@ Public Class Entity : Inherits GameObject
             velocity = New Vector2(velocity.X, 0)
             pos = New Vector2(pos.X, objB.pos.Y + objB.getWidth())
         End If
-        postCollisionHandlingEvent(objB)
-    End Sub
-
-    ''' <summary>
-    ''' Override method to add custom object collision event handling
-    ''' </summary>
-    Protected Overridable Sub postCollisionHandlingEvent(objB As GameObject)
-
     End Sub
 
 End Class

@@ -18,7 +18,7 @@ Public Class Tile : Inherits GameObject : Implements ICloneable
     End Function
 
     Public Sub New(name As String)
-        MyBase.New(True)
+        MyBase.New(False)
         Me.name = name
         Me.texture = ContentPipe.loadTexture(Constants.TILE_RES_DIR + name)
         Me.scale = New OpenTK.Vector2(Constants.TILE_SIZE / texture.width, Constants.TILE_SIZE / texture.height)
@@ -26,7 +26,7 @@ Public Class Tile : Inherits GameObject : Implements ICloneable
 
     'Creates an empty tile with no texture
     Public Sub New()
-        MyBase.New(True)
+        MyBase.New(False)
     End Sub
 
     Public Overrides Sub render(delta As Double)

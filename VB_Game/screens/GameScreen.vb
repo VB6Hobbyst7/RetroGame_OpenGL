@@ -57,6 +57,11 @@ Public Class GameScreen : Inherits Screen : Implements MouseListener
         gameObjects.Remove(obj)
     End Sub
 
+    Public Sub addPhysicsBasedObject(obj As GameObject, categoryBitmask As Integer, collisionBitmask As Integer)
+        gameObjects.Add(obj)
+        PhysicsHandler.addPhysicsBody(New RigidBody(obj, categoryBitmask, collisionBitmask))
+    End Sub
+
     Public Overrides Sub dispose()
 
     End Sub

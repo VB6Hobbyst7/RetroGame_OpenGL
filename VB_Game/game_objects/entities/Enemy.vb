@@ -6,7 +6,8 @@ Public Class Enemy : Inherits Entity
         MyBase.New(pos, texture)
     End Sub
 
-    Protected Overrides Sub postCollisionHandlingEvent(objB As GameObject)
+    Public Overrides Sub onCollide(objB As GameObject)
+        MyBase.onCollide(objB)
         If objB.GetType.IsAssignableFrom(GetType(Player)) Then
             'Debug.WriteLine("player collided with enemy")
             Me.dispose()

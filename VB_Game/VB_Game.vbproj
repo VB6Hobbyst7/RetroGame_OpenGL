@@ -78,11 +78,14 @@
   <ItemGroup>
     <Compile Include="audio\AudioMaster.vb" />
     <Compile Include="audio\Source.vb" />
+    <Compile Include="game_objects\items\Gun.vb" />
+    <Compile Include="game_objects\items\Item.vb" />
     <Compile Include="graphics\Camera.vb" />
     <Compile Include="graphics\ContentPipe.vb" />
     <Compile Include="Game.vb" />
-    <Compile Include="graphics\entities\Enemy.vb" />
-    <Compile Include="graphics\entities\Player.vb" />
+    <Compile Include="game_objects\entities\Enemy.vb" />
+    <Compile Include="game_objects\entities\Player.vb" />
+    <Compile Include="game_objects\projectiles\SimpleProjectile.vb" />
     <Compile Include="graphics\texture\TextureAtlas.vb" />
     <Compile Include="physics\BoundingRect.vb" />
     <Compile Include="physics\PhysicUtils.vb" />
@@ -90,9 +93,9 @@
     <Compile Include="physics\RigidBody.vb" />
     <Compile Include="screens\GameScreen.vb" />
     <Compile Include="screens\Screen.vb" />
-    <Compile Include="graphics\entities\Entity.vb" />
+    <Compile Include="game_objects\entities\Entity.vb" />
     <Compile Include="graphics\font\TextLabel.vb" />
-    <Compile Include="graphics\GameObject.vb" />
+    <Compile Include="game_objects\GameObject.vb" />
     <Compile Include="graphics\SpriteBatch.vb" />
     <Compile Include="graphics\texture\ImageTexture.vb" />
     <Compile Include="graphics\texture\ShapeTexture.vb" />

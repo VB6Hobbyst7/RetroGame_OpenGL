@@ -40,7 +40,6 @@ Public Class Game : Inherits GameWindow : Implements KeyListener
         camera = New Camera(New Vector2(0.5, 0.5), 0, 1)
         _currentScreen = GameScreen.getInstance()
         VSync = True
-
     End Sub
 
     Protected Overrides Sub OnLoad(ByVal e As EventArgs)
