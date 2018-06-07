@@ -13,6 +13,7 @@ Public Class GameScreen : Inherits Screen : Implements MouseListener
     Private player As Player
     Private testEnemy As Entity
     Private testAtlas As TextureAtlas
+    Private nextFrameRemovalList As New List(Of GameObject)
 
     Private gameObjects As New List(Of GameObject)
 
@@ -26,7 +27,7 @@ Public Class GameScreen : Inherits Screen : Implements MouseListener
         gameObjects.Add(player)
         gameObjects.Add(testEnemy)
         PhysicsHandler.addPhysicsBody(New RigidBody(player,
-            Constants.Physics_CATEGORY.PLAYER, Constants.Physics_COLLISION.PLAYER))
+            Constants.Physics_CATEGORY.NO_COLLISION, Constants.Physics_COLLISION.PLAYER))
         PhysicsHandler.addPhysicsBody(New RigidBody(testEnemy,
             Constants.Physics_CATEGORY.ENEMY, Constants.Physics_COLLISION.ENEMY))
 
@@ -44,6 +45,10 @@ Public Class GameScreen : Inherits Screen : Implements MouseListener
         For i = 0 To gameObjects.Count - 1
             gameObjects(i).render(delta)
         Next
+
+        For i = 0 To nextFrameRemovalList.Count - 1
+            removeGameObject(nextFrameRemovalList(i))
+        Next
     End Sub
 
     Public Overrides Sub update(delta As Double)
@@ -53,8 +58,17 @@ Public Class GameScreen : Inherits Screen : Implements MouseListener
         PhysicsHandler.update(delta)
     End Sub
 
+    ''' <summary>
+    ''' Adds objects to be removed next frame to improve visuals
+    ''' </summary>
+    ''' <param name="obj"></param>
+    Public Sub removeGameObjectNextFrame(obj As GameObject)
+        nextFrameRemovalList.Add(obj)
+    End Sub
+
     Public Sub removeGameObject(obj As GameObject)
         gameObjects.Remove(obj)
+        PhysicsHandler.scheduleDispose(obj)
     End Sub
 
     Public Sub addPhysicsBasedObject(obj As GameObject, categoryBitmask As Integer, collisionBitmask As Integer)

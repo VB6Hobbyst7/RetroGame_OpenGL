@@ -123,16 +123,17 @@ Public Class PhysicsHandler
         scheduledDisposalObjs.Enqueue(obj)
     End Sub
 
-    Private Shared Function removeBody(obj As GameObject)
+    Private Shared Sub removeBody(obj As GameObject)
         For i = 0 To physicsBodies.Count - 1
             If physicsBodies(i).parent.Equals(obj) Then
                 For Each keyValue As KeyValuePair(Of Integer, List(Of RigidBody)) In categoryBitMaskBodies
                     keyValue.Value.Remove(physicsBodies(i))
                 Next
                 physicsBodies.Remove(physicsBodies(i))
+                Exit For
             End If
         Next
-    End Function
+    End Sub
 
 
 End Class

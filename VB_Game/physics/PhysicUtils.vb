@@ -26,7 +26,7 @@ Public Class PhysicUtils
     ''' <param name="categoryBitmask"></param>
     ''' <returns></returns>
     Public Shared Function canCollide(collisionBitmask As Integer, categoryBitmask As Integer) As Boolean
-        Return collisionBitmask And categoryBitmask <> 0
+        Return (collisionBitmask And categoryBitmask) <> 0
     End Function
 
     ''' <summary>

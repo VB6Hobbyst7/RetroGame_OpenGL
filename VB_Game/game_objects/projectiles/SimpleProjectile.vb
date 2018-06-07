@@ -23,7 +23,10 @@ Public Class SimpleProjectile : Inherits Entity
         MyBase.onCollide(objB)
         If objB.GetType.IsAssignableFrom(GetType(Tile)) Then
             Debug.WriteLine("Destroy projectile")
-            GameScreen.getInstance().removeGameObject(Me)
+            GameScreen.getInstance().removeGameObjectNextFrame(Me)
+        ElseIf objB.GetType.IsAssignableFrom(GetType(Enemy)) Then
+            'Implement damage player logic
+            GameScreen.getInstance().removeGameObjectNextFrame(Me)
         End If
     End Sub
 

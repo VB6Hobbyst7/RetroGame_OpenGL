@@ -8,7 +8,7 @@ Public Class Enemy : Inherits Entity
 
     Public Overrides Sub onCollide(objB As GameObject)
         MyBase.onCollide(objB)
-        If objB.GetType.IsAssignableFrom(GetType(Player)) Then
+        If objB.GetType.IsAssignableFrom(GetType(Player)) Or objB.GetType.IsAssignableFrom(GetType(SimpleProjectile)) Then
             'Debug.WriteLine("player collided with enemy")
             Me.dispose()
         End If

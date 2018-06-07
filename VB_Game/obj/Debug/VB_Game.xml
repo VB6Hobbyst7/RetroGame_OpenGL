@@ -226,6 +226,12 @@ VB_Game
  Main screen where the game is run
  </summary>
 </member>
+<member name="M:VB_Game.GameScreen.removeGameObjectNextFrame(VB_Game.GameObject)">
+ <summary>
+ Adds objects to be removed next frame to improve visuals
+ </summary>
+ <param name="obj"></param>
+</member>
 <member name="T:VB_Game.Screen">
  <summary>
  Represents a screen in the game (e.g. gamescreen, pausescreen)

@@ -23,15 +23,15 @@
     ''' <summary>
     ''' All possible collidable obj bit mask signatures
     ''' </summary>
-    Public Shared COLLISION_CATEGORIES() As Integer = {Physics_CATEGORY.LEVEL, Physics_CATEGORY.PLAYER, Physics_CATEGORY.ENEMY}
+    Public Shared COLLISION_CATEGORIES() As Integer = {Physics_CATEGORY.LEVEL,
+        Physics_CATEGORY.ENEMY, Physics_CATEGORY.PROJECTILE, Physics_CATEGORY.NO_COLLISION}
 
     ''' <summary>
     ''' Different types of physics bodies mapping to category bitmasks
     ''' </summary>
     Enum Physics_CATEGORY
         NO_COLLISION = 0
-        PLAYER = 0 'Nothing collides with player (player collides with others)
-        LEVEL = 2 '010
+        LEVEL = 6 '110
         ENEMY = 3 '011
         PROJECTILE = 2 '010
     End Enum
@@ -41,7 +41,7 @@
     ''' </summary>
     Enum Physics_COLLISION
         NO_COLLISION = 0
-        PLAYER = 3 '011
+        PLAYER = 4 '100
         LEVEL = 0 'level doesn't collide (things collide with level)
         ENEMY = 2 '010
         PROJECTILE = 3 '011
