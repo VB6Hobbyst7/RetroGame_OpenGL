@@ -153,6 +153,10 @@ Public Class SpriteBatch
 
         'Draws Viewport on Screen
         drawRect(New Vector2(screenWidth, screenHeight), New Vector2(-screenWidth / 2, -screenHeight / 2), Color.White)
+
+        If screenWidth <> 1280 Then
+            Debug.WriteLine("")
+        End If
     End Sub
 
 End Class
