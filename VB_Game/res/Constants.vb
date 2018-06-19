@@ -32,7 +32,7 @@
     Enum Physics_CATEGORY
         NO_COLLISION = 0
         LEVEL = 6 '110
-        ENEMY = 3 '011
+        ENEMY = 7 '111
         PROJECTILE = 2 '010
     End Enum
 
@@ -43,7 +43,7 @@
         NO_COLLISION = 0
         PLAYER = 4 '100
         LEVEL = 0 'level doesn't collide (things collide with level)
-        ENEMY = 2 '010
+        ENEMY = 10 '1010
         PROJECTILE = 3 '011
     End Enum
 
