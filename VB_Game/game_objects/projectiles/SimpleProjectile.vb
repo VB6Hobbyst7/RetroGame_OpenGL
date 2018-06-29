@@ -4,7 +4,7 @@
 ''' </summary>
 Public Class SimpleProjectile : Inherits Entity
 
-    Private Const MAX_VELOCITY = 13 * Constants.PIXELS_IN_METER 'in m/s
+    Private Const MAX_VELOCITY = 30 * Constants.PIXELS_IN_METER 'in m/s
     Public Const WIDTH = 16
     Public Const HEIGHT = 16
 
@@ -29,5 +29,4 @@ Public Class SimpleProjectile : Inherits Entity
             GameScreen.getInstance().removeGameObjectNextFrame(Me)
         End If
     End Sub
-
 End Class

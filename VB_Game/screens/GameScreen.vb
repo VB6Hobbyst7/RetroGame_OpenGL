@@ -30,7 +30,6 @@ Public Class GameScreen : Inherits Screen : Implements MouseListener
             Constants.Physics_CATEGORY.NO_COLLISION, Constants.Physics_COLLISION.PLAYER))
         PhysicsHandler.addPhysicsBody(New RigidBody(testEnemy,
             Constants.Physics_CATEGORY.ENEMY, Constants.Physics_COLLISION.ENEMY))
-
     End Sub
 
     Public Shared Function getInstance() As GameScreen

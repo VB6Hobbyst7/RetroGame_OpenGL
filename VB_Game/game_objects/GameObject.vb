@@ -36,11 +36,11 @@ Public Class GameObject
     End Property
 
     Public Overridable Function getWidth() As Integer
-        Return texture.width
+        Return texture.width * scale.X
     End Function
 
     Public Overridable Function getHeight() As Integer
-        Return texture.width
+        Return texture.height * scale.X
     End Function
 
     Public Function getBoundingRect() As BoundingRect

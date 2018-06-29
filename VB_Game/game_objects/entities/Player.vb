@@ -23,6 +23,12 @@ Public Class Player : Inherits Entity : Implements KeyListener
     End Sub
 
     Public Overrides Sub tick(delta As Double)
+
+        If InputHandler.isKeyDown(Key.W) And isGrounded Then
+            Me.velocity = New Vector2(Me.velocity.X, -500)
+            isGrounded = False
+        End If
+
         pos = New Vector2(pos.X + velocity.X * delta, pos.Y + velocity.Y * delta)
         If Not currentItem Is Nothing Then
             currentItem.update(delta)
@@ -42,10 +48,10 @@ Public Class Player : Inherits Entity : Implements KeyListener
     End Sub
 
     Private Sub handleInput()
-        If InputHandler.isKeyDown(Key.W) And isGrounded Then
-            Me.velocity = New Vector2(Me.velocity.X, -500)
-            isGrounded = False
-        End If
+        'If InputHandler.isKeyDown(Key.W) And isGrounded Then
+        '    Me.velocity = New Vector2(Me.velocity.X, -500)
+        '    isGrounded = False
+        'End If
 
         'If InputHandler.isKeyDown(Key.W) And Not InputHandler.isKeyDown(Key.S) Then
         '    Me.velocity = New Vector2(Me.velocity.X, -100)

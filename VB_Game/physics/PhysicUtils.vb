@@ -3,6 +3,8 @@
 ''' </summary>
 Public Class PhysicUtils
 
+    Private Shared PADDING As Integer = 1 'Padding for collisions to improve slide motion
+
     Public Shared Function pixelsToMeters(pixels As Integer) As Double
         Return pixels / Constants.PIXELS_IN_METER
     End Function
@@ -48,8 +50,8 @@ Public Class PhysicUtils
     Public Shared Function doesCollide(objA As GameObject, objB As GameObject) As Boolean
         Return (objA.pos.X < objB.pos.X + objB.getWidth() And
             objA.pos.X + objA.getWidth() > objB.pos.X And
-            objA.pos.Y + 1 < objB.pos.Y + objB.getHeight() And
-            objA.pos.Y + objA.getHeight() + 1 > objB.pos.Y)
+            objA.pos.Y + PADDING < objB.pos.Y + objB.getHeight() And
+            objA.pos.Y + objA.getHeight() + PADDING > objB.pos.Y)
     End Function
 
     Public Shared Function doesCollide(objA As BoundingRect, objB As BoundingRect) As Boolean

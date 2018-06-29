@@ -56,7 +56,6 @@ Public Class Map
                         PhysicsHandler.addPhysicsBody(New RigidBody(currentTile,
                             catCollision, Constants.Physics_COLLISION.LEVEL))
                         x += 1
-                        'TODO: Implement collision setup
                     Case "tiles"
                         'New Row
                         y += 1

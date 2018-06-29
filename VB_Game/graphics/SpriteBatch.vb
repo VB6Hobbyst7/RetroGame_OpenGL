@@ -28,7 +28,7 @@ Public Class SpriteBatch
         For i = 0 To 3
             GL.TexCoord2(verts(i))
             verts(i).X *= texture.width 'Adjusts coordinates to match up with width of texture
-            verts(i).Y *= texture.height 'Adjusts coordinates to match up with width of texture
+            verts(i).Y *= texture.height 'Adjusts coordinates to match up with height of texture
             verts(i) -= origin
             verts(i) *= scale
             verts(i) += pos 'adjusts pos

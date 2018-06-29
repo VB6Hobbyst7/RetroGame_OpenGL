@@ -34,7 +34,7 @@ Public Class Game : Inherits GameWindow : Implements KeyListener
         GL.Enable(EnableCap.Texture2D)
         GL.Enable(EnableCap.Blend)
         GL.BlendFunc(CType(BlendingFactorSrc.SrcAlpha, BlendingFactor), CType(BlendingFactorSrc.OneMinusSrcAlpha, BlendingFactor))
-        audioMaster = AudioMaster.getInstance()
+        'audioMaster = AudioMaster.getInstance()
         InputHandler.init(Me)
         InputHandler.keyListeners.Add(Me)
         camera = New Camera(New Vector2(0.5, 0.5), 0, 1)
