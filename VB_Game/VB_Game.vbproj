@@ -88,7 +88,12 @@
     <Compile Include="game_objects\entities\Enemy.vb" />
     <Compile Include="game_objects\entities\Player.vb" />
     <Compile Include="game_objects\projectiles\SimpleProjectile.vb" />
+    <Compile Include="graphics\controls\Button.vb" />
+    <Compile Include="graphics\controls\Control.vb" />
+    <Compile Include="graphics\controls\events\ValueChangedListener.vb" />
+    <Compile Include="graphics\controls\Slider.vb" />
     <Compile Include="graphics\texture\TextureAtlas.vb" />
+    <Compile Include="graphics\controls\events\ActionEvent.vb" />
     <Compile Include="physics\BoundingRect.vb" />
     <Compile Include="physics\PhysicUtils.vb" />
     <Compile Include="physics\PhysicsHandler.vb" />
@@ -125,6 +130,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="res\Constants.vb" />
+    <Compile Include="screens\StartScreen.vb" />
     <Compile Include="utils\DebugHandler.vb" />
   </ItemGroup>
   <ItemGroup>
@@ -161,9 +167,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="graphics\controls\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="res\img\tiles\tile_1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

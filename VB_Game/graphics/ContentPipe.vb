@@ -31,8 +31,9 @@ Public Class ContentPipe
 
         GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, TextureMinFilter.Linear)
         GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, TextureMagFilter.Linear)
-
-        Return New ImageTexture(id, img.Width, img.Height)
+        Dim imgText = New ImageTexture(id, img.Width, img.Height)
+        img.Dispose()
+        Return imgText
     End Function
 
     ''' <summary>

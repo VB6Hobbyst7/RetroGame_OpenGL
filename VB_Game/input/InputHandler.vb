@@ -24,6 +24,18 @@ Public Class InputHandler
         Next
     End Sub
 
+    Private Shared Sub MouseButtonUp(sender As Object, e As MouseButtonEventArgs) Handles game.MouseUp
+        For i = 0 To mouseListeners.Count - 1
+            mouseListeners(i).MouseButtonUp(e)
+        Next
+    End Sub
+
+    Private Shared Sub MouseMove(sender As Object, e As MouseMoveEventArgs) Handles game.MouseMove
+        For i = 0 To mouseListeners.Count - 1
+            mouseListeners(i).MouseMove(e)
+        Next
+    End Sub
+
     Private Shared Sub KeyDown(sender As Object, e As KeyboardKeyEventArgs) Handles game.KeyDown
         keys.Item(e.Key) = True
         For i = 0 To keyListeners.Count - 1

@@ -102,6 +102,11 @@ VB_Game
  <param name="startPos"></param>
  <param name="dx">direction of profile (1 --> right, -1 --> left)</param>
 </member>
+<member name="F:VB_Game.Control._scale">
+ <summary>
+ Scale property defaulting to (1, 1)
+ </summary>
+</member>
 <member name="T:VB_Game.TextureAtlas">
  <summary>
  Loads in and stores a collection of sub images from one image
@@ -247,6 +252,11 @@ VB_Game
  Represents a text string drawn on screen
  </summary>
 </member>
+<member name="M:VB_Game.TextLabel.genTexture">
+ <summary>
+ Generates new font texture
+ </summary>
+</member>
 <member name="T:VB_Game.GameObject">
  <summary>
  Represents any graphical game object
@@ -325,6 +335,28 @@ VB_Game
  </summary>
  <param name="screenWidth"></param>
  <param name="screenHeight"></param>
+</member>
+<member name="M:VB_Game.SpriteBatch.normaliseScreenCoords(System.Int32,System.Int32)">
+ <summary>
+ Returns a normalised representation of screen coords to game coords
+ </summary>
+ <param name="x"></param>
+ <param name="y"></param>
+ <returns>Normalised Coords</returns>
+</member>
+<member name="M:VB_Game.SpriteBatch.normaliseScreenX(System.Int32)">
+ <summary>
+ Returns a normalised representation of screen coord x to game coord x
+ </summary>
+ <param name="x"></param>
+ <returns>Normalised Coord</returns>
+</member>
+<member name="M:VB_Game.SpriteBatch.normaliseScreenY(System.Int32)">
+ <summary>
+ Returns a normalised representation of screen coord y to game coord y
+ </summary>
+ <param name="x"></param>
+ <returns>Normalised Coord</returns>
 </member>
 <member name="M:VB_Game.InputHandler.isKeyDown(System.Int32)">
  <summary>

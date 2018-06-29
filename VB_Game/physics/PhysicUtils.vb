@@ -61,4 +61,13 @@ Public Class PhysicUtils
             objA.pos.Y + objA.size.Y > objB.pos.Y)
     End Function
 
+    Public Shared Function pointWithin(px As Integer, py As Integer, bounding As BoundingRect) As Boolean
+        Return px > bounding.pos.X And px < bounding.pos.X + bounding.size.X And
+            py > bounding.pos.Y And py < bounding.pos.Y + bounding.size.Y
+    End Function
+
+    Public Shared Function pointWithin(pos As OpenTK.Vector2, bounding As BoundingRect) As Boolean
+        Return pointWithin(pos.X, pos.Y, bounding)
+    End Function
+
 End Class

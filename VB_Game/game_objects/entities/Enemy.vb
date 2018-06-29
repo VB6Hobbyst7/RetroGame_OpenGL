@@ -13,7 +13,6 @@ Public Class Enemy : Inherits Entity
         'Distances needed to stop colliding (smallest gives which side is most likely colliding, not full proof solution)
         'By determining the smallest you can determine collision side to prevent movement in that direction and correct position
         'So no collision occurs
-        Debug.WriteLine(objB)
         Dim deltaL = Math.Abs(pos.X + getWidth() - objB.pos.X)
         Dim deltaR = Math.Abs(pos.X - (objB.pos.X + objB.getWidth()))
         Dim deltaD = Math.Abs(pos.Y + getHeight() - objB.pos.Y)

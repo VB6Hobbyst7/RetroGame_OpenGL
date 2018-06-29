@@ -89,4 +89,10 @@ Public Class GameScreen : Inherits Screen : Implements MouseListener
 
     Public Sub MouseButtonDown(e As MouseEventArgs) Implements MouseListener.MouseButtonDown
     End Sub
+
+    Public Sub MouseMove(e As MouseMoveEventArgs) Implements MouseListener.MouseMove
+    End Sub
+
+    Public Sub MouseButtonUp(e As MouseEventArgs) Implements MouseListener.MouseButtonUp
+    End Sub
 End Class

@@ -24,7 +24,7 @@ Public Class SpriteBatch
         GL.Enable(EnableCap.Texture2D)
         GL.BindTexture(TextureTarget.Texture2D, texture.id)
         GL.Begin(PrimitiveType.Quads)
-        GL.Color3(color)
+        GL.Color4(color)
         For i = 0 To 3
             GL.TexCoord2(verts(i))
             verts(i).X *= texture.width 'Adjusts coordinates to match up with width of texture
@@ -72,7 +72,7 @@ Public Class SpriteBatch
         }
         GL.Disable(EnableCap.Texture2D)
         GL.Begin(PrimitiveType.Quads)
-        GL.Color3(color)
+        GL.Color4(color)
         For i = 0 To 3
             GL.TexCoord2(verts(i))
             verts(i).X *= size.X
@@ -86,6 +86,10 @@ Public Class SpriteBatch
 
     Public Shared Sub drawTexture(texture As Texture, pos As Vector2)
         drawTexture(texture, pos, New Vector2(1, 1))
+    End Sub
+
+    Public Shared Sub drawControl(control As Control)
+        drawTexture(control.texture, control.pos, control.scale)
     End Sub
 
     Public Shared Sub drawTexture(texture As Texture, pos As Vector2, scale As Vector2)
@@ -154,5 +158,34 @@ Public Class SpriteBatch
         'Draws Viewport on Screen
         drawRect(New Vector2(screenWidth, screenHeight), New Vector2(-screenWidth / 2, -screenHeight / 2), Color.White)
     End Sub
+
+    ''' <summary>
+    ''' Returns a normalised representation of screen coords to game coords
+    ''' </summary>
+    ''' <param name="x"></param>
+    ''' <param name="y"></param>
+    ''' <returns>Normalised Coords</returns>
+    Public Shared Function normaliseScreenCoords(x As Integer, y As Integer) As Vector2
+        Return New Vector2(x - Constants.INIT_SCREEN_WIDTH / 2, y - Constants.INIT_SCREEN_HEIGHT / 2)
+    End Function
+
+    ''' <summary>
+    ''' Returns a normalised representation of screen coord x to game coord x
+    ''' </summary>
+    ''' <param name="x"></param>
+    ''' <returns>Normalised Coord</returns>
+    Public Shared Function normaliseScreenX(x As Integer) As Integer
+        Return x - (Constants.INIT_SCREEN_WIDTH / 2)
+    End Function
+
+
+    ''' <summary>
+    ''' Returns a normalised representation of screen coord y to game coord y
+    ''' </summary>
+    ''' <param name="x"></param>
+    ''' <returns>Normalised Coord</returns>
+    Public Shared Function normaliseScreenY(y As Integer) As Integer
+        Return y - Constants.INIT_SCREEN_HEIGHT / 2
+    End Function
 
 End Class
