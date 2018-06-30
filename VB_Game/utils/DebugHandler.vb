@@ -34,7 +34,9 @@ Min {2}, Max {3}",
     End Sub
 
     Public Shared Sub render(delta As Double)
-        fpsLabel.render(delta)
+        If Constants.FPS_DEBUG Then
+            fpsLabel.render(delta)
+        End If
     End Sub
 
 End Class

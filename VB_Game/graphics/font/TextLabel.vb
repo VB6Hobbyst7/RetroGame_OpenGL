@@ -72,10 +72,13 @@ Public Class TextLabel : Inherits GameObject
 
 #Region "Constructors"
 
-    Public Sub New(text As String, boundingSize As Size)
+    Public Sub New(text As String, boundingSize As Size, brush As Brush)
         MyBase.New(True)
         _text = text
         font = findSuitableSize(boundingSize)
+        Me.designFontSize = font.Size
+        Me.fontSize = font.Size
+        Me.brush = brush
         genTexture()
     End Sub
 
@@ -112,7 +115,6 @@ Public Class TextLabel : Inherits GameObject
     ''' Generates new font texture
     ''' </summary>
     Private Sub genTexture()
-        Debug.WriteLine("gen textures")
         If refreshingTexture Then
             OpenTK.Graphics.OpenGL.GL.DeleteTexture(CType(texture, ImageTexture).id)
         End If

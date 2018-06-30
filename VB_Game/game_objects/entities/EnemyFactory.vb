@@ -24,13 +24,14 @@
 
     Public Shared Sub spawn()
         Dim spawnCount = 1
-        If Random.Next(0, 100) < DOUBLE_SPAWN_CHANCE Then
+        If random.Next(0, 101) < DOUBLE_SPAWN_CHANCE Then
             spawnCount = 2
         End If
+        Dim side = random.Next(2)
 
         'TODO: Add big one spawn and apply difficulty multiplier
         For i = 0 To spawnCount - 1
-            spawnQueue.Enqueue(New Enemy(New OpenTK.Vector2(SPAWN_X, SPAWN_Y), ENEMY_TEXTURE, True))
+            spawnQueue.Enqueue(New Enemy(New OpenTK.Vector2(SPAWN_X, SPAWN_Y), ENEMY_TEXTURE, side))
         Next
     End Sub
 

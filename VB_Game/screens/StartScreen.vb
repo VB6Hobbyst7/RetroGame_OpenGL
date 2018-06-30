@@ -11,7 +11,10 @@ Public Class StartScreen : Inherits Screen
     End Sub
 
     Public Sub New()
-        testButton = New Button("Button", Vector2.Zero, New Drawing.Size(300, 80))
+
+        testButton = New Button("Begin Game", Vector2.Zero, New Drawing.Size(300, 80),
+                                New ButtonStyle(Drawing.Brushes.White, Drawing.Color.FromArgb(255, 64, 64, 64),
+                                                Drawing.Color.Black, 10))
         testButton.setOnClickListener(AddressOf startGame)
         testSlider = New Slider(New Vector2(-200, -100), New Vector2(200, 40))
     End Sub

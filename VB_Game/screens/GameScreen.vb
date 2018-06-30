@@ -19,7 +19,8 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
     Private player As Player
     Private testAtlas As TextureAtlas
     Private nextFrameRemovalList As New List(Of GameObject)
-    Private gameOverOverlay As New GameOverOverlay 'Screen overlay showing game over message
+    Private gameOverOverlay As New GameOverOverlay() 'Screen overlay showing game over message
+    Private pauseScreen As New PauseScreenOverlay()
 
     Public CurrentState As State = State.PLAY
 
@@ -75,6 +76,8 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
         Next
         If CurrentState = State.GAMEOVER Then
             gameOverOverlay.render(delta)
+        ElseIf CurrentState = State.PAUSE Then
+            pauseScreen.render(delta)
         End If
 
         For i = 0 To nextFrameRemovalList.Count - 1
@@ -123,8 +126,15 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
 
     Public Sub KeyDown(e As KeyboardKeyEventArgs) Implements KeyListener.KeyDown
         If CurrentState = State.GAMEOVER And e.Key = Key.Enter Then
-            'Restart game
             restart()
+        ElseIf e.Key = Key.Escape Then
+            'Toggle Pause Screen
+            If CurrentState = State.PLAY Then
+                CurrentState = State.PAUSE
+            Else
+                CurrentState = State.PLAY
+            End If
         End If
+
     End Sub
 End Class

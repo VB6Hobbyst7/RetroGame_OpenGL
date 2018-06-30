@@ -90,6 +90,7 @@
     <Compile Include="game_objects\entities\Player.vb" />
     <Compile Include="game_objects\projectiles\SimpleProjectile.vb" />
     <Compile Include="graphics\controls\Button.vb" />
+    <Compile Include="graphics\controls\ButtonStyle.vb" />
     <Compile Include="graphics\controls\Control.vb" />
     <Compile Include="graphics\controls\Slider.vb" />
     <Compile Include="graphics\texture\TextureAtlas.vb" />
@@ -99,6 +100,7 @@
     <Compile Include="physics\RigidBody.vb" />
     <Compile Include="screens\GameScreen.vb" />
     <Compile Include="screens\overlays\GameOverOverlay.vb" />
+    <Compile Include="screens\overlays\PauseScreenOverlay.vb" />
     <Compile Include="screens\Screen.vb" />
     <Compile Include="game_objects\entities\Entity.vb" />
     <Compile Include="graphics\font\TextLabel.vb" />

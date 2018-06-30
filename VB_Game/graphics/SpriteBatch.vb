@@ -6,6 +6,8 @@ Public Class SpriteBatch
 
     Private Shared currentScale As New Vector2(1, 1)
     Private Shared lastScaleX As Double = 0.0
+    Private Shared margin_x As Single = 0.0
+    Private Shared margin_y As Single = 0.0
 
 #Region "RectDrawing"
 
@@ -130,7 +132,6 @@ Public Class SpriteBatch
 
 #End Region
 
-
 #Region "Circle Drawing"
     Public Shared Sub drawCircle(radius As Double, pos As Vector2)
         GL.Disable(EnableCap.Texture2D)
@@ -159,7 +160,6 @@ Public Class SpriteBatch
         GL.Enable(EnableCap.Texture2D)
 
         If lastScaleX <> currentScale.X Then
-            Debug.WriteLine("Not equal")
             textLabel.scale = New Vector2(1 / currentScale.X, 1 / currentScale.X)
             textLabel.fontSize = (textLabel.designFontSize * (currentScale.X))
         End If
@@ -198,8 +198,8 @@ Public Class SpriteBatch
             width = height * Constants.ASPECT_RATIO
         End If
 
-        Dim margin_x As Single = (screenWidth - width) / 2
-        Dim margin_y As Single = (screenHeight - height) / 2
+        margin_x = (screenWidth - width) / 2
+        margin_y = (screenHeight - height) / 2
         Dim vp_width As Integer = width
         Dim vp_height As Integer = height
 
@@ -226,7 +226,7 @@ Public Class SpriteBatch
     ''' <param name="y"></param>
     ''' <returns>Normalised Coords</returns>
     Public Shared Function normaliseScreenCoords(x As Integer, y As Integer) As Vector2
-        Return New Vector2(x - Constants.DESIGN_WIDTH / 2, y - Constants.DESIGN_HEIGHT / 2)
+        Return New Vector2(normaliseScreenX(x), normaliseScreenY(y))
     End Function
 
     ''' <summary>
@@ -235,7 +235,8 @@ Public Class SpriteBatch
     ''' <param name="x"></param>
     ''' <returns>Normalised Coord</returns>
     Public Shared Function normaliseScreenX(x As Integer) As Integer
-        Return x - (Constants.DESIGN_WIDTH / 2)
+        Return (x - margin_x) * ((Constants.DESIGN_WIDTH) / (Game.getInstance().Width - margin_x * 2
+                    )) - Constants.DESIGN_WIDTH / 2
     End Function
 
 
@@ -245,7 +246,8 @@ Public Class SpriteBatch
     ''' <param name="x"></param>
     ''' <returns>Normalised Coord</returns>
     Public Shared Function normaliseScreenY(y As Integer) As Integer
-        Return y - Constants.DESIGN_HEIGHT / 2
+        Return (y - margin_y) * ((Constants.DESIGN_HEIGHT) / (Game.getInstance().Height - margin_y * 2
+                    )) - Constants.DESIGN_HEIGHT / 2
     End Function
 
 #End Region
