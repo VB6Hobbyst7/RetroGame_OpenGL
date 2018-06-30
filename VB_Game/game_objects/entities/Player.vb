@@ -6,7 +6,8 @@ Public Class Player : Inherits Entity : Implements KeyListener
 
     Private currentItem As Item
     Private Const GROUNDED_VEL_THRESHOLD = 0.3
-    Private Const JUMP_FORCE As Integer = 620 'Jump force given in initial velocity set
+    Private Shared JUMP_FORCE As Integer = 20 * Constants.PIXELS_IN_METER 'Jump force given in initial velocity set
+    Private Shared HORIZONTAL_SPEED As Integer = 10 * Constants.PIXELS_IN_METER
     Private spawnPos As Vector2
 
     ''' <summary>
@@ -68,11 +69,11 @@ Public Class Player : Inherits Entity : Implements KeyListener
         If GameScreen.getInstance().CurrentState = GameScreen.State.PLAY Then
             'Handle horizontal input movement
             If InputHandler.isKeyDown(Key.A) And Not InputHandler.isKeyDown(Key.D) Then
-                Me.velocity = New Vector2(-300, Me.velocity.Y)
+                Me.velocity = New Vector2(-HORIZONTAL_SPEED, Me.velocity.Y)
                 Me.texture = textureAtlas.getTextures()(1)
                 xOrientation = -1
             ElseIf InputHandler.isKeyDown(Key.D) And Not InputHandler.isKeyDown(Key.A) Then
-                Me.velocity = New Vector2(300, Me.velocity.Y)
+                Me.velocity = New Vector2(HORIZONTAL_SPEED, Me.velocity.Y)
                 Me.texture = textureAtlas.getTextures()(0)
                 xOrientation = 1
             Else

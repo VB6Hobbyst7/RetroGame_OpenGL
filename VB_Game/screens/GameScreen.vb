@@ -29,6 +29,7 @@ Public Class GameScreen : Inherits Screen : Implements MouseListener
         tileMapHandler = TileMapHandler.getInstance()
         testAtlas = New TextureAtlas("./res/sprites/player_atlas.png", New Vector2(32, 32))
         player = New Player(New Vector2(0, 0), testAtlas)
+        player.scale = New Vector2(Constants.DESIGN_SCALE_FACTOR, Constants.DESIGN_SCALE_FACTOR)
         EnemyFactory.init()
         gameObjects.Add(player)
         PhysicsHandler.addPhysicsBody(New RigidBody(player,
@@ -51,6 +52,10 @@ Public Class GameScreen : Inherits Screen : Implements MouseListener
         End While
 
         EnemyFactory.reset()
+    End Sub
+
+    Public Sub gameOver()
+        CurrentState = State.PAUSE
     End Sub
 
     Public Shared Function getInstance() As GameScreen

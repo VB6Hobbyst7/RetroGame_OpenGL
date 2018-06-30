@@ -98,6 +98,7 @@
     <Compile Include="physics\PhysicsHandler.vb" />
     <Compile Include="physics\RigidBody.vb" />
     <Compile Include="screens\GameScreen.vb" />
+    <Compile Include="screens\overlays\GameOverOverlay.vb" />
     <Compile Include="screens\Screen.vb" />
     <Compile Include="game_objects\entities\Entity.vb" />
     <Compile Include="graphics\font\TextLabel.vb" />

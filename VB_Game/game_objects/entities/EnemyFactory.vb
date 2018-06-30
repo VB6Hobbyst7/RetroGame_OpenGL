@@ -1,18 +1,18 @@
 ﻿Public Class EnemyFactory
 
     Private Const SPAWN_X = 0
-    Private Shared SPAWN_Y = -Constants.INIT_SCREEN_HEIGHT / 2
+    Private Shared SPAWN_Y = -Constants.DESIGN_HEIGHT / 2
 
     Private Shared ENEMY_TEXTURE
 
     Private Const DIFFICULTY_MULTIPLIER = 1.1
 
-    Private Const DOUBLE_SPAWN_CHANCE = 10 'chance of two enemies spawning at once
+    Private Const DOUBLE_SPAWN_CHANCE = 100 'chance of two enemies spawning at once
     Private Shared random As New Random()
     Private Shared SPAWN_RATE = 30 'number per minute
     Private Shared timeToNextSpawn = Math.Round(60 / SPAWN_RATE)
 
-    Private Const queueSpawnCooldown = 0.2 'time needed for enemies to move out of way before spawning new
+    Private Const queueSpawnCooldown = 0.5 'time needed for enemies to move out of way before spawning new
     Private Shared timeSinceLastSpawn = 0
 
     Private Shared spawnQueue As New Queue(Of Enemy)
@@ -51,6 +51,7 @@
             If timeSinceLastSpawn > queueSpawnCooldown Then
                 GameScreen.getInstance().addPhysicsBasedObject(spawnQueue.Dequeue(),
                     Constants.Physics_CATEGORY.ENEMY, Constants.Physics_COLLISION.ENEMY)
+                timeSinceLastSpawn = 0
             End If
         End If
     End Sub

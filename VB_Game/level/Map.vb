@@ -11,8 +11,8 @@ Public Class Map
     Private mapFileName As String
     Private name As String
     Private tileMapHandler
-    Private startX As Integer = -Constants.INIT_SCREEN_WIDTH / 2
-    Private startY As Integer = -Constants.INIT_SCREEN_HEIGHT / 2
+    Private startX As Integer = -Constants.DESIGN_WIDTH / 2
+    Private startY As Integer = -Constants.DESIGN_HEIGHT / 2
 
     Public Function getName() As String
         Return name

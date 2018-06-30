@@ -152,8 +152,8 @@ Public Class SpriteBatch
         GL.MatrixMode(MatrixMode.Modelview)
         GL.LoadIdentity()
 
-        currentScale.X = screenWidth / Constants.INIT_SCREEN_WIDTH
-        currentScale.Y = screenHeight / Constants.INIT_SCREEN_HEIGHT
+        currentScale.X = screenWidth / Constants.DESIGN_WIDTH
+        currentScale.Y = screenHeight / Constants.DESIGN_HEIGHT
 
         'Draws Viewport on Screen
         drawRect(New Vector2(screenWidth, screenHeight), New Vector2(-screenWidth / 2, -screenHeight / 2), Color.White)
@@ -166,7 +166,7 @@ Public Class SpriteBatch
     ''' <param name="y"></param>
     ''' <returns>Normalised Coords</returns>
     Public Shared Function normaliseScreenCoords(x As Integer, y As Integer) As Vector2
-        Return New Vector2(x - Constants.INIT_SCREEN_WIDTH / 2, y - Constants.INIT_SCREEN_HEIGHT / 2)
+        Return New Vector2(x - Constants.DESIGN_WIDTH / 2, y - Constants.DESIGN_HEIGHT / 2)
     End Function
 
     ''' <summary>
@@ -175,7 +175,7 @@ Public Class SpriteBatch
     ''' <param name="x"></param>
     ''' <returns>Normalised Coord</returns>
     Public Shared Function normaliseScreenX(x As Integer) As Integer
-        Return x - (Constants.INIT_SCREEN_WIDTH / 2)
+        Return x - (Constants.DESIGN_WIDTH / 2)
     End Function
 
 
@@ -185,7 +185,7 @@ Public Class SpriteBatch
     ''' <param name="x"></param>
     ''' <returns>Normalised Coord</returns>
     Public Shared Function normaliseScreenY(y As Integer) As Integer
-        Return y - Constants.INIT_SCREEN_HEIGHT / 2
+        Return y - Constants.DESIGN_HEIGHT / 2
     End Function
 
 End Class

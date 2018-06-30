@@ -1,19 +1,22 @@
 ﻿Public Class Constants
 
     Public Const FPS_DEBUG = True
+    Public Const MAX_FRAME_DELTA_TIME = 0.1 'Prevents issues with window grabbing
 
-    Public Shared INIT_SCREEN_WIDTH As Integer = 720
-    Public Shared INIT_SCREEN_HEIGHT As Integer = 540
+    Public Shared DESIGN_SCALE_FACTOR = 1
+
+    Public Shared DESIGN_WIDTH As Integer = 720 * DESIGN_SCALE_FACTOR
+    Public Shared DESIGN_HEIGHT As Integer = 540 * DESIGN_SCALE_FACTOR
     Public Const ASPECT_RATIO As Decimal = 4.0F / 3.0F
 
     'Physics Constants
-    Public Const PIXELS_IN_METER As Integer = 30
+    Public Shared PIXELS_IN_METER As Integer = 30 * DESIGN_SCALE_FACTOR
     Public Shared ACC_GRAVITY As New OpenTK.Vector2(0, 45)
 
     'Map Constants
-    Public Shared TILE_SIZE As Integer = 30
-    Public Shared MAP_WIDTH As Integer = INIT_SCREEN_WIDTH / TILE_SIZE
-    Public Shared MAP_HEIGHT As Integer = INIT_SCREEN_HEIGHT / TILE_SIZE
+    Public Shared TILE_SIZE As Integer = 30 * DESIGN_SCALE_FACTOR
+    Public Shared MAP_WIDTH As Integer = DESIGN_WIDTH / TILE_SIZE
+    Public Shared MAP_HEIGHT As Integer = DESIGN_HEIGHT / TILE_SIZE
 
     'Resource Constants
     Public Const MAP_RES_DIR As String = "./res/maps/"

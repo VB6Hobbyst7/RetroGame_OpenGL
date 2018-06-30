@@ -2,7 +2,7 @@
 
 Public Class Enemy : Inherits Entity
 
-    Private Const SPEED As Integer = 3 * Constants.PIXELS_IN_METER
+    Private Shared SPEED As Integer = 3 * Constants.PIXELS_IN_METER
     Private started As Boolean = False 'flag indicating whether enemy has hit the ground initially
     Private leftDir As Boolean = False
 

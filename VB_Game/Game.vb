@@ -28,7 +28,7 @@ Public Class Game : Inherits GameWindow : Implements KeyListener
     End Function
 
     Private Sub New()
-        MyBase.New(Constants.INIT_SCREEN_WIDTH, Constants.INIT_SCREEN_HEIGHT, New GraphicsMode(32, 0, 0, 4))
+        MyBase.New(Constants.DESIGN_WIDTH, Constants.DESIGN_HEIGHT, New GraphicsMode(32, 0, 0, 4))
         currentScreen = GameScreen.getInstance()
         'Initialise OpenGL Settings
         GL.Enable(EnableCap.Texture2D)
@@ -50,11 +50,13 @@ Public Class Game : Inherits GameWindow : Implements KeyListener
     End Sub
 
     Protected Overrides Sub OnUpdateFrame(ByVal e As FrameEventArgs)
-        camera.update()
-        _currentScreen.update(e.Time)
-        DebugHandler.update(e.Time)
-        'maxDelta = Math.Max(e.Time, maxDelta)
-        'Debug.WriteLine(maxDelta)
+        If e.Time < MAX_FRAME_DELTA_TIME Then
+            camera.update()
+            _currentScreen.update(e.Time)
+            DebugHandler.update(e.Time)
+            'maxDelta = Math.Max(e.Time, maxDelta)
+            'Debug.WriteLine(maxDelta)
+        End If
     End Sub
 
     Protected Overrides Sub OnRenderFrame(ByVal e As FrameEventArgs)
@@ -65,7 +67,6 @@ Public Class Game : Inherits GameWindow : Implements KeyListener
         _currentScreen.render(e.Time)
         DebugHandler.render(e.Time)
         Me.SwapBuffers()
-
     End Sub
 
     Protected Overrides Sub OnClosing(e As CancelEventArgs)

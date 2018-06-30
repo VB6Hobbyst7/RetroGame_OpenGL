@@ -4,9 +4,9 @@
 ''' </summary>
 Public Class SimpleProjectile : Inherits Entity
 
-    Private Const MAX_VELOCITY = 15 * Constants.PIXELS_IN_METER 'in m/s
-    Public Const WIDTH = 16
-    Public Const HEIGHT = 16
+    Private Shared MAX_VELOCITY = 15 * Constants.PIXELS_IN_METER 'in m/s
+    Public Shared WIDTH = 0.5 * Constants.PIXELS_IN_METER
+    Public Shared HEIGHT = 0.5 * Constants.PIXELS_IN_METER
 
     ''' <summary>
     ''' Creates new projectile
