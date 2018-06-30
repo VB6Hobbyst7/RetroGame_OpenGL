@@ -5,6 +5,9 @@ Imports System.Drawing
 Public Class SpriteBatch
 
     Private Shared currentScale As New Vector2(1, 1)
+    Private Shared lastScaleX As Double = 0.0
+
+#Region "RectDrawing"
 
     ''' <summary>
     ''' Draws an image on the screen
@@ -125,6 +128,63 @@ Public Class SpriteBatch
         drawTexture(obj.texture, obj.pos, scale)
     End Sub
 
+#End Region
+
+
+#Region "Circle Drawing"
+    Public Shared Sub drawCircle(radius As Double, pos As Vector2)
+        GL.Disable(EnableCap.Texture2D)
+        GL.Begin(PrimitiveType.TriangleFan)
+        GL.Color4(Color.HotPink)
+        Dim triangleAmount = Math.Max(Math.Round(
+            radius / Constants.GRAPHICS_TRIANGLE_RADIUS_RATIO), Constants.MIN_TRIANGLES_CIRCLE)
+        For i = 0 To triangleAmount - 1
+            Dim vertex = New Vector2(pos.X + (radius * Math.Cos(i * ((2 * Math.PI) / triangleAmount))),
+                pos.Y + (radius * Math.Sin(i * ((2 * Math.PI) / triangleAmount))))
+            vertex *= currentScale
+            GL.Vertex2(vertex)
+        Next
+        GL.End()
+    End Sub
+#End Region
+
+#Region "Text Drawing"
+    Public Shared Sub drawText(textLabel As TextLabel)
+        Dim verts = New Vector2() {
+            New Vector2(0, 0),
+            New Vector2(1, 0),
+            New Vector2(1, 1),
+            New Vector2(0, 1)
+        }
+        GL.Enable(EnableCap.Texture2D)
+
+        If lastScaleX <> currentScale.X Then
+            Debug.WriteLine("Not equal")
+            textLabel.scale = New Vector2(1 / currentScale.X, 1 / currentScale.X)
+            textLabel.fontSize = (textLabel.designFontSize * (currentScale.X))
+        End If
+
+
+        Dim texture = CType(textLabel.texture, ImageTexture)
+        GL.BindTexture(TextureTarget.Texture2D, texture.id)
+        GL.Begin(PrimitiveType.Quads)
+        GL.Color4(Color.White)
+        For i = 0 To 3
+            GL.TexCoord2(verts(i))
+            verts(i).X *= texture.width 'Adjusts coordinates to match up with width of texture
+            verts(i).Y *= texture.height 'Adjusts coordinates to match up with height of texture
+            verts(i) *= textLabel.scale 'Adjusts size for increased quality
+            verts(i) += textLabel.pos 'adjusts pos
+            verts(i) *= currentScale
+            GL.Vertex2(verts(i))
+        Next
+        GL.End()
+        lastScaleX = currentScale.X
+    End Sub
+#End Region
+
+#Region "Projection Handling"
+
     ''' <summary>
     ''' Prepares screen for rendering by setting up viewport and projection matricies
     ''' </summary>
@@ -187,5 +247,7 @@ Public Class SpriteBatch
     Public Shared Function normaliseScreenY(y As Integer) As Integer
         Return y - Constants.DESIGN_HEIGHT / 2
     End Function
+
+#End Region
 
 End Class

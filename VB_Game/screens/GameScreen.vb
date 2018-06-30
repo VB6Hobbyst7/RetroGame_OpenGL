@@ -6,11 +6,12 @@ Imports VB_Game
 ''' <summary>
 ''' Main screen where the game is run
 ''' </summary>
-Public Class GameScreen : Inherits Screen : Implements MouseListener
+Public Class GameScreen : Inherits Screen : Implements KeyListener
 
     Public Enum State
         PLAY = 0
         PAUSE = 1
+        GAMEOVER = 2
     End Enum
 
     Private Shared instance As GameScreen
@@ -18,13 +19,14 @@ Public Class GameScreen : Inherits Screen : Implements MouseListener
     Private player As Player
     Private testAtlas As TextureAtlas
     Private nextFrameRemovalList As New List(Of GameObject)
+    Private gameOverOverlay As New GameOverOverlay 'Screen overlay showing game over message
 
     Public CurrentState As State = State.PLAY
 
     Private gameObjects As New List(Of GameObject)
 
     Private Sub New()
-        InputHandler.mouseListeners.Add(Me)
+        InputHandler.keyListeners.Add(Me)
         PhysicsHandler.init()
         tileMapHandler = TileMapHandler.getInstance()
         testAtlas = New TextureAtlas("./res/sprites/player_atlas.png", New Vector2(32, 32))
@@ -50,12 +52,13 @@ Public Class GameScreen : Inherits Screen : Implements MouseListener
                 i += 1
             End If
         End While
-
+        player.moveToSpawn()
         EnemyFactory.reset()
+        CurrentState = State.PLAY
     End Sub
 
     Public Sub gameOver()
-        CurrentState = State.PAUSE
+        CurrentState = State.GAMEOVER
     End Sub
 
     Public Shared Function getInstance() As GameScreen
@@ -70,6 +73,9 @@ Public Class GameScreen : Inherits Screen : Implements MouseListener
         For i = 0 To gameObjects.Count - 1
             gameObjects(i).render(delta)
         Next
+        If CurrentState = State.GAMEOVER Then
+            gameOverOverlay.render(delta)
+        End If
 
         For i = 0 To nextFrameRemovalList.Count - 1
             removeGameObject(nextFrameRemovalList(i))
@@ -112,17 +118,13 @@ Public Class GameScreen : Inherits Screen : Implements MouseListener
 
     End Sub
 
-    Public Sub MouseScroll(e As MouseWheelEventArgs) Implements MouseListener.MouseScroll
-
+    Public Sub KeyUp(e As KeyboardKeyEventArgs) Implements KeyListener.KeyUp
     End Sub
 
-    Public Sub MouseButtonDown(e As MouseEventArgs) Implements MouseListener.MouseButtonDown
-        CurrentState = Not CurrentState
-    End Sub
-
-    Public Sub MouseMove(e As MouseMoveEventArgs) Implements MouseListener.MouseMove
-    End Sub
-
-    Public Sub MouseButtonUp(e As MouseEventArgs) Implements MouseListener.MouseButtonUp
+    Public Sub KeyDown(e As KeyboardKeyEventArgs) Implements KeyListener.KeyDown
+        If CurrentState = State.GAMEOVER And e.Key = Key.Enter Then
+            'Restart game
+            restart()
+        End If
     End Sub
 End Class

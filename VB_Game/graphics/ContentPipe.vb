@@ -12,7 +12,7 @@ Public Class ContentPipe
     ''' <param name="img">Bitmap of texture</param>
     ''' <returns></returns>
     Public Shared Function loadTexture(img As Bitmap) As ImageTexture
-
+        Debug.WriteLine("loading texture")
         Dim id As Integer = GL.GenTexture
         GL.BindTexture(TextureTarget.Texture2D, id)
 

@@ -48,13 +48,16 @@ Public Class Player : Inherits Entity : Implements KeyListener
         MyBase.onCollide(objB)
         If objB.GetType.IsAssignableFrom(GetType(Enemy)) Then
             'Game over - reset
-            GameScreen.getInstance().restart()
-            Me.pos = spawnPos
+            GameScreen.getInstance().gameOver()
         End If
     End Sub
 
     Public Overrides Sub render(delta As Double)
         SpriteBatch.drawObject(Me)
+    End Sub
+
+    Public Sub moveToSpawn()
+        Me.pos = Me.spawnPos
     End Sub
 
     Public Sub KeyUp(e As KeyboardKeyEventArgs) Implements KeyListener.KeyUp

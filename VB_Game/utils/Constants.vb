@@ -1,6 +1,6 @@
 ﻿Public Class Constants
 
-    Public Const FPS_DEBUG = True
+    Public Const FPS_DEBUG = False
     Public Const MAX_FRAME_DELTA_TIME = 0.1 'Prevents issues with window grabbing
 
     Public Shared DESIGN_SCALE_FACTOR = 1
@@ -8,6 +8,10 @@
     Public Shared DESIGN_WIDTH As Integer = 720 * DESIGN_SCALE_FACTOR
     Public Shared DESIGN_HEIGHT As Integer = 540 * DESIGN_SCALE_FACTOR
     Public Const ASPECT_RATIO As Decimal = 4.0F / 3.0F
+
+    'Drawing Constants
+    Public Shared GRAPHICS_TRIANGLE_RADIUS_RATIO = 1
+    Public Shared MIN_TRIANGLES_CIRCLE = 20
 
     'Physics Constants
     Public Shared PIXELS_IN_METER As Integer = 30 * DESIGN_SCALE_FACTOR

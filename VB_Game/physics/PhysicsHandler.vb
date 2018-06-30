@@ -39,7 +39,6 @@ Public Class PhysicsHandler
     ''' </summary>
     ''' <param name="e">Target entity</param>
     Public Shared Sub applyGravity(e As Entity)
-        Debug.WriteLine(PhysicUtils.metersToPixels(Constants.ACC_GRAVITY))
         applyAcceleration(e, Constants.ACC_GRAVITY)
     End Sub
 

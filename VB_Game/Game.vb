@@ -36,6 +36,7 @@ Public Class Game : Inherits GameWindow : Implements KeyListener
         GL.BlendFunc(CType(BlendingFactorSrc.SrcAlpha, BlendingFactor), CType(BlendingFactorSrc.OneMinusSrcAlpha, BlendingFactor))
         'audioMaster = AudioMaster.getInstance()
         InputHandler.init(Me)
+        DebugHandler.init()
         InputHandler.keyListeners.Add(Me)
         camera = New Camera(New Vector2(0.5, 0.5), 0, 1)
         VSync = True
@@ -50,7 +51,7 @@ Public Class Game : Inherits GameWindow : Implements KeyListener
     End Sub
 
     Protected Overrides Sub OnUpdateFrame(ByVal e As FrameEventArgs)
-        If e.Time < MAX_FRAME_DELTA_TIME Then
+        If e.Time < Constants.MAX_FRAME_DELTA_TIME Then
             camera.update()
             _currentScreen.update(e.Time)
             DebugHandler.update(e.Time)

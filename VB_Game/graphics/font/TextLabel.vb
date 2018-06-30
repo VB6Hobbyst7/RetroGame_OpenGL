@@ -7,15 +7,17 @@ Public Class TextLabel : Inherits GameObject
 
     Private refreshingTexture As Boolean = False
     Private Const DEFAULT_FONTSIZE = 32
+    Private Shared DEFAULT_COLOR = Brushes.Black
 
-    Private _size As Integer
-    Public Property size() As Integer
+#Region "Members"
+
+    Private _designFontSize As Integer = DEFAULT_FONTSIZE
+    Public Property designFontSize() As Integer
         Get
-            Return _size
+            Return _designFontSize
         End Get
         Set(ByVal value As Integer)
-            _size = value
-            genTexture()
+            _designFontSize = value
         End Set
     End Property
 
@@ -41,31 +43,34 @@ Public Class TextLabel : Inherits GameObject
         End Set
     End Property
 
-    Private _fontSize As Integer
+    Private _fontSize As Integer = DEFAULT_FONTSIZE
     Public Property fontSize() As Integer
         Get
             Return _fontSize
         End Get
         Set(ByVal value As Integer)
             _fontSize = value
+            If Not font Is Nothing Then
+                font = New Font(font.Name, value, font.Style)
+            End If
             genTexture()
         End Set
     End Property
 
-    Public Sub New(text As String, pos As OpenTK.Vector2)
-        MyBase.New(True)
-        Me.pos = pos
-        _text = text
-        fontSize = DEFAULT_FONTSIZE
-        genTexture()
-    End Sub
+    Private _brush As Brush = DEFAULT_COLOR
+    Public Property brush() As Brush
+        Get
+            Return _brush
+        End Get
+        Set(ByVal value As Brush)
+            _brush = value
+            genTexture()
+        End Set
+    End Property
 
-    Public Sub New(text As String)
-        MyBase.New(True)
-        _text = text
-        fontSize = DEFAULT_FONTSIZE
-        genTexture()
-    End Sub
+#End Region
+
+#Region "Constructors"
 
     Public Sub New(text As String, boundingSize As Size)
         MyBase.New(True)
@@ -77,19 +82,37 @@ Public Class TextLabel : Inherits GameObject
     Public Sub New(text As String, fontSize As Integer)
         MyBase.New(True)
         _text = text
+        Me.designFontSize = fontSize
+        Me.fontSize = fontSize
         genTexture()
     End Sub
 
-    Public Sub New(text As String, font As Font)
+    Public Sub New(text As String, fontSize As Integer, brush As Brush)
         MyBase.New(True)
         _text = text
+        Me.designFontSize = fontSize
+        Me.fontSize = fontSize
+        Me.brush = brush
         genTexture()
     End Sub
+
+    Public Sub New(text As String, font As Font, brush As Brush)
+        MyBase.New(True)
+        _text = text
+        Me.font = font
+        Me.designFontSize = font.Size
+        Me.fontSize = font.Size
+        Me.brush = brush
+        genTexture()
+    End Sub
+
+#End Region
 
     ''' <summary>
     ''' Generates new font texture
     ''' </summary>
     Private Sub genTexture()
+        Debug.WriteLine("gen textures")
         If refreshingTexture Then
             OpenTK.Graphics.OpenGL.GL.DeleteTexture(CType(texture, ImageTexture).id)
         End If
@@ -104,7 +127,7 @@ Public Class TextLabel : Inherits GameObject
         Dim bitmap As New Bitmap(TestSize.Width, TestSize.Height)
         Dim g As Graphics = Graphics.FromImage(bitmap)
         g.TextRenderingHint = Drawing.Text.TextRenderingHint.AntiAlias
-        g.DrawString(_text, f, Brushes.Black, 0, 0)
+        g.DrawString(_text, f, brush, 0, 0)
         Me.texture = ContentPipe.loadTexture(bitmap)
     End Sub
 
@@ -124,5 +147,9 @@ Public Class TextLabel : Inherits GameObject
         End While
         Return lastWorkingFont
     End Function
+
+    Public Overrides Sub render(delta As Double)
+        SpriteBatch.drawText(Me)
+    End Sub
 
 End Class

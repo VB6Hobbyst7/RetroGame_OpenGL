@@ -7,9 +7,9 @@
 
     Private Const DIFFICULTY_MULTIPLIER = 1.1
 
-    Private Const DOUBLE_SPAWN_CHANCE = 100 'chance of two enemies spawning at once
+    Private Const DOUBLE_SPAWN_CHANCE = 30 'chance of two enemies spawning at once
     Private Shared random As New Random()
-    Private Shared SPAWN_RATE = 30 'number per minute
+    Private Shared SPAWN_RATE = 20 'number per minute
     Private Shared timeToNextSpawn = Math.Round(60 / SPAWN_RATE)
 
     Private Const queueSpawnCooldown = 0.5 'time needed for enemies to move out of way before spawning new
@@ -27,6 +27,7 @@
         If Random.Next(0, 100) < DOUBLE_SPAWN_CHANCE Then
             spawnCount = 2
         End If
+
         'TODO: Add big one spawn and apply difficulty multiplier
         For i = 0 To spawnCount - 1
             spawnQueue.Enqueue(New Enemy(New OpenTK.Vector2(SPAWN_X, SPAWN_Y), ENEMY_TEXTURE, True))
