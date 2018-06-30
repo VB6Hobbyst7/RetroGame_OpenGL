@@ -80,6 +80,7 @@
   <ItemGroup>
     <Compile Include="audio\AudioMaster.vb" />
     <Compile Include="audio\Source.vb" />
+    <Compile Include="game_objects\entities\EnemyFactory.vb" />
     <Compile Include="game_objects\items\Gun.vb" />
     <Compile Include="game_objects\items\Item.vb" />
     <Compile Include="graphics\Camera.vb" />

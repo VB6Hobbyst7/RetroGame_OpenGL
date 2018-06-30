@@ -85,6 +85,14 @@ VB_Game
  <param name="bits"></param>
  <returns></returns>
 </member>
+<member name="M:VB_Game.Enemy.#ctor(OpenTK.Vector2,VB_Game.Texture,System.Boolean)">
+ <summary>
+ Creates new enemy
+ </summary>
+ <param name="pos"></param>
+ <param name="texture"></param>
+ <param name="leftDir">Should go left first</param>
+</member>
 <member name="F:VB_Game.Player.xOrientation">
  <summary>
  Current orientation on x axis (-1 facing left, 1 facing right)

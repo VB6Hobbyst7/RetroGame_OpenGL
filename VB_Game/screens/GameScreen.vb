@@ -8,12 +8,18 @@ Imports VB_Game
 ''' </summary>
 Public Class GameScreen : Inherits Screen : Implements MouseListener
 
+    Public Enum State
+        PLAY = 0
+        PAUSE = 1
+    End Enum
+
     Private Shared instance As GameScreen
     Private tileMapHandler As TileMapHandler
     Private player As Player
-    Private testEnemy As Entity
     Private testAtlas As TextureAtlas
     Private nextFrameRemovalList As New List(Of GameObject)
+
+    Public CurrentState As State = State.PLAY
 
     Private gameObjects As New List(Of GameObject)
 
@@ -23,25 +29,28 @@ Public Class GameScreen : Inherits Screen : Implements MouseListener
         tileMapHandler = TileMapHandler.getInstance()
         testAtlas = New TextureAtlas("./res/sprites/player_atlas.png", New Vector2(32, 32))
         player = New Player(New Vector2(0, 0), testAtlas)
-        testEnemy = New Enemy(New Vector2(200, -400), New ShapeTexture(32, 32, Color.Fuchsia, ShapeTexture.ShapeType.Rectangle))
+        EnemyFactory.init()
         gameObjects.Add(player)
-        gameObjects.Add(testEnemy)
         PhysicsHandler.addPhysicsBody(New RigidBody(player,
             Constants.Physics_CATEGORY.NO_COLLISION, Constants.Physics_COLLISION.PLAYER))
-        PhysicsHandler.addPhysicsBody(New RigidBody(testEnemy,
-            Constants.Physics_CATEGORY.ENEMY, Constants.Physics_COLLISION.ENEMY))
     End Sub
 
     ''' <summary>
     ''' Restarts game resetting everything to default states
     ''' </summary>
     Public Sub restart()
-        For i = 0 To gameObjects.Count - 1
+        Dim i = 0
+        While i < gameObjects.Count()
             If gameObjects(i).GetType.IsAssignableFrom(GetType(SimpleProjectile)) Or
                 gameObjects(i).GetType.IsAssignableFrom(GetType(Enemy)) Then
                 removeGameObject(gameObjects(i))
+                i -= 1
+            Else
+                i += 1
             End If
-        Next
+        End While
+
+        EnemyFactory.reset()
     End Sub
 
     Public Shared Function getInstance() As GameScreen
@@ -63,10 +72,13 @@ Public Class GameScreen : Inherits Screen : Implements MouseListener
     End Sub
 
     Public Overrides Sub update(delta As Double)
-        For i = 0 To gameObjects.Count - 1
-            gameObjects(i).tick(delta)
-        Next
-        PhysicsHandler.update(delta)
+        If CurrentState = State.PLAY Then
+            For i = 0 To gameObjects.Count - 1
+                gameObjects(i).tick(delta)
+            Next
+            EnemyFactory.tick(delta)
+            PhysicsHandler.update(delta)
+        End If
     End Sub
 
     ''' <summary>
@@ -100,6 +112,7 @@ Public Class GameScreen : Inherits Screen : Implements MouseListener
     End Sub
 
     Public Sub MouseButtonDown(e As MouseEventArgs) Implements MouseListener.MouseButtonDown
+        CurrentState = Not CurrentState
     End Sub
 
     Public Sub MouseMove(e As MouseMoveEventArgs) Implements MouseListener.MouseMove

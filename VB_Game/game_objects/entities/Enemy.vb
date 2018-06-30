@@ -3,10 +3,19 @@
 Public Class Enemy : Inherits Entity
 
     Private Const SPEED As Integer = 3 * Constants.PIXELS_IN_METER
+    Private started As Boolean = False 'flag indicating whether enemy has hit the ground initially
+    Private leftDir As Boolean = False
 
-    Public Sub New(pos As Vector2, texture As Texture)
+    ''' <summary>
+    ''' Creates new enemy
+    ''' </summary>
+    ''' <param name="pos"></param>
+    ''' <param name="texture"></param>
+    ''' <param name="leftDir">Should go left first</param>
+    Public Sub New(pos As Vector2, texture As Texture, leftDir As Boolean)
         MyBase.New(pos, texture)
-        Me.velocity = New Vector2(-SPEED, velocity.Y)
+        Me.velocity = New Vector2(0, velocity.Y)
+        Me.leftDir = leftDir
     End Sub
 
     Public Overrides Sub onCollide(objB As GameObject)
@@ -36,6 +45,15 @@ Public Class Enemy : Inherits Entity
             velocity = New Vector2(velocity.X, 0)
             pos = New Vector2(pos.X, objB.pos.Y - getHeight())
             isGrounded = True
+            If started = False Then
+                started = True
+                If leftDir Then
+                    velocity = New Vector2(-SPEED, 0)
+                Else
+                    velocity = New Vector2(SPEED, 0)
+                End If
+
+            End If
         End If
 
         If deltaU = smallest Then

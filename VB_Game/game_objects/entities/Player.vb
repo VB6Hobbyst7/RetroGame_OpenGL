@@ -65,35 +65,24 @@ Public Class Player : Inherits Entity : Implements KeyListener
     End Sub
 
     Private Sub handleInput()
-        'If InputHandler.isKeyDown(Key.W) And isGrounded Then
-        '    Me.velocity = New Vector2(Me.velocity.X, -500)
-        '    isGrounded = False
-        'End If
+        If GameScreen.getInstance().CurrentState = GameScreen.State.PLAY Then
+            'Handle horizontal input movement
+            If InputHandler.isKeyDown(Key.A) And Not InputHandler.isKeyDown(Key.D) Then
+                Me.velocity = New Vector2(-300, Me.velocity.Y)
+                Me.texture = textureAtlas.getTextures()(1)
+                xOrientation = -1
+            ElseIf InputHandler.isKeyDown(Key.D) And Not InputHandler.isKeyDown(Key.A) Then
+                Me.velocity = New Vector2(300, Me.velocity.Y)
+                Me.texture = textureAtlas.getTextures()(0)
+                xOrientation = 1
+            Else
+                Me.velocity = New Vector2(0, Me.velocity.Y)
+            End If
 
-        'If InputHandler.isKeyDown(Key.W) And Not InputHandler.isKeyDown(Key.S) Then
-        '    Me.velocity = New Vector2(Me.velocity.X, -100)
-        'ElseIf InputHandler.isKeyDown(Key.S) And Not InputHandler.isKeyDown(Key.W) Then
-        '    Me.velocity = New Vector2(Me.velocity.X, +100)
-        'Else
-        '    Me.velocity = New Vector2(Me.velocity.X, 0)
-        'End If
-
-        'Handle horizontal input movement
-        If InputHandler.isKeyDown(Key.A) And Not InputHandler.isKeyDown(Key.D) Then
-            Me.velocity = New Vector2(-300, Me.velocity.Y)
-            Me.texture = textureAtlas.getTextures()(1)
-            xOrientation = -1
-        ElseIf InputHandler.isKeyDown(Key.D) And Not InputHandler.isKeyDown(Key.A) Then
-            Me.velocity = New Vector2(300, Me.velocity.Y)
-            Me.texture = textureAtlas.getTextures()(0)
-            xOrientation = 1
-        Else
-            Me.velocity = New Vector2(0, Me.velocity.Y)
-        End If
-
-        If InputHandler.isKeyDown(Key.Space) Then
-            If Not currentItem Is Nothing Then
-                currentItem.useItem()
+            If InputHandler.isKeyDown(Key.Space) Then
+                If Not currentItem Is Nothing Then
+                    currentItem.useItem()
+                End If
             End If
         End If
     End Sub
