@@ -12,6 +12,7 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
         PLAY = 0
         PAUSE = 1
         GAMEOVER = 2
+        SETTINGS = 3
     End Enum
 
     Private Shared instance As GameScreen
@@ -21,6 +22,7 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
     Private nextFrameRemovalList As New List(Of GameObject)
     Private gameOverOverlay As New GameOverOverlay() 'Screen overlay showing game over message
     Private pauseScreen As New PauseScreenOverlay()
+    Private settingsOverlay As New SettingsScreenOverlay()
 
     Public CurrentState As State = State.PLAY
 
@@ -78,6 +80,8 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
             gameOverOverlay.render(delta)
         ElseIf CurrentState = State.PAUSE Then
             pauseScreen.render(delta)
+        ElseIf CurrentState = State.SETTINGS Then
+            settingsOverlay.render(delta)
         End If
 
         For i = 0 To nextFrameRemovalList.Count - 1

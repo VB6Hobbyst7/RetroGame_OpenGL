@@ -33,11 +33,22 @@
                 settingsBtn.pos.Y + btnSize.Height + paddingY * 2), btnSize, btnStyle)
 
         resumeBtn.setOnClickListener(AddressOf onResumeClicked)
+        settingsBtn.setOnClickListener(AddressOf onSettingsClicked)
+        quitBtn.setOnClickListener(AddressOf onQuitClicked)
+
+    End Sub
+
+    Private Sub onSettingsClicked()
+        GameScreen.getInstance().CurrentState = GameScreen.State.SETTINGS
+    End Sub
+
+    Private Sub onQuitClicked()
 
     End Sub
 
     Private Sub onResumeClicked()
         GameScreen.getInstance().CurrentState = GameScreen.State.PLAY
+        Debug.WriteLine(GameScreen.getInstance().CurrentState)
     End Sub
 
     Public Sub render(delta)

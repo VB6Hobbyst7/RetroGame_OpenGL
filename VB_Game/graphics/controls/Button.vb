@@ -2,6 +2,9 @@
 Imports OpenTK.Input
 Imports VB_Game
 
+''' <summary>
+''' Represents a single clickable button on screen
+''' </summary>
 Public Class Button : Inherits Control : Implements MouseListener
 
     Private clickListener As OnClick
@@ -13,6 +16,13 @@ Public Class Button : Inherits Control : Implements MouseListener
     Private style As ButtonStyle
     Private backPos As Vector2
 
+    ''' <summary>
+    ''' Creates a new button
+    ''' </summary>
+    ''' <param name="text">Button display text</param>
+    ''' <param name="pos">Initial position</param>
+    ''' <param name="size">Overall button dimensions</param>
+    ''' <param name="style">Button Appearance style</param>
     Public Sub New(text As String, pos As Vector2, size As Drawing.Size, style As ButtonStyle)
         Me.style = style
         Me.size = New Vector2(size.Width, size.Height)
@@ -51,6 +61,10 @@ Public Class Button : Inherits Control : Implements MouseListener
 
     Delegate Sub OnClick()
 
+    ''' <summary>
+    ''' Sets a click listener which is called when the button is clicked
+    ''' </summary>
+    ''' <param name="listener"></param>
     Public Sub setOnClickListener(listener As OnClick)
         Me.clickListener = listener
     End Sub
@@ -62,7 +76,7 @@ Public Class Button : Inherits Control : Implements MouseListener
     End Sub
 
     Public Sub MouseButtonDown(e As MouseEventArgs) Implements MouseListener.MouseButtonDown
-        If hoveredOver Then
+        If hoveredOver And Not clickListener Is Nothing Then
             clickListener.Invoke()
         End If
     End Sub
