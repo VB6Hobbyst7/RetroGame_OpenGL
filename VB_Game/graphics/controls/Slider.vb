@@ -10,7 +10,7 @@ Public Class Slider : Inherits Control : Implements MouseListener
     Private hoveredOver As Boolean = False
     Private grabbedSlider As Boolean = False
     Private sliderTexture As ShapeTexture
-    Private valueChangeListener As ValueChangedListener
+    Private valueChangeListener As OnValueChanged
 
     Private _value As Integer
     Public Property Value() As Integer
@@ -27,12 +27,14 @@ Public Class Slider : Inherits Control : Implements MouseListener
             End If
             sliderTexture.width = (Me.getWidth() * (_value / 100))
             If Not valueChangeListener Is Nothing Then
-                valueChangeListener.OnValueChanged(_value)
+                valueChangeListener.Invoke(_value)
             End If
         End Set
     End Property
 
-    Public Sub setOnValueChangeListener(listener As ValueChangedListener)
+    Delegate Function OnValueChanged(value As Object)
+
+    Public Sub setOnValueChangeListener(listener As OnValueChanged)
         Me.valueChangeListener = listener
     End Sub
 

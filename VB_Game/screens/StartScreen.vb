@@ -6,8 +6,13 @@ Public Class StartScreen : Inherits Screen
     Private testButton As Button
     Private testSlider As Slider
 
+    Private Sub startGame()
+        Debug.WriteLine("start game")
+    End Sub
+
     Public Sub New()
         testButton = New Button("Button", Vector2.Zero, New Drawing.Size(300, 80))
+        testButton.setOnClickListener(AddressOf startGame)
         testSlider = New Slider(New Vector2(-200, -100), New Vector2(200, 40))
     End Sub
 

@@ -2,7 +2,7 @@
 
 Public Class Enemy : Inherits Entity
 
-    Private Const SPEED As Integer = 40
+    Private Const SPEED As Integer = 3 * Constants.PIXELS_IN_METER
 
     Public Sub New(pos As Vector2, texture As Texture)
         MyBase.New(pos, texture)

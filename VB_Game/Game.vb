@@ -29,7 +29,7 @@ Public Class Game : Inherits GameWindow : Implements KeyListener
 
     Private Sub New()
         MyBase.New(Constants.INIT_SCREEN_WIDTH, Constants.INIT_SCREEN_HEIGHT, New GraphicsMode(32, 0, 0, 4))
-        currentScreen = StartScreen.getInstance()
+        currentScreen = GameScreen.getInstance()
         'Initialise OpenGL Settings
         GL.Enable(EnableCap.Texture2D)
         GL.Enable(EnableCap.Blend)

@@ -4,7 +4,7 @@ Imports VB_Game
 
 Public Class Button : Inherits Control : Implements MouseListener
 
-    Private clickListener As ActionEvent
+    Private clickListener As OnClick
     Private label As TextLabel
     Private highlightOverlay As ShapeTexture
     Private hoveredOver As Boolean = False
@@ -32,8 +32,10 @@ Public Class Button : Inherits Control : Implements MouseListener
         label.render(delta)
     End Sub
 
-    Public Sub setOnClickListener(clickListener As ActionEvent)
-        Me.clickListener = clickListener
+    Delegate Sub OnClick()
+
+    Public Sub setOnClickListener(listener As OnClick)
+        Me.clickListener = listener
     End Sub
 
     Public Sub MouseButtonUp(e As MouseEventArgs) Implements MouseListener.MouseButtonUp
@@ -44,7 +46,7 @@ Public Class Button : Inherits Control : Implements MouseListener
 
     Public Sub MouseButtonDown(e As MouseEventArgs) Implements MouseListener.MouseButtonDown
         If hoveredOver Then
-            clickListener.onAction()
+            clickListener.Invoke()
         End If
     End Sub
 

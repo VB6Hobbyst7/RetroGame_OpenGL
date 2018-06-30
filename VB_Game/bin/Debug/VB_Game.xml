@@ -90,6 +90,13 @@ VB_Game
  Current orientation on x axis (-1 facing left, 1 facing right)
  </summary>
 </member>
+<member name="M:VB_Game.Player.#ctor(OpenTK.Vector2,VB_Game.TextureAtlas)">
+ <summary>
+ Creates new player (only one player should be created)
+ </summary>
+ <param name="spawnPos"></param>
+ <param name="textureAtlas"></param>
+</member>
 <member name="T:VB_Game.SimpleProjectile">
  <summary>
  Projectile goes straight (no gravity affect)
@@ -229,6 +236,11 @@ VB_Game
 <member name="T:VB_Game.GameScreen">
  <summary>
  Main screen where the game is run
+ </summary>
+</member>
+<member name="M:VB_Game.GameScreen.restart">
+ <summary>
+ Restarts game resetting everything to default states
  </summary>
 </member>
 <member name="M:VB_Game.GameScreen.removeGameObjectNextFrame(VB_Game.GameObject)">

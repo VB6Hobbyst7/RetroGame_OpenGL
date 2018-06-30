@@ -90,10 +90,8 @@
     <Compile Include="game_objects\projectiles\SimpleProjectile.vb" />
     <Compile Include="graphics\controls\Button.vb" />
     <Compile Include="graphics\controls\Control.vb" />
-    <Compile Include="graphics\controls\events\ValueChangedListener.vb" />
     <Compile Include="graphics\controls\Slider.vb" />
     <Compile Include="graphics\texture\TextureAtlas.vb" />
-    <Compile Include="graphics\controls\events\ActionEvent.vb" />
     <Compile Include="physics\BoundingRect.vb" />
     <Compile Include="physics\PhysicUtils.vb" />
     <Compile Include="physics\PhysicsHandler.vb" />
@@ -129,7 +127,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="res\Constants.vb" />
+    <Compile Include="utils\Constants.vb" />
     <Compile Include="screens\StartScreen.vb" />
     <Compile Include="utils\DebugHandler.vb" />
   </ItemGroup>
@@ -165,6 +163,12 @@
     </None>
     <None Include="res\maps\map3.ldat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="res\maps\map4.ldat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="res\maps\map5.ldat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup />

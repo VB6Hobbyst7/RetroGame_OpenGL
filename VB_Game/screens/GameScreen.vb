@@ -32,6 +32,18 @@ Public Class GameScreen : Inherits Screen : Implements MouseListener
             Constants.Physics_CATEGORY.ENEMY, Constants.Physics_COLLISION.ENEMY))
     End Sub
 
+    ''' <summary>
+    ''' Restarts game resetting everything to default states
+    ''' </summary>
+    Public Sub restart()
+        For i = 0 To gameObjects.Count - 1
+            If gameObjects(i).GetType.IsAssignableFrom(GetType(SimpleProjectile)) Or
+                gameObjects(i).GetType.IsAssignableFrom(GetType(Enemy)) Then
+                removeGameObject(gameObjects(i))
+            End If
+        Next
+    End Sub
+
     Public Shared Function getInstance() As GameScreen
         If instance Is Nothing Then
             instance = New GameScreen()
