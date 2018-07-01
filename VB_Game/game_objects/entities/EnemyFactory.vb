@@ -5,7 +5,7 @@
 
     Private Shared ENEMY_TEXTURE
 
-    Private Const DIFFICULTY_MULTIPLIER = 1.1
+    Private Shared DIFFICULTY_FACTOR = 1.02 'Difficulty factor which increases over time increasing spawn rates
 
     Private Const DOUBLE_SPAWN_CHANCE = 30 'chance of two enemies spawning at once
     Private Shared random As New Random()
@@ -20,6 +20,10 @@
     Public Shared Sub init()
         ENEMY_TEXTURE = New ShapeTexture(Constants.TILE_SIZE, Constants.TILE_SIZE,
                                          Drawing.Color.Crimson, ShapeTexture.ShapeType.Rectangle)
+    End Sub
+
+    Public Shared Sub increaseDifficulty()
+        SPAWN_RATE *= DIFFICULTY_FACTOR
     End Sub
 
     Public Shared Sub spawn()
@@ -46,6 +50,7 @@
         timeSinceLastSpawn += delta
         If timeToNextSpawn <= 0 Then
             spawn()
+            increaseDifficulty()
             timeToNextSpawn = Math.Round((60 / SPAWN_RATE))
         End If
 

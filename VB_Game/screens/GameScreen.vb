@@ -71,11 +71,16 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
         Return instance
     End Function
 
+    Public Function getCurrentMap() As Map
+        Return tileMapHandler.currentMap
+    End Function
+
     Public Overrides Sub render(delta As Double)
         tileMapHandler.render(delta)
         For i = 0 To gameObjects.Count - 1
             gameObjects(i).render(delta)
         Next
+
         If CurrentState = State.GAMEOVER Then
             gameOverOverlay.render(delta)
         ElseIf CurrentState = State.PAUSE Then

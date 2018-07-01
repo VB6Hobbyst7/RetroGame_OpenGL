@@ -32,6 +32,12 @@ VB_Game
  Fire rate of gun in seconds
  </summary>
 </member>
+<member name="M:VB_Game.Chest.setPos(OpenTK.Vector2)">
+ <summary>
+ Sets position of chest adjusting to center on bottom of tile
+ </summary>
+ <param name="pos"></param>
+</member>
 <member name="T:VB_Game.Camera">
  <summary>
  Represents the current viewport
@@ -418,6 +424,12 @@ VB_Game
 <member name="T:VB_Game.Map">
  <summary>
  Represents a tile map consisting of a grid of tiles
+ </summary>
+</member>
+<member name="M:VB_Game.Map.spawnRandomChest">
+ <summary>
+ Creates 'new' chest by moving crate to a random position
+ as given in chestSpawnPositions
  </summary>
 </member>
 <member name="M:VB_Game.Map.loadMap">

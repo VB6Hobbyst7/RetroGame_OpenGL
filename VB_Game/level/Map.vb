@@ -13,6 +13,10 @@ Public Class Map
     Private tileMapHandler
     Private startX As Integer = -Constants.DESIGN_WIDTH / 2
     Private startY As Integer = -Constants.DESIGN_HEIGHT / 2
+    Private background As Texture
+    Private chestSpawnPositions As New List(Of Vector2)
+    Private chest As Chest
+    Private Shared random As New Random()
 
     Public Function getName() As String
         Return name
@@ -21,6 +25,14 @@ Public Class Map
     Public Sub New(tileMapHandler As TileMapHandler, mapFileName As String)
         Me.tileMapHandler = tileMapHandler
         Me.mapFileName = mapFileName
+    End Sub
+
+    ''' <summary>
+    ''' Creates 'new' chest by moving crate to a random position
+    ''' as given in chestSpawnPositions
+    ''' </summary>
+    Public Sub spawnRandomChest()
+        chest.setPos(chestSpawnPositions(random.Next(chestSpawnPositions.Count)))
     End Sub
 
     ''' <summary>
@@ -56,6 +68,12 @@ Public Class Map
                         PhysicsHandler.addPhysicsBody(New RigidBody(currentTile,
                             catCollision, Constants.Physics_COLLISION.LEVEL))
                         x += 1
+
+                        'Temp if tile is air valid chest spawn location
+                        If Not CBool(reader.Value) Then
+                            chestSpawnPositions.Add(currentTile.pos)
+                        End If
+
                     Case "tiles"
                         'New Row
                         y += 1
@@ -65,12 +83,25 @@ Public Class Map
         End While
         f.Close()
         reader.Close()
+
+        'Temp load static background
+        background = ContentPipe.loadTexture(Constants.TILE_RES_DIR + "background_1.png")
+
+        'Create chest object and move to initial pos
+        chest = New Chest()
+        spawnRandomChest()
     End Sub
 
     ''' <summary>
     ''' Renders the map to screen
     ''' </summary>
     Public Sub render(delta As Double)
+        'Draw background
+        If Not background Is Nothing Then
+            SpriteBatch.drawTexture(background, New Vector2(-Constants.DESIGN_WIDTH / 2,
+                -Constants.DESIGN_HEIGHT / 2))
+        End If
+        'Draw tiles
         For x = 0 To Constants.MAP_WIDTH - 1
             For y = 0 To Constants.MAP_HEIGHT - 1
                 If Not tiles(x, y) Is Nothing Then
@@ -78,6 +109,7 @@ Public Class Map
                 End If
             Next
         Next
+        chest.render(delta)
     End Sub
 
     Public Overrides Function ToString() As String

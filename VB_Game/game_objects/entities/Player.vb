@@ -45,11 +45,44 @@ Public Class Player : Inherits Entity : Implements KeyListener
     End Sub
 
     Public Overrides Sub onCollide(objB As GameObject)
-        MyBase.onCollide(objB)
-        If objB.GetType.IsAssignableFrom(GetType(Enemy)) Then
-            'Game over - reset
-            GameScreen.getInstance().gameOver()
+        If objB.GetType.IsAssignableFrom(GetType(Chest)) Then
+            GameScreen.getInstance().getCurrentMap().spawnRandomChest()
+        Else
+            Dim deltaL = Math.Abs(pos.X + getWidth() - objB.pos.X)
+            Dim deltaR = Math.Abs(pos.X - (objB.pos.X + objB.getWidth()))
+            Dim deltaD = Math.Abs(pos.Y + getHeight() - objB.pos.Y)
+            Dim deltaU = Math.Abs(pos.Y - (objB.pos.Y + objB.getHeight()))
+
+            Dim smallest = Math.Min(deltaL, deltaR)
+            smallest = Math.Min(smallest, deltaD)
+            smallest = Math.Min(smallest, deltaU)
+
+            If deltaL = smallest Then
+                pos = New Vector2(objB.pos.X - getWidth(), pos.Y)
+                velocity = New Vector2(0, velocity.Y)
+            End If
+
+            If deltaR = smallest Then
+                pos = New Vector2(objB.pos.X + objB.getHeight(), pos.Y)
+                velocity = New Vector2(0, velocity.Y)
+            End If
+
+            If deltaD = smallest Then
+                velocity = New Vector2(velocity.X, 0)
+                pos = New Vector2(pos.X, objB.pos.Y - getHeight())
+                isGrounded = True
+            End If
+
+            If deltaU = smallest Then
+                velocity = New Vector2(velocity.X, 0)
+                pos = New Vector2(pos.X, objB.pos.Y + objB.getWidth())
+            End If
+            If objB.GetType.IsAssignableFrom(GetType(Enemy)) Then
+                'Game over - reset
+                GameScreen.getInstance().gameOver()
+            End If
         End If
+
     End Sub
 
     Public Overrides Sub render(delta As Double)

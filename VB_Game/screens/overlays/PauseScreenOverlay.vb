@@ -25,29 +25,28 @@
         resumeBtn = New Button("Resume", New OpenTK.Vector2(-btnSize.Width / 2,
                 titleLabel.pos.Y + titleLabel.getHeight() + paddingY * 2), btnSize, btnStyle)
 
-
         settingsBtn = New Button("Settings", New OpenTK.Vector2(-btnSize.Width / 2,
                 resumeBtn.pos.Y + btnSize.Height + paddingY * 2), btnSize, btnStyle)
 
         quitBtn = New Button("Quit", New OpenTK.Vector2(-btnSize.Width / 2,
                 settingsBtn.pos.Y + btnSize.Height + paddingY * 2), btnSize, btnStyle)
-
-        resumeBtn.setOnClickListener(AddressOf onResumeClicked)
+        resumeBtn.setOnClickListener(AddressOf onSettingsClicked)
         settingsBtn.setOnClickListener(AddressOf onSettingsClicked)
         quitBtn.setOnClickListener(AddressOf onQuitClicked)
 
     End Sub
 
     Private Sub onSettingsClicked()
+        Dim g = GameScreen.getInstance()
         GameScreen.getInstance().CurrentState = GameScreen.State.SETTINGS
     End Sub
 
     Private Sub onQuitClicked()
-
+        GameScreen.getInstance().CurrentState = GameScreen.State.PLAY
     End Sub
 
     Private Sub onResumeClicked()
-        GameScreen.getInstance().CurrentState = GameScreen.State.PLAY
+        GameScreen.getInstance().CurrentState = GameScreen.State.SETTINGS
         Debug.WriteLine(GameScreen.getInstance().CurrentState)
     End Sub
 
