@@ -150,7 +150,7 @@ Public Class SpriteBatch
 #End Region
 
 #Region "Text Drawing"
-    Public Shared Sub drawText(textLabel As TextLabel)
+    Public Shared Sub drawText(label As TextLabel)
         Dim verts = New Vector2() {
             New Vector2(0, 0),
             New Vector2(1, 0),
@@ -160,12 +160,14 @@ Public Class SpriteBatch
         GL.Enable(EnableCap.Texture2D)
 
         If lastScaleX <> currentScale.X Then
-            textLabel.scale = New Vector2(1 / currentScale.X, 1 / currentScale.X)
-            textLabel.fontSize = (textLabel.designFontSize * (currentScale.X))
+            Dim originWidth = label.getWidth()
+            Dim originHeight = label.getHeight()
+            label.fontSize = (label.designFontSize * currentScale.X)
+            label.scale = New Vector2(originWidth / label.getWidth(), originHeight / label.getHeight())
         End If
 
 
-        Dim texture = CType(textLabel.texture, ImageTexture)
+        Dim texture = CType(label.texture, ImageTexture)
         GL.BindTexture(TextureTarget.Texture2D, texture.id)
         GL.Begin(PrimitiveType.Quads)
         GL.Color4(Color.White)
@@ -173,8 +175,8 @@ Public Class SpriteBatch
             GL.TexCoord2(verts(i))
             verts(i).X *= texture.width 'Adjusts coordinates to match up with width of texture
             verts(i).Y *= texture.height 'Adjusts coordinates to match up with height of texture
-            verts(i) *= textLabel.scale 'Adjusts size for increased quality
-            verts(i) += textLabel.pos 'adjusts pos
+            verts(i) *= label.scale 'Adjusts size for increased quality
+            verts(i) += label.pos 'adjusts pos
             verts(i) *= currentScale
             GL.Vertex2(verts(i))
         Next

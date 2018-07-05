@@ -45,7 +45,30 @@ Public Class Button : Inherits Control : Implements MouseListener
             border = New ShapeTexture(size.Width, size.Height,
                    style.borderColor, ShapeTexture.ShapeType.Rectangle)
         End If
+    End Sub
 
+    Public Sub New(text As String, pos As Vector2, font As Drawing.Font, size As Drawing.Size, style As ButtonStyle)
+        Me.style = style
+        Me.size = New Vector2(size.Width, size.Height)
+        Me.pos = pos
+        Me.backPos = New Vector2(pos.X + style.borderSize, pos.Y + style.borderSize)
+        Dim compatSize = New Drawing.Size(size.Width - (style.borderSize * 2), size.Height - (style.borderSize * 2))
+        label = New TextLabel(text, font, style.textColor)
+        label.pos = New Vector2(pos.X + size.Width / 2 - label.getWidth() / 2, pos.Y + size.Height / 2 - label.getHeight() / 2)
+        highlightOverlay = New ShapeTexture(compatSize.Width, compatSize.Height,
+            Drawing.Color.FromArgb(50, 255, 255, 255), ShapeTexture.ShapeType.Rectangle)
+
+        Me.texture = New ShapeTexture(size.Width - (style.borderSize * 2), size.Height - (style.borderSize * 2),
+            style.backColor, ShapeTexture.ShapeType.Rectangle)
+        'label.pos = New Vector2(pos.X + style.borderSize + (size.Width - label.texture.width) / 2,
+        '                        pos.Y + style.borderSize + (size.Height - label.texture.height) / 2)
+        InputHandler.mouseListeners.Add(Me)
+
+        'Handle borders
+        If Not IsNothing(style.borderColor) Then
+            border = New ShapeTexture(size.Width, size.Height,
+                   style.borderColor, ShapeTexture.ShapeType.Rectangle)
+        End If
     End Sub
 
     Public Overrides Sub render(delta As Double)

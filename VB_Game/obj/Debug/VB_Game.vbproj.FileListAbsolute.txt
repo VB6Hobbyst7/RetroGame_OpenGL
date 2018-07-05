@@ -88,3 +88,4 @@ C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\bin\Debug\res\maps\map5.lda
 C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\bin\Debug\res\img\tiles\tile_2.png
 C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\bin\Debug\res\img\tiles\background_1.png
 C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\bin\Debug\res\img\tiles\chest.png
+C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\bin\Debug\res\img\tiles\startscreen_background.png

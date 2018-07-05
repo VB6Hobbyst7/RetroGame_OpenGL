@@ -115,6 +115,7 @@ Public Class TextLabel : Inherits GameObject
     ''' Generates new font texture
     ''' </summary>
     Private Sub genTexture()
+        'Me.scale = New OpenTK.Vector2(1 / DEFAULT_UPSCALE, 1 / DEFAULT_UPSCALE)
         If refreshingTexture Then
             OpenTK.Graphics.OpenGL.GL.DeleteTexture(CType(texture, ImageTexture).id)
         End If
@@ -129,6 +130,7 @@ Public Class TextLabel : Inherits GameObject
         Dim bitmap As New Bitmap(TestSize.Width, TestSize.Height)
         Dim g As Graphics = Graphics.FromImage(bitmap)
         g.TextRenderingHint = Drawing.Text.TextRenderingHint.AntiAlias
+        'g.TextRenderingHint = Drawing.Text.TextRenderingHint.AntiAliasGridFit
         g.DrawString(_text, f, brush, 0, 0)
         Me.texture = ContentPipe.loadTexture(bitmap)
     End Sub

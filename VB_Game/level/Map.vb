@@ -124,4 +124,18 @@ Public Class Map
         Return String.Join(vbLf, rows)
     End Function
 
+    Public Sub generateSnapshot()
+        Dim outImg = New Drawing.Bitmap(64 * Constants.MAP_WIDTH, 64 * Constants.MAP_HEIGHT)
+        Dim graphics = Drawing.Graphics.FromImage(outImg)
+        For x = 0 To Constants.MAP_WIDTH - 1
+            For y = 0 To Constants.MAP_HEIGHT - 1
+                If Not tiles(x, y).getName() Is Nothing Then
+                    graphics.DrawImage(New Drawing.Bitmap(Constants.TILE_RES_DIR + tiles(x, y).getName()),
+                                       x * 64, y * 64)
+                End If
+            Next
+        Next
+        outImg.Save(Constants.TILE_RES_DIR + "MapSnapShot.png")
+    End Sub
+
 End Class

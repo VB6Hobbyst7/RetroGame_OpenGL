@@ -185,6 +185,9 @@
     <Content Include="res\img\tiles\chest.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="res\img\tiles\startscreen_background.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="res\img\tiles\tile_1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
