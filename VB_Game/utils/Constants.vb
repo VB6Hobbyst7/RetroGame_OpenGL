@@ -3,7 +3,18 @@
     Public Const FPS_DEBUG = False
     Public Const MAX_FRAME_DELTA_TIME = 0.1 'Prevents issues with window grabbing
 
-    Public Shared DESIGN_SCALE_FACTOR = 1
+
+    Private Shared _DESIGN_SCALE_FACTOR As Single = 1
+    Public Shared Property DESIGN_SCALE_FACTOR() As Single
+        Get
+            Return _DESIGN_SCALE_FACTOR
+        End Get
+        Set(ByVal value As Single)
+            _DESIGN_SCALE_FACTOR = value
+        End Set
+    End Property
+
+    'Public Shared DESIGN_SCALE_FACTOR = 1
 
     Public Shared DESIGN_WIDTH As Integer = 720 * DESIGN_SCALE_FACTOR
     Public Shared DESIGN_HEIGHT As Integer = 540 * DESIGN_SCALE_FACTOR

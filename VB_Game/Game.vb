@@ -103,5 +103,9 @@ Public Class Game : Inherits GameWindow : Implements KeyListener
                 WindowState = OpenTK.WindowState.Fullscreen
             End If
         End If
+
+        If e.Key = Key.End Then
+
+        End If
     End Sub
 End Class
