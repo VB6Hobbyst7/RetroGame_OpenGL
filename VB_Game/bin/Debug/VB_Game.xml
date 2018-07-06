@@ -298,6 +298,14 @@ VB_Game
  Represents a text string drawn on screen
  </summary>
 </member>
+<member name="M:VB_Game.TextLabel.#ctor(System.String,System.Drawing.Size,System.Drawing.Brush)">
+ <summary>
+ Creates new textlabel that is the maximum size that can fit in the given bounding box
+ </summary>
+ <param name="text"></param>
+ <param name="boundingSize"></param>
+ <param name="brush"></param>
+</member>
 <member name="M:VB_Game.TextLabel.genTexture">
  <summary>
  Generates new font texture

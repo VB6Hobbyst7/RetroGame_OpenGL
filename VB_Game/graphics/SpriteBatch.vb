@@ -160,10 +160,9 @@ Public Class SpriteBatch
         GL.Enable(EnableCap.Texture2D)
 
         If lastScaleX <> currentScale.X Then
-            Dim originWidth = label.getWidth()
-            Dim originHeight = label.getHeight()
             label.fontSize = (label.designFontSize * currentScale.X)
-            label.scale = New Vector2(originWidth / label.getWidth(), originHeight / label.getHeight())
+            label.scale = New Vector2(label.OriginSize.X / label.texture.width,
+                                      label.OriginSize.Y / label.texture.height)
         End If
 
 

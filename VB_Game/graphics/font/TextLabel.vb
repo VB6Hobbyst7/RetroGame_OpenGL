@@ -8,8 +8,19 @@ Public Class TextLabel : Inherits GameObject
     Private refreshingTexture As Boolean = False
     Private Const DEFAULT_FONTSIZE = 32
     Private Shared DEFAULT_COLOR = Brushes.Black
+    Private Const DEFAULT_FONT_FAMILY = "Impact"
 
 #Region "Members"
+
+    Private _originSize As OpenTK.Vector2
+    Public Property OriginSize() As OpenTK.Vector2
+        Get
+            Return _originSize
+        End Get
+        Set(ByVal value As OpenTK.Vector2)
+            _originSize = value
+        End Set
+    End Property
 
     Private _designFontSize As Integer = DEFAULT_FONTSIZE
     Public Property designFontSize() As Integer
@@ -72,6 +83,12 @@ Public Class TextLabel : Inherits GameObject
 
 #Region "Constructors"
 
+    ''' <summary>
+    ''' Creates new textlabel that is the maximum size that can fit in the given bounding box
+    ''' </summary>
+    ''' <param name="text"></param>
+    ''' <param name="boundingSize"></param>
+    ''' <param name="brush"></param>
     Public Sub New(text As String, boundingSize As Size, brush As Brush)
         MyBase.New(True)
         _text = text
@@ -83,20 +100,11 @@ Public Class TextLabel : Inherits GameObject
     End Sub
 
     Public Sub New(text As String, fontSize As Integer)
-        MyBase.New(True)
-        _text = text
-        Me.designFontSize = fontSize
-        Me.fontSize = fontSize
-        genTexture()
+        Me.New(text, New Font(DEFAULT_FONT_FAMILY, fontSize, FontStyle.Regular), Brushes.Black)
     End Sub
 
     Public Sub New(text As String, fontSize As Integer, brush As Brush)
-        MyBase.New(True)
-        _text = text
-        Me.designFontSize = fontSize
-        Me.fontSize = fontSize
-        Me.brush = brush
-        genTexture()
+        Me.New(text, New Font(DEFAULT_FONT_FAMILY, fontSize, FontStyle.Regular), brush)
     End Sub
 
     Public Sub New(text As String, font As Font, brush As Brush)
@@ -107,6 +115,7 @@ Public Class TextLabel : Inherits GameObject
         Me.fontSize = font.Size
         Me.brush = brush
         genTexture()
+        Me.OriginSize = New OpenTK.Vector2(Me.getWidth(), Me.getHeight())
     End Sub
 
 #End Region
