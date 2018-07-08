@@ -99,6 +99,16 @@ VB_Game
  <param name="texture"></param>
  <param name="leftDir">Should go left first</param>
 </member>
+<member name="F:VB_Game.Player._score">
+ <summary>
+ Number of chests collected
+ </summary>
+</member>
+<member name="M:VB_Game.Player.incrementScore">
+ <summary>
+ Increments current score by 1
+ </summary>
+</member>
 <member name="F:VB_Game.Player.xOrientation">
  <summary>
  Current orientation on x axis (-1 facing left, 1 facing right)

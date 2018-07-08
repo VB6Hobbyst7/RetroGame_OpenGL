@@ -23,6 +23,7 @@
     'Drawing Constants
     Public Shared GRAPHICS_TRIANGLE_RADIUS_RATIO = 1
     Public Shared MIN_TRIANGLES_CIRCLE = 20
+    Public Shared TOP_LEFT_COORD = New OpenTK.Vector2(-DESIGN_WIDTH / 2, -DESIGN_HEIGHT / 2)
 
     'Physics Constants
     Public Shared PIXELS_IN_METER As Integer = 30 * DESIGN_SCALE_FACTOR

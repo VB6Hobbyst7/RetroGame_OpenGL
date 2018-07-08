@@ -11,6 +11,26 @@ Public Class Player : Inherits Entity : Implements KeyListener
     Private spawnPos As Vector2
 
     ''' <summary>
+    ''' Number of chests collected
+    ''' </summary>
+    Private _score As Integer
+    Public Property Score() As Integer
+        Get
+            Return _score
+        End Get
+        Set(ByVal value As Integer)
+            _score = value
+        End Set
+    End Property
+
+    ''' <summary>
+    ''' Increments current score by 1
+    ''' </summary>
+    Public Sub incrementScore()
+        _score += 1
+    End Sub
+
+    ''' <summary>
     ''' Current orientation on x axis (-1 facing left, 1 facing right)
     ''' </summary>
     Private xOrientation As Integer
@@ -47,6 +67,8 @@ Public Class Player : Inherits Entity : Implements KeyListener
     Public Overrides Sub onCollide(objB As GameObject)
         If objB.GetType.IsAssignableFrom(GetType(Chest)) Then
             GameScreen.getInstance().getCurrentMap().spawnRandomChest()
+            incrementScore()
+            GameScreen.getInstance().updateScoreLabel()
         Else
             Dim deltaL = Math.Abs(pos.X + getWidth() - objB.pos.X)
             Dim deltaR = Math.Abs(pos.X - (objB.pos.X + objB.getWidth()))

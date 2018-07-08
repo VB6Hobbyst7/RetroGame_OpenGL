@@ -18,11 +18,12 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
     Private Shared instance As GameScreen
     Private tileMapHandler As TileMapHandler
     Private player As Player
-    Private testAtlas As TextureAtlas
     Private nextFrameRemovalList As New List(Of GameObject)
     Private gameOverOverlay As New GameOverOverlay() 'Screen overlay showing game over message
     Private pauseScreen As New PauseScreenOverlay()
     Private settingsOverlay As New SettingsScreenOverlay()
+    Private scoreLabel As TextLabel
+    Private scoreLabelBackground As ShapeTexture
 
     Public CurrentState As State = State.PLAY
 
@@ -32,13 +33,22 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
         InputHandler.keyListeners.Add(Me)
         PhysicsHandler.init()
         tileMapHandler = TileMapHandler.getInstance()
-        testAtlas = New TextureAtlas("./res/sprites/player_atlas.png", New Vector2(32, 32))
-        player = New Player(New Vector2(0, 0), testAtlas)
+        player = New Player(New Vector2(0, 0),
+                            New TextureAtlas("./res/sprites/player_atlas.png", New Vector2(32, 32)))
         player.scale = New Vector2(Constants.DESIGN_SCALE_FACTOR, Constants.DESIGN_SCALE_FACTOR)
         EnemyFactory.init()
         gameObjects.Add(player)
         PhysicsHandler.addPhysicsBody(New RigidBody(player,
             Constants.Physics_CATEGORY.NO_COLLISION, Constants.Physics_COLLISION.PLAYER))
+
+        scoreLabel = New TextLabel("Score: 0", 32 * Constants.DESIGN_SCALE_FACTOR, Brushes.White)
+        scoreLabel.pos = Constants.TOP_LEFT_COORD
+        scoreLabelBackground = New ShapeTexture(scoreLabel.getWidth(), scoreLabel.getHeight(),
+            Drawing.Color.FromArgb(127, 0, 0, 0), ShapeTexture.ShapeType.Rectangle)
+    End Sub
+
+    Public Sub updateScoreLabel()
+        scoreLabel.Text = String.Format("Score: {0}", player.Score)
     End Sub
 
     ''' <summary>
@@ -80,6 +90,9 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
         For i = 0 To gameObjects.Count - 1
             gameObjects(i).render(delta)
         Next
+
+        SpriteBatch.drawTexture(scoreLabelBackground, Constants.TOP_LEFT_COORD)
+        scoreLabel.render(delta)
 
         If CurrentState = State.GAMEOVER Then
             gameOverOverlay.render(delta)
