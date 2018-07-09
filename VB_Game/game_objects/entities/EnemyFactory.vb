@@ -3,7 +3,8 @@
     Private Const SPAWN_X = 0
     Private Shared SPAWN_Y = -Constants.DESIGN_HEIGHT / 2
 
-    Private Shared ENEMY_TEXTURE
+    Public Shared NORMAL_ENEMY_TEXTURE 'texture for normal enemy
+    Public Shared FAST_ENEMY_TEXTURE 'texture for faster enemy
 
     Private Shared DIFFICULTY_FACTOR = 1.02 'Difficulty factor which increases over time increasing spawn rates
 
@@ -18,7 +19,9 @@
     Private Shared spawnQueue As New Queue(Of Enemy)
 
     Public Shared Sub init()
-        ENEMY_TEXTURE = New ShapeTexture(Constants.TILE_SIZE, Constants.TILE_SIZE,
+        NORMAL_ENEMY_TEXTURE = New ShapeTexture(Constants.TILE_SIZE, Constants.TILE_SIZE,
+                                         Drawing.Color.ForestGreen, ShapeTexture.ShapeType.Rectangle)
+        FAST_ENEMY_TEXTURE = New ShapeTexture(Constants.TILE_SIZE, Constants.TILE_SIZE,
                                          Drawing.Color.Crimson, ShapeTexture.ShapeType.Rectangle)
     End Sub
 
@@ -35,7 +38,7 @@
 
         'TODO: Add big one spawn and apply difficulty multiplier
         For i = 0 To spawnCount - 1
-            spawnQueue.Enqueue(New Enemy(New OpenTK.Vector2(SPAWN_X, SPAWN_Y), ENEMY_TEXTURE, side))
+            spawnQueue.Enqueue(New Enemy(New OpenTK.Vector2(SPAWN_X, SPAWN_Y), NORMAL_ENEMY_TEXTURE, side))
         Next
     End Sub
 

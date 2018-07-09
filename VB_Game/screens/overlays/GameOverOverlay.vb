@@ -7,6 +7,7 @@
     Private scoreText As TextLabel
     Private instructionText As TextLabel
     Private Const paddingY As Integer = 16
+    Private lastScore As Integer = -1
 
     Public Sub New()
         pos = New OpenTK.Vector2(-Constants.DESIGN_WIDTH / 2, -HEIGHT / 2)
@@ -27,6 +28,12 @@
     End Sub
 
     Public Sub render(delta)
+        'Update score labels
+        If lastScore <> GameScreen.getInstance().getScore() Then
+            lastScore = GameScreen.getInstance().getScore()
+            scoreText.Text = String.Format("Score: {0}", lastScore)
+        End If
+
         SpriteBatch.drawTexture(overlayBackground, pos)
         titleLabel.render(delta)
         scoreText.render(delta)

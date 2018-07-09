@@ -66,6 +66,8 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
             End If
         End While
         player.moveToSpawn()
+        player.Score = 0
+        updateScoreLabel()
         EnemyFactory.reset()
         CurrentState = State.PLAY
     End Sub
@@ -157,6 +159,9 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
                 CurrentState = State.PLAY
             End If
         End If
-
     End Sub
+
+    Public Function getScore() As Integer
+        Return player.Score
+    End Function
 End Class

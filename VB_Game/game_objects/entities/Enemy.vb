@@ -2,9 +2,11 @@
 
 Public Class Enemy : Inherits Entity
 
-    Private Shared SPEED As Integer = 3 * Constants.PIXELS_IN_METER
+    Private FAST_SPEED As Integer = 6 * Constants.PIXELS_IN_METER
+    Private SPEED As Integer = 3 * Constants.PIXELS_IN_METER
     Private started As Boolean = False 'flag indicating whether enemy has hit the ground initially
     Private leftDir As Boolean = False
+    Private spawnPos As Vector2
 
     ''' <summary>
     ''' Creates new enemy
@@ -16,6 +18,7 @@ Public Class Enemy : Inherits Entity
         MyBase.New(pos, texture)
         Me.velocity = New Vector2(0, velocity.Y)
         Me.leftDir = leftDir
+        spawnPos = pos
     End Sub
 
     Public Overrides Sub onCollide(objB As GameObject)
@@ -52,7 +55,6 @@ Public Class Enemy : Inherits Entity
                 Else
                     velocity = New Vector2(SPEED, 0)
                 End If
-
             End If
         End If
 
@@ -69,6 +71,27 @@ Public Class Enemy : Inherits Entity
     Public Overrides Sub tick(delta As Double)
         velocity = New Vector2(velocity.X, velocity.Y)
         pos = New Vector2(pos.X + velocity.X * delta, pos.Y + velocity.Y * delta)
+
+        'Check if fallen below map
+        If pos.Y > Constants.DESIGN_HEIGHT / 2 Then
+            respawn() 'If fallen out of map, respawn
+        End If
+    End Sub
+
+    ''' <summary>
+    ''' Respawns enemy at top
+    ''' </summary>
+    Public Sub respawn()
+        Me.pos = spawnPos
+        Me.texture = EnemyFactory.FAST_ENEMY_TEXTURE 'switch graphic to show faster enemy
+        Me.SPEED = Me.FAST_SPEED 'Speed up enemy
+        leftDir = Not leftDir 'Switch direction
+        'Apply speedup
+        If leftDir Then
+            velocity = New Vector2(-SPEED, 0)
+        Else
+            velocity = New Vector2(SPEED, 0)
+        End If
     End Sub
 
 End Class

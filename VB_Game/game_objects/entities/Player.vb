@@ -62,6 +62,11 @@ Public Class Player : Inherits Entity : Implements KeyListener
         If Not currentItem Is Nothing Then
             currentItem.update(delta)
         End If
+
+        'Check if fallen below map
+        If pos.Y > Constants.DESIGN_HEIGHT / 2 Then
+            GameScreen.getInstance().gameOver() 'If fallen out of map, game over - reset
+        End If
     End Sub
 
     Public Overrides Sub onCollide(objB As GameObject)

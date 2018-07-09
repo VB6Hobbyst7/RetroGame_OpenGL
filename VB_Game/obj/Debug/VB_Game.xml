@@ -99,6 +99,11 @@ VB_Game
  <param name="texture"></param>
  <param name="leftDir">Should go left first</param>
 </member>
+<member name="M:VB_Game.Enemy.respawn">
+ <summary>
+ Respawns enemy at top
+ </summary>
+</member>
 <member name="F:VB_Game.Player._score">
  <summary>
  Number of chests collected
