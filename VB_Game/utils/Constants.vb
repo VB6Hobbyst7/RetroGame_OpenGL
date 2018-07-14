@@ -39,6 +39,9 @@
     Public Const IMG_RES_DIR As String = "./res/img/"
     Public Const TILE_RES_DIR = IMG_RES_DIR + "tiles/"
 
+    'Gameplay Constants
+    Public Shared MIN_CHEST_GAP = TILE_SIZE * 10 'Minimum spacing between chests spawns
+
     ''' <summary>
     ''' All possible collidable obj bit mask signatures
     ''' </summary>

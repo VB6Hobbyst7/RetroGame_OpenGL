@@ -54,14 +54,14 @@ Public Class Slider : Inherits Control : Implements MouseListener
     End Sub
 
     Public Sub MouseScroll(e As MouseWheelEventArgs) Implements MouseListener.MouseScroll
-        If hoveredOver Then
+        If hoveredOver And Visible Then
             Debug.WriteLine(Value)
             Value += e.DeltaPrecise * SCROLL_SPEED
         End If
     End Sub
 
     Public Sub MouseButtonDown(e As MouseEventArgs) Implements MouseListener.MouseButtonDown
-        If hoveredOver Then
+        If hoveredOver And Visible Then
             grabbedSlider = True
             Value = ((SpriteBatch.normaliseScreenX(e.X) - pos.X) / Me.getWidth()) * 100
         End If
@@ -75,7 +75,7 @@ Public Class Slider : Inherits Control : Implements MouseListener
 
         hoveredOver = PhysicUtils.pointWithin(SpriteBatch.normaliseScreenCoords(e.X, e.Y),
                                    New BoundingRect(New Vector2(Me.getWidth(), Me.getWidth()), Me.pos))
-        If grabbedSlider Then
+        If grabbedSlider And Visible Then
             Value = ((SpriteBatch.normaliseScreenX(e.X) - pos.X) / Me.getWidth()) * 100
         End If
     End Sub

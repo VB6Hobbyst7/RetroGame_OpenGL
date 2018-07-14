@@ -45,6 +45,7 @@ Public Class Button : Inherits Control : Implements MouseListener
             border = New ShapeTexture(size.Width, size.Height,
                    style.borderColor, ShapeTexture.ShapeType.Rectangle)
         End If
+        Me.customRender = True
     End Sub
 
     Public Sub New(text As String, pos As Vector2, font As Drawing.Font, size As Drawing.Size, style As ButtonStyle)
@@ -72,6 +73,7 @@ Public Class Button : Inherits Control : Implements MouseListener
     End Sub
 
     Public Overrides Sub render(delta As Double)
+        MyBase.render(delta)
         If Not border Is Nothing Then
             SpriteBatch.drawTexture(border, pos)
         End If
@@ -99,7 +101,7 @@ Public Class Button : Inherits Control : Implements MouseListener
     End Sub
 
     Public Sub MouseButtonDown(e As MouseEventArgs) Implements MouseListener.MouseButtonDown
-        If hoveredOver And Not clickListener Is Nothing Then
+        If hoveredOver And Visible And Not clickListener Is Nothing Then
             clickListener.Invoke()
         End If
     End Sub

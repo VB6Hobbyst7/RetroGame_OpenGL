@@ -32,7 +32,12 @@ Public Class Map
     ''' as given in chestSpawnPositions
     ''' </summary>
     Public Sub spawnRandomChest()
-        chest.setPos(chestSpawnPositions(random.Next(chestSpawnPositions.Count)))
+        Dim distance = 0
+        Dim newPoint As Vector2 = chestSpawnPositions(random.Next(chestSpawnPositions.Count))
+        While PhysicUtils.calcDistance(chest.pos, newPoint) < Constants.MIN_CHEST_GAP
+            newPoint = chestSpawnPositions(random.Next(chestSpawnPositions.Count))
+        End While
+        chest.setPos(newPoint)
     End Sub
 
     ''' <summary>
@@ -69,11 +74,6 @@ Public Class Map
                             catCollision, Constants.Physics_COLLISION.LEVEL))
                         x += 1
 
-                        'Temp if tile is air valid chest spawn location
-                        If Not CBool(reader.Value) Then
-                            chestSpawnPositions.Add(currentTile.pos)
-                        End If
-
                     Case "tiles"
                         'New Row
                         y += 1
@@ -86,6 +86,23 @@ Public Class Map
 
         'Temp load static background
         background = ContentPipe.loadTexture(Constants.TILE_RES_DIR + "background_1.png")
+
+        'Load available spaces for chests
+        For x = 0 To Constants.MAP_WIDTH - 1
+            For y = 0 To Constants.MAP_HEIGHT - 2 '-2 as tile below check must be solid so can't go to bottom edge
+                If Not tiles(x, y) Is Nothing Then
+                    If tiles(x, y).texture Is Nothing Then
+                        'If it has a texture its a solid tile
+                        'and if its not solid tile below is solid its valid
+                        If Not tiles(x, y + 1).texture Is Nothing Then
+                            chestSpawnPositions.Add(New Vector2(startX +
+                                (x * Constants.TILE_SIZE), startY + (y * Constants.TILE_SIZE)))
+                        End If
+                    End If
+                End If
+            Next
+        Next
+
 
         'Create chest object and move to initial pos
         chest = New Chest()
@@ -124,6 +141,9 @@ Public Class Map
         Return String.Join(vbLf, rows)
     End Function
 
+    ''' <summary>
+    ''' Creates a map snapshot and exports it to an img: used for map previews
+    ''' </summary>
     Public Sub generateSnapshot()
         Dim outImg = New Drawing.Bitmap(64 * Constants.MAP_WIDTH, 64 * Constants.MAP_HEIGHT)
         Dim graphics = Drawing.Graphics.FromImage(outImg)

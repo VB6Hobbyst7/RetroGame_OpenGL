@@ -465,6 +465,11 @@ VB_Game
  Renders the map to screen
  </summary>
 </member>
+<member name="M:VB_Game.Map.generateSnapshot">
+ <summary>
+ Creates a map snapshot and exports it to an img: used for map previews
+ </summary>
+</member>
 <member name="T:VB_Game.Tile">
  <summary>
  A single tile in the tile map grid

@@ -36,4 +36,8 @@
         backBtn.render(delta)
     End Sub
 
+    Public Sub tick(delta)
+        backBtn.tick(delta)
+    End Sub
+
 End Class

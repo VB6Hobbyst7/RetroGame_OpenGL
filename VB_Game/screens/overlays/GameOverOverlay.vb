@@ -40,4 +40,8 @@
         instructionText.render(delta)
     End Sub
 
+    Public Sub tick(delta)
+
+    End Sub
+
 End Class

@@ -30,7 +30,7 @@
 
         quitBtn = New Button("Quit", New OpenTK.Vector2(-btnSize.Width / 2,
                 settingsBtn.pos.Y + btnSize.Height + paddingY * 2), btnSize, btnStyle)
-        resumeBtn.setOnClickListener(AddressOf onSettingsClicked)
+        resumeBtn.setOnClickListener(AddressOf onResumeClicked)
         settingsBtn.setOnClickListener(AddressOf onSettingsClicked)
         quitBtn.setOnClickListener(AddressOf onQuitClicked)
 
@@ -42,11 +42,12 @@
     End Sub
 
     Private Sub onQuitClicked()
-        GameScreen.getInstance().CurrentState = GameScreen.State.PLAY
+        'Not implemented
+        'GameScreen.getInstance().CurrentState = GameScreen.State.PLAY
     End Sub
 
     Private Sub onResumeClicked()
-        GameScreen.getInstance().CurrentState = GameScreen.State.SETTINGS
+        GameScreen.getInstance().CurrentState = GameScreen.State.PLAY
         Debug.WriteLine(GameScreen.getInstance().CurrentState)
     End Sub
 
@@ -57,5 +58,12 @@
         settingsBtn.render(delta)
         quitBtn.render(delta)
     End Sub
+
+    Public Sub tick(delta)
+        resumeBtn.tick(delta)
+        settingsBtn.tick(delta)
+        quitBtn.tick(delta)
+    End Sub
+
 
 End Class

@@ -2,6 +2,7 @@
 
 Public Class Control
 
+    Protected customRender As Boolean = False
     Private _pos As Vector2
     Public Property pos() As Vector2
         Get
@@ -32,6 +33,16 @@ Public Class Control
         End Set
     End Property
 
+    Private _visible As Boolean = False
+    Public Property Visible() As Boolean
+        Get
+            Return _visible
+        End Get
+        Set(ByVal value As Boolean)
+            _visible = value
+        End Set
+    End Property
+
     Public Overridable Function getWidth() As Integer
         Return texture.width * scale.X
     End Function
@@ -48,6 +59,8 @@ Public Class Control
         scale = New Vector2(scale.X, texture.height / height)
     End Sub
 
+    Private timeSinceLastRender As Double = 0
+    Private RENDER_HIDE_TIME_THRESHOLD = 0.3 'Time needed since last render to disable controls
 
     ''' <summary>
     ''' Scale property defaulting to (1, 1)
@@ -63,10 +76,20 @@ Public Class Control
     End Property
 
     Public Overridable Sub render(delta As Double)
-        SpriteBatch.drawControl(Me)
+        If Not customRender Then
+            SpriteBatch.drawControl(Me)
+        End If
+        timeSinceLastRender = 0
     End Sub
 
     Public Overridable Sub tick(delta As Double)
+        timeSinceLastRender += delta
+        'Debug.WriteLine(Me.Visible)
+        If timeSinceLastRender > RENDER_HIDE_TIME_THRESHOLD Then
+            Me.Visible = False
+        Else
+            Me.Visible = True
+        End If
     End Sub
 
 End Class

@@ -117,6 +117,10 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
             EnemyFactory.tick(delta)
             PhysicsHandler.update(delta)
         End If
+
+        gameOverOverlay.tick(delta)
+        pauseScreen.tick(delta)
+        settingsOverlay.tick(delta)
     End Sub
 
     ''' <summary>
