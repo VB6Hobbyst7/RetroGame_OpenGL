@@ -37,7 +37,6 @@ C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\bin\Debug\res\img\tiles\til
 C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\bin\Debug\res\test2.wav
 C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\bin\Debug\res\test.wav
 C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\bin\Debug\res\HappySans.ttf
-C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\bin\Debug\res\maps\map1.ldat
 C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\bin\Debug\VB_Game.exe.config
 C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\bin\Debug\VB_Game.exe
 C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\bin\Debug\VB_Game.pdb
@@ -54,8 +53,6 @@ C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\obj\Debug\VB_Game.exe
 C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\obj\Debug\VB_Game.xml
 C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\obj\Debug\VB_Game.pdb
 C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\obj\Debug\VB_Game.vbprojResolveAssemblyReference.cache
-C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\bin\Debug\res\maps\map2.ldat
-C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\bin\Debug\res\maps\map3.ldat
 C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\bin\Debug\res\sprites\player.png
 C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\bin\Debug\res\sprites\player_atlas.png
 W:\Student Work\Industrial Arts\2018 Submissions\11SDs\HOLMSTROM Eric-431149621\Git\Projects\RetroGame_OpenGL\VB_Game\bin\Debug\res\img\tiles\tile_1.png
@@ -83,9 +80,8 @@ W:\Student Work\Industrial Arts\2018 Submissions\11SDs\HOLMSTROM Eric-431149621\
 W:\Student Work\Industrial Arts\2018 Submissions\11SDs\HOLMSTROM Eric-431149621\Git\Projects\RetroGame_OpenGL\VB_Game\obj\Debug\VB_Game.exe
 W:\Student Work\Industrial Arts\2018 Submissions\11SDs\HOLMSTROM Eric-431149621\Git\Projects\RetroGame_OpenGL\VB_Game\obj\Debug\VB_Game.xml
 W:\Student Work\Industrial Arts\2018 Submissions\11SDs\HOLMSTROM Eric-431149621\Git\Projects\RetroGame_OpenGL\VB_Game\obj\Debug\VB_Game.pdb
-C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\bin\Debug\res\maps\map4.ldat
 C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\bin\Debug\res\maps\map5.ldat
 C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\bin\Debug\res\img\tiles\tile_2.png
-C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\bin\Debug\res\img\tiles\background_1.png
 C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\bin\Debug\res\img\tiles\chest.png
 C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\bin\Debug\res\img\tiles\startscreen_background.png
+C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\bin\Debug\res\img\tiles\map5_background.png

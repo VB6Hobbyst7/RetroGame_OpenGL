@@ -25,6 +25,19 @@ Public Class Map
     Public Sub New(tileMapHandler As TileMapHandler, mapFileName As String)
         Me.tileMapHandler = tileMapHandler
         Me.mapFileName = mapFileName
+        checkPreviewImage()
+    End Sub
+
+    ''' <summary>
+    ''' Check if preview image exists otherwise create
+    ''' </summary>
+    Public Sub checkPreviewImage()
+        Dim fileNameExcExt = mapFileName.Split(".")(0)
+        Debug.WriteLine(fileNameExcExt)
+        If Not System.IO.File.Exists(Constants.MAP_RES_DIR + fileNameExcExt + ".png") Then
+            loadMap()
+            generateSnapshot(fileNameExcExt + ".png")
+        End If
     End Sub
 
     ''' <summary>
@@ -84,8 +97,11 @@ Public Class Map
         f.Close()
         reader.Close()
 
-        'Temp load static background
-        background = ContentPipe.loadTexture(Constants.TILE_RES_DIR + "background_1.png")
+        'Loads background
+        Dim fileNameExcExt = mapFileName.Split(".")(0)
+        If System.IO.File.Exists(Constants.TILE_RES_DIR + fileNameExcExt + "_background.png") Then
+            background = ContentPipe.loadTexture(Constants.TILE_RES_DIR + fileNameExcExt + "_background.png")
+        End If
 
         'Load available spaces for chests
         For x = 0 To Constants.MAP_WIDTH - 1
@@ -115,8 +131,7 @@ Public Class Map
     Public Sub render(delta As Double)
         'Draw background
         If Not background Is Nothing Then
-            SpriteBatch.drawTexture(background, New Vector2(-Constants.DESIGN_WIDTH / 2,
-                -Constants.DESIGN_HEIGHT / 2))
+            SpriteBatch.drawTexture(background, Constants.TOP_LEFT_COORD, New Vector2(Constants.DESIGN_SCALE_FACTOR))
         End If
         'Draw tiles
         For x = 0 To Constants.MAP_WIDTH - 1
@@ -144,9 +159,15 @@ Public Class Map
     ''' <summary>
     ''' Creates a map snapshot and exports it to an img: used for map previews
     ''' </summary>
-    Public Sub generateSnapshot()
+    Public Sub generateSnapshot(outputFile)
         Dim outImg = New Drawing.Bitmap(64 * Constants.MAP_WIDTH, 64 * Constants.MAP_HEIGHT)
         Dim graphics = Drawing.Graphics.FromImage(outImg)
+
+        If Not background Is Nothing Then
+            graphics.DrawImage(New Drawing.Bitmap(Constants.TILE_RES_DIR + mapFileName.Split(".")(0) + "_background.png"),
+                               outImg.Size.Width, outImg.Size.Height)
+        End If
+
         For x = 0 To Constants.MAP_WIDTH - 1
             For y = 0 To Constants.MAP_HEIGHT - 1
                 If Not tiles(x, y).getName() Is Nothing Then
@@ -155,7 +176,7 @@ Public Class Map
                 End If
             Next
         Next
-        outImg.Save(Constants.TILE_RES_DIR + "MapSnapShot.png")
+        outImg.Save(Constants.MAP_RES_DIR + outputFile)
     End Sub
 
 End Class

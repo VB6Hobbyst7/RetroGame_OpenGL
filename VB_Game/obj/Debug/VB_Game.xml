@@ -217,6 +217,11 @@ VB_Game
  List of all entities affected by physics (e.g. gravity)
  </summary>
 </member>
+<member name="M:VB_Game.PhysicsHandler.clearBodies">
+ <summary>
+ Clears current physics bodies
+ </summary>
+</member>
 <member name="M:VB_Game.PhysicsHandler.addPhysicsBody(VB_Game.RigidBody)">
  <summary>
  Adds body to physics bodies and does setup for bitmasks
@@ -449,6 +454,11 @@ VB_Game
  Represents a tile map consisting of a grid of tiles
  </summary>
 </member>
+<member name="M:VB_Game.Map.checkPreviewImage">
+ <summary>
+ Check if preview image exists otherwise create
+ </summary>
+</member>
 <member name="M:VB_Game.Map.spawnRandomChest">
  <summary>
  Creates 'new' chest by moving crate to a random position
@@ -465,7 +475,7 @@ VB_Game
  Renders the map to screen
  </summary>
 </member>
-<member name="M:VB_Game.Map.generateSnapshot">
+<member name="M:VB_Game.Map.generateSnapshot(System.Object)">
  <summary>
  Creates a map snapshot and exports it to an img: used for map previews
  </summary>
@@ -504,6 +514,16 @@ VB_Game
 <member name="T:VB_Game.Constants.Physics_COLLISION">
  <summary>
  Different types of physics bodies mapping to collision bitmasks
+ </summary>
+</member>
+<member name="M:VB_Game.Constants.loadSettings">
+ <summary>
+ Loads settings from .settings file
+ </summary>
+</member>
+<member name="M:VB_Game.Constants.saveSettings">
+ <summary>
+ Saves all settings to .settings file
  </summary>
 </member>
 </members>

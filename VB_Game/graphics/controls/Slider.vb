@@ -11,6 +11,8 @@ Public Class Slider : Inherits Control : Implements MouseListener
     Private grabbedSlider As Boolean = False
     Private sliderTexture As ShapeTexture
     Private valueChangeListener As OnValueChanged
+    Private foreColour = Drawing.Color.FromArgb(255, 64, 64, 64)
+    Private backColour = Drawing.Color.FromArgb(255, 112, 112, 112)
 
     Private _value As Integer
     Public Property Value() As Integer
@@ -32,7 +34,7 @@ Public Class Slider : Inherits Control : Implements MouseListener
         End Set
     End Property
 
-    Delegate Function OnValueChanged(value As Object)
+    Delegate Sub OnValueChanged(value As Object)
 
     Public Sub setOnValueChangeListener(listener As OnValueChanged)
         Me.valueChangeListener = listener
@@ -40,10 +42,10 @@ Public Class Slider : Inherits Control : Implements MouseListener
 
     Public Sub New(pos As Vector2, size As Vector2)
         Me.texture = New ShapeTexture(size.X, size.Y,
-            Drawing.Color.Gray, ShapeTexture.ShapeType.Rectangle)
+            backColour, ShapeTexture.ShapeType.Rectangle)
         Me.pos = pos
 
-        sliderTexture = New ShapeTexture(0, size.Y, Drawing.Color.Black, ShapeTexture.ShapeType.Rectangle)
+        sliderTexture = New ShapeTexture(0, size.Y, foreColour, ShapeTexture.ShapeType.Rectangle)
 
         InputHandler.mouseListeners.Add(Me)
     End Sub

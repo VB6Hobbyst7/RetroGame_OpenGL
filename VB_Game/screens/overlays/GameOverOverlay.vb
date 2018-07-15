@@ -14,15 +14,15 @@
         overlayBackground = New ShapeTexture(Constants.DESIGN_WIDTH, HEIGHT,
             Drawing.Color.FromArgb(130, 0, 0, 0), ShapeTexture.ShapeType.Rectangle)
 
-        titleLabel = New TextLabel("Game Over", New Drawing.Font("Impact", 40, Drawing.FontStyle.Regular),
+        titleLabel = New TextLabel("Game Over", New Drawing.Font("Impact", 40 * Constants.DESIGN_SCALE_FACTOR, Drawing.FontStyle.Regular),
                                    Drawing.Brushes.White)
         titleLabel.pos = New OpenTK.Vector2(-titleLabel.getWidth() / 2, pos.Y + paddingY)
 
-        scoreText = New TextLabel("Score: {0}", New Drawing.Font("Impact", 24, Drawing.FontStyle.Regular),
+        scoreText = New TextLabel("Score: {0}", New Drawing.Font("Impact", 24 * Constants.DESIGN_SCALE_FACTOR, Drawing.FontStyle.Regular),
                                    Drawing.Brushes.White)
         scoreText.pos = New OpenTK.Vector2(-scoreText.getWidth() / 2, titleLabel.pos.Y + titleLabel.getHeight() + paddingY)
 
-        instructionText = New TextLabel("Press ENTER to restart", New Drawing.Font("Impact", 20, Drawing.FontStyle.Regular),
+        instructionText = New TextLabel("Press ENTER to restart", New Drawing.Font("Impact", 20 * Constants.DESIGN_SCALE_FACTOR, Drawing.FontStyle.Regular),
                                    Drawing.Brushes.White)
         instructionText.pos = New OpenTK.Vector2(-instructionText.getWidth() / 2, scoreText.pos.Y + scoreText.getHeight() + paddingY * 1.5)
     End Sub

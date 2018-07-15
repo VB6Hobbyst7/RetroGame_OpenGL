@@ -26,6 +26,13 @@ Public Class PhysicsHandler
     End Sub
 
     ''' <summary>
+    ''' Clears current physics bodies
+    ''' </summary>
+    Public Shared Sub clearBodies()
+        physicsBodies.Clear()
+    End Sub
+
+    ''' <summary>
     ''' Adds body to physics bodies and does setup for bitmasks
     ''' </summary>
     ''' <param name="rigidBody"></param>

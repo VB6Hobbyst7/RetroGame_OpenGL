@@ -27,17 +27,33 @@ Public Class Game : Inherits GameWindow : Implements KeyListener
         Return camera
     End Function
 
+    Public Function getAudioMaster()
+        Return audioMaster
+    End Function
+
+    Public Function isAudioEnabled() As Boolean
+        Return Not audioMaster Is Nothing
+    End Function
+
     Private Sub New()
-        MyBase.New(Constants.DESIGN_WIDTH, Constants.DESIGN_HEIGHT, New GraphicsMode(32, 0, 0, 4))
-        currentScreen = StartScreen.getInstance()
+        MyBase.New(Constants.DESIGN_WIDTH, Constants.DESIGN_HEIGHT, New GraphicsMode(32, 0, 0, Constants.NUM_FSAA_SAMPLES))
+        currentScreen = LevelSelectScreen.getInstance()
         'Initialise OpenGL Settings
         GL.Enable(EnableCap.Texture2D)
         GL.Enable(EnableCap.Blend)
         GL.BlendFunc(CType(BlendingFactorSrc.SrcAlpha, BlendingFactor), CType(BlendingFactorSrc.OneMinusSrcAlpha, BlendingFactor))
-        'audioMaster = AudioMaster.getInstance()
+        Try
+            audioMaster = AudioMaster.getInstance()
+        Catch ex As Exception
+            Debug.WriteLine("Error: loading audio")
+            audioMaster = Nothing
+        End Try
+
         InputHandler.init(Me)
         DebugHandler.init()
         InputHandler.keyListeners.Add(Me)
+        PhysicsHandler.init()
+        TileMapHandler.getInstance()
         camera = New Camera(New Vector2(0.5, 0.5), 0, 1)
         VSync = True
     End Sub

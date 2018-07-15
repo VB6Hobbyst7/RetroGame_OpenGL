@@ -31,7 +31,6 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
 
     Private Sub New()
         InputHandler.keyListeners.Add(Me)
-        PhysicsHandler.init()
         tileMapHandler = TileMapHandler.getInstance()
         player = New Player(New Vector2(0, 0),
                             New TextureAtlas("./res/sprites/player_atlas.png", New Vector2(32, 32)))
@@ -43,8 +42,13 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
 
         scoreLabel = New TextLabel("Score: 0", 32 * Constants.DESIGN_SCALE_FACTOR, Brushes.White)
         scoreLabel.pos = Constants.TOP_LEFT_COORD
-        scoreLabelBackground = New ShapeTexture(scoreLabel.getWidth(), scoreLabel.getHeight(),
+        scoreLabelBackground = New ShapeTexture(scoreLabel.getWidth() * 1.3, scoreLabel.getHeight(),
             Drawing.Color.FromArgb(127, 0, 0, 0), ShapeTexture.ShapeType.Rectangle)
+        settingsOverlay.setOnBackAction(AddressOf onSettingsBack)
+    End Sub
+
+    Public Sub onSettingsBack()
+        CurrentState = State.PAUSE
     End Sub
 
     Public Sub updateScoreLabel()

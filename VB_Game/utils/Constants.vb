@@ -1,4 +1,7 @@
-﻿Public Class Constants
+﻿Imports Newtonsoft.Json
+Imports Newtonsoft.Json.Linq
+
+Public Class Constants
 
     Public Const FPS_DEBUG = False
     Public Const MAX_FRAME_DELTA_TIME = 0.1 'Prevents issues with window grabbing
@@ -11,11 +14,19 @@
         End Get
         Set(ByVal value As Single)
             _DESIGN_SCALE_FACTOR = value
+            'Set corresponding values
+            DESIGN_WIDTH = 720 * DESIGN_SCALE_FACTOR
+            DESIGN_HEIGHT = 540 * DESIGN_SCALE_FACTOR
+            PIXELS_IN_METER = 30 * DESIGN_SCALE_FACTOR
+            TILE_SIZE = 30 * DESIGN_SCALE_FACTOR
+            TOP_LEFT_COORD = New OpenTK.Vector2(-DESIGN_WIDTH / 2, -DESIGN_HEIGHT / 2)
+            MAP_WIDTH = DESIGN_WIDTH / TILE_SIZE
+            MAP_HEIGHT = DESIGN_HEIGHT / TILE_SIZE
         End Set
     End Property
 
-    'Public Shared DESIGN_SCALE_FACTOR = 1
-
+    'Graphics constants
+    Public Shared NUM_FSAA_SAMPLES = 4
     Public Shared DESIGN_WIDTH As Integer = 720 * DESIGN_SCALE_FACTOR
     Public Shared DESIGN_HEIGHT As Integer = 540 * DESIGN_SCALE_FACTOR
     Public Const ASPECT_RATIO As Decimal = 4.0F / 3.0F
@@ -41,6 +52,8 @@
 
     'Gameplay Constants
     Public Shared MIN_CHEST_GAP = TILE_SIZE * 10 'Minimum spacing between chests spawns
+
+#Region "Physics Constants"
 
     ''' <summary>
     ''' All possible collidable obj bit mask signatures
@@ -69,5 +82,48 @@
         ENEMY = 12 '1100
         PROJECTILE = 3 '011
     End Enum
+
+#End Region
+
+    ''' <summary>
+    ''' Loads settings from .settings file
+    ''' </summary>
+    Public Shared Sub loadSettings()
+        Dim settingsStr As String = ""
+        Try
+            settingsStr = System.IO.File.ReadAllText("./.settings")
+        Catch ex As Exception
+            Debug.WriteLine(ex)
+            'Failed reading settings use default settings
+            Return
+        End Try
+        Dim settingsObj = JObject.Parse(settingsStr)
+        Dim graphicsSettings = CType(settingsObj.GetValue("graphics"), JObject)
+
+        If Not graphicsSettings.GetValue("fsaa_samples") Is Nothing Then
+            NUM_FSAA_SAMPLES = graphicsSettings.GetValue("fsaa_samples")
+        End If
+
+        If Not graphicsSettings.GetValue("resolution_design_scale") Is Nothing Then
+            DESIGN_SCALE_FACTOR = graphicsSettings.GetValue("resolution_design_scale")
+        End If
+
+    End Sub
+
+    ''' <summary>
+    ''' Saves all settings to .settings file
+    ''' </summary>
+    Public Shared Sub saveSettings()
+        Dim settings As New JObject
+        Dim graphicsSettings As New JObject()
+        graphicsSettings.Add(New JProperty("fsaa_samples", NUM_FSAA_SAMPLES))
+        graphicsSettings.Add(New JProperty("resolution_design_scale", DESIGN_SCALE_FACTOR))
+
+        settings.Add(New JProperty("graphics", graphicsSettings))
+
+        Dim writer As New JsonTextWriter(New System.IO.StreamWriter("./.settings"))
+        settings.WriteTo(writer)
+        writer.Close()
+    End Sub
 
 End Class

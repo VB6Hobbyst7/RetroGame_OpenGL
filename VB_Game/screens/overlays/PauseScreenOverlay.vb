@@ -8,19 +8,18 @@
     Private resumeBtn As Button
     Private settingsBtn As Button
     Private quitBtn As Button
-    Private btnStyle As New ButtonStyle(Drawing.Brushes.White, Drawing.Color.FromArgb(255, 64, 64, 64),
-                                                Drawing.Color.Black, 5)
+    Private btnStyle As New ButtonStyle(Drawing.Brushes.White, Drawing.Color.FromArgb(255, 64, 64, 64))
 
     Public Sub New()
         pos = New OpenTK.Vector2(-Constants.DESIGN_WIDTH / 2, -Constants.DESIGN_HEIGHT / 2)
         overlayBackground = New ShapeTexture(Constants.DESIGN_WIDTH, Constants.DESIGN_HEIGHT,
             Drawing.Color.FromArgb(200, 0, 0, 0), ShapeTexture.ShapeType.Rectangle)
 
-        titleLabel = New TextLabel("Game Paused", New Drawing.Font("Impact", 40, Drawing.FontStyle.Regular),
+        titleLabel = New TextLabel("Game Paused", New Drawing.Font("Impact", 40 * Constants.DESIGN_SCALE_FACTOR, Drawing.FontStyle.Regular),
                                   Drawing.Brushes.White)
         titleLabel.pos = New OpenTK.Vector2(-titleLabel.getWidth() / 2, pos.Y + paddingY)
 
-        Dim btnSize As New Drawing.Size(200, 50)
+        Dim btnSize As New Drawing.Size(200 * Constants.DESIGN_SCALE_FACTOR, 50 * Constants.DESIGN_SCALE_FACTOR)
 
         resumeBtn = New Button("Resume", New OpenTK.Vector2(-btnSize.Width / 2,
                 titleLabel.pos.Y + titleLabel.getHeight() + paddingY * 2), btnSize, btnStyle)

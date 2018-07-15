@@ -14,8 +14,13 @@ Public Class TileMapHandler
     Private Sub New()
         loadAllTileTextures()
         loadAllMaps()
-        maps(4).loadMap()
-        currentMap = maps(4)
+    End Sub
+
+    Public Sub loadMap()
+        maps(0).loadMap()
+        currentMap = maps(0)
+        PhysicsHandler.clearBodies()
+        tiles.Clear()
     End Sub
 
     ''' <summary>
@@ -41,11 +46,6 @@ Public Class TileMapHandler
         End If
         Return instance
     End Function
-
-    Public Sub loadMap()
-        'Temp filler
-        'currentMap = New Map(Me)
-    End Sub
 
     Public Sub render(delta As Double)
         If Not currentMap Is Nothing Then

@@ -217,7 +217,7 @@ Public Class SpriteBatch
         currentScale.Y = screenHeight / Constants.DESIGN_HEIGHT
 
         'Draws Viewport on Screen
-        drawRect(New Vector2(screenWidth, screenHeight), New Vector2(-screenWidth / 2, -screenHeight / 2), Color.White)
+        'drawRect(New Vector2(screenWidth, screenHeight), New Vector2(-screenWidth / 2, -screenHeight / 2), Color.White)
     End Sub
 
     ''' <summary>

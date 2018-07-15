@@ -100,6 +100,7 @@
     <Compile Include="physics\PhysicsHandler.vb" />
     <Compile Include="physics\RigidBody.vb" />
     <Compile Include="screens\GameScreen.vb" />
+    <Compile Include="screens\LevelSelectScreen.vb" />
     <Compile Include="screens\overlays\GameOverOverlay.vb" />
     <Compile Include="screens\overlays\PauseScreenOverlay.vb" />
     <Compile Include="screens\overlays\SettingsScreenOverlay.vb" />
@@ -133,6 +134,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="screens\TutorialScreen.vb" />
     <Compile Include="utils\Constants.vb" />
     <Compile Include="screens\StartScreen.vb" />
     <Compile Include="utils\DebugHandler.vb" />
@@ -161,28 +163,16 @@
     <None Include="res\HappySans.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="res\maps\map1.ldat">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="res\maps\map2.ldat">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="res\maps\map3.ldat">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="res\maps\map4.ldat">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="res\maps\map5.ldat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="res\img\tiles\background_1.png">
+    <Content Include="res\img\tiles\chest.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="res\img\tiles\chest.png">
+    <Content Include="res\img\tiles\map5_background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="res\img\tiles\startscreen_background.png">
