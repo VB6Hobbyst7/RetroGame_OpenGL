@@ -22,11 +22,18 @@ Public Class SimpleProjectile : Inherits Entity
     Public Overrides Sub onCollide(objB As GameObject)
         MyBase.onCollide(objB)
         If objB.GetType.IsAssignableFrom(GetType(Tile)) Then
-            Debug.WriteLine("Destroy projectile")
-            GameScreen.getInstance().removeGameObjectNextFrame(Me)
+            If Game.getInstance().currentScreen.GetType.IsAssignableFrom(GetType(GameScreen)) Then
+                GameScreen.getInstance().removeGameObjectNextFrame(Me)
+            Else
+                TutorialScreen.getInstance().removeGameObjectNextFrame(Me)
+            End If
         ElseIf objB.GetType.IsAssignableFrom(GetType(Enemy)) Then
             'Implement damage logic
-            GameScreen.getInstance().removeGameObjectNextFrame(Me)
+            If Game.getInstance().currentScreen.GetType.IsAssignableFrom(GetType(GameScreen)) Then
+                GameScreen.getInstance().removeGameObjectNextFrame(Me)
+            Else
+                TutorialScreen.getInstance().removeGameObjectNextFrame(Me)
+            End If
         End If
     End Sub
 End Class

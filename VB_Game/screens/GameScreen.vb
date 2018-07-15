@@ -73,6 +73,7 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
         player.Score = 0
         updateScoreLabel()
         EnemyFactory.reset()
+        getCurrentMap().spawnRandomChest()
         CurrentState = State.PLAY
     End Sub
 

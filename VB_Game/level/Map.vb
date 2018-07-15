@@ -23,6 +23,10 @@ Public Class Map
         Return name
     End Function
 
+    Public Function getChest() As Chest
+        Return chest
+    End Function
+
     Public Function getPreviewImg() As ImageTexture
         Return previewImg
     End Function

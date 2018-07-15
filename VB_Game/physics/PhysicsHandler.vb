@@ -78,15 +78,6 @@ Public Class PhysicsHandler
         Next
         collisionsCheck()
         doDisposals()
-
-        Dim chestCount = 0
-        For i = 0 To physicsBodies.Count - 1
-            If physicsBodies(i).parent.GetType.IsAssignableFrom(GetType(Chest)) Then
-                chestCount += 1
-                Debug.WriteLine(physicsBodies(i).parent.pos)
-            End If
-        Next
-        Debug.WriteLine(chestCount)
     End Sub
 
     ''' <summary>

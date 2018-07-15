@@ -56,7 +56,7 @@ Public Class Game : Inherits GameWindow : Implements KeyListener
         camera = New Camera(New Vector2(0.5, 0.5), 0, 1)
         VSync = True
 
-        currentScreen = LevelSelectScreen.getInstance()
+        currentScreen = TutorialScreen.getInstance()
     End Sub
 
     Protected Overrides Sub OnLoad(ByVal e As EventArgs)

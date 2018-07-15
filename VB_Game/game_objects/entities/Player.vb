@@ -65,15 +65,27 @@ Public Class Player : Inherits Entity : Implements KeyListener
 
         'Check if fallen below map
         If pos.Y > Constants.DESIGN_HEIGHT / 2 Then
-            GameScreen.getInstance().gameOver() 'If fallen out of map, game over - reset
+            'If fallen out of map, game over - reset
+            If Game.getInstance().currentScreen.GetType.IsAssignableFrom(GetType(GameScreen)) Then
+                GameScreen.getInstance().gameOver()
+            Else
+                TutorialScreen.getInstance().gameOver()
+            End If
         End If
     End Sub
 
     Public Overrides Sub onCollide(objB As GameObject)
         If objB.GetType.IsAssignableFrom(GetType(Chest)) Then
-            GameScreen.getInstance().getCurrentMap().spawnRandomChest()
-            incrementScore()
-            GameScreen.getInstance().updateScoreLabel()
+            If Game.getInstance().currentScreen.GetType.IsAssignableFrom(GetType(GameScreen)) Then
+                GameScreen.getInstance().getCurrentMap().spawnRandomChest()
+                incrementScore()
+                GameScreen.getInstance().updateScoreLabel()
+            Else
+                'hacky hide by moving off screen
+                TutorialScreen.getInstance().getCurrentMap().getChest().setPos(New Vector2(-9999))
+                incrementScore()
+                TutorialScreen.getInstance().updateScoreLabel()
+            End If
         Else
             Dim deltaL = Math.Abs(pos.X + getWidth() - objB.pos.X)
             Dim deltaR = Math.Abs(pos.X - (objB.pos.X + objB.getWidth()))
@@ -106,7 +118,11 @@ Public Class Player : Inherits Entity : Implements KeyListener
             End If
             If objB.GetType.IsAssignableFrom(GetType(Enemy)) Then
                 'Game over - reset
-                GameScreen.getInstance().gameOver()
+                If Game.getInstance().currentScreen.GetType.IsAssignableFrom(GetType(GameScreen)) Then
+                    GameScreen.getInstance().gameOver()
+                Else
+                    TutorialScreen.getInstance().gameOver()
+                End If
             End If
         End If
 
