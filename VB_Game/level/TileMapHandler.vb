@@ -14,13 +14,21 @@ Public Class TileMapHandler
     Private Sub New()
         loadAllTileTextures()
         loadAllMaps()
+        'Does map preloading for preview images (not very effective if time improve)
+        For i = 0 To maps.Count - 1
+            loadMap(i)
+            PhysicsHandler.clearBodies()
+        Next
+        currentMap = Nothing
     End Sub
 
-    Public Sub loadMap()
+    ''' <summary>
+    ''' Loads map based on map index for maps array
+    ''' </summary>
+    ''' <param name="mapIndex"></param>
+    Public Sub loadMap(mapIndex As Integer)
         maps(0).loadMap()
         currentMap = maps(0)
-        PhysicsHandler.clearBodies()
-        tiles.Clear()
     End Sub
 
     ''' <summary>
@@ -53,6 +61,11 @@ Public Class TileMapHandler
         End If
     End Sub
 
+    ''' <summary>
+    ''' Returns a tile based on name cloned from loaded texture to reduce memory usage
+    ''' </summary>
+    ''' <param name="name"></param>
+    ''' <returns></returns>
     Public Function getTileCopyByName(name As String)
         For Each tile In tiles
             If tile.getName() = name Then

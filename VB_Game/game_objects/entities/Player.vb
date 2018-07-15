@@ -143,6 +143,14 @@ Public Class Player : Inherits Entity : Implements KeyListener
                 Me.velocity = New Vector2(0, Me.velocity.Y)
             End If
 
+            'If InputHandler.isKeyDown(Key.O) Then
+            '    'Output physics debug
+            '    Dim output = PhysicsHandler.debugBodiesOut()
+            '    Dim writer = New System.IO.StreamWriter("./.log")
+            '    writer.Write(output)
+            '    writer.Close()
+            'End If
+
             If InputHandler.isKeyDown(Key.Space) Then
                 If Not currentItem Is Nothing Then
                     currentItem.useItem()

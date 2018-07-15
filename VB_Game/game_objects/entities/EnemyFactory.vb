@@ -10,7 +10,7 @@
 
     Private Const DOUBLE_SPAWN_CHANCE = 30 'chance of two enemies spawning at once
     Private Shared random As New Random()
-    Private Shared SPAWN_RATE = 20 'number per minute
+    Private Shared SPAWN_RATE = 30 'number per minute
     Private Shared timeToNextSpawn = Math.Round(60 / SPAWN_RATE)
 
     Private Const queueSpawnCooldown = 0.5 'time needed for enemies to move out of way before spawning new

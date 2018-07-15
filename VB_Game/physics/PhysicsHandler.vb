@@ -1,4 +1,7 @@
-﻿Imports OpenTK
+﻿Imports System.Text
+Imports OpenTK
+Imports OpenTK.Input
+Imports VB_Game
 
 ''' <summary>
 ''' Handles all physics related calculations and operations
@@ -30,6 +33,8 @@ Public Class PhysicsHandler
     ''' </summary>
     Public Shared Sub clearBodies()
         physicsBodies.Clear()
+        categoryBitMaskBodies.Clear()
+        init()
     End Sub
 
     ''' <summary>
@@ -73,6 +78,15 @@ Public Class PhysicsHandler
         Next
         collisionsCheck()
         doDisposals()
+
+        Dim chestCount = 0
+        For i = 0 To physicsBodies.Count - 1
+            If physicsBodies(i).parent.GetType.IsAssignableFrom(GetType(Chest)) Then
+                chestCount += 1
+                Debug.WriteLine(physicsBodies(i).parent.pos)
+            End If
+        Next
+        Debug.WriteLine(chestCount)
     End Sub
 
     ''' <summary>
@@ -113,6 +127,9 @@ Public Class PhysicsHandler
     ''' <param name="bodyA">Primary Body</param>
     ''' <param name="bodyB">Secondary Body</param>
     Private Shared Sub handleCollision(bodyA As RigidBody, bodyB As RigidBody)
+        If bodyB.parent.GetType().IsAssignableFrom(GetType(Chest)) Then
+            Debug.WriteLine("chest col")
+        End If
         bodyA.parent.onCollide(bodyB.parent)
         bodyB.parent.onCollide(bodyA.parent)
     End Sub
@@ -142,5 +159,12 @@ Public Class PhysicsHandler
         Next
     End Sub
 
-
+    Public Shared Function debugBodiesOut() As String
+        Dim strBuilder As New StringBuilder()
+        For i = 0 To physicsBodies.Count - 1
+            Dim b = physicsBodies(i)
+            strBuilder.AppendLine(b.parent.ToString() + ": " + b.parent.pos.ToString())
+        Next
+        Return strBuilder.ToString()
+    End Function
 End Class

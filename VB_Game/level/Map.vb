@@ -17,26 +17,33 @@ Public Class Map
     Private chestSpawnPositions As New List(Of Vector2)
     Private chest As Chest
     Private Shared random As New Random()
+    Private Shared previewImg As ImageTexture
 
     Public Function getName() As String
         Return name
     End Function
 
+    Public Function getPreviewImg() As ImageTexture
+        Return previewImg
+    End Function
+
     Public Sub New(tileMapHandler As TileMapHandler, mapFileName As String)
         Me.tileMapHandler = tileMapHandler
         Me.mapFileName = mapFileName
-        checkPreviewImage()
+        loadPreviewImage()
     End Sub
 
     ''' <summary>
     ''' Check if preview image exists otherwise create
     ''' </summary>
-    Public Sub checkPreviewImage()
+    Private Sub loadPreviewImage()
         Dim fileNameExcExt = mapFileName.Split(".")(0)
         Debug.WriteLine(fileNameExcExt)
         If Not System.IO.File.Exists(Constants.MAP_RES_DIR + fileNameExcExt + ".png") Then
             loadMap()
             generateSnapshot(fileNameExcExt + ".png")
+        Else
+            previewImg = ContentPipe.loadTexture(Constants.MAP_RES_DIR + fileNameExcExt + ".png")
         End If
     End Sub
 
@@ -165,7 +172,7 @@ Public Class Map
 
         If Not background Is Nothing Then
             graphics.DrawImage(New Drawing.Bitmap(Constants.TILE_RES_DIR + mapFileName.Split(".")(0) + "_background.png"),
-                               outImg.Size.Width, outImg.Size.Height)
+                               New Drawing.Rectangle(0, 0, outImg.Width, outImg.Height))
         End If
 
         For x = 0 To Constants.MAP_WIDTH - 1
@@ -177,6 +184,7 @@ Public Class Map
             Next
         Next
         outImg.Save(Constants.MAP_RES_DIR + outputFile)
+        previewImg = ContentPipe.loadTexture(outImg)
     End Sub
 
 End Class

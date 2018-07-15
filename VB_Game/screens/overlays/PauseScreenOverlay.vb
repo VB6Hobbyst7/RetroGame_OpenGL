@@ -9,6 +9,7 @@
     Private settingsBtn As Button
     Private quitBtn As Button
     Private btnStyle As New ButtonStyle(Drawing.Brushes.White, Drawing.Color.FromArgb(255, 64, 64, 64))
+    Private btnFont As New Drawing.Font("Impact", 26 * Constants.DESIGN_SCALE_FACTOR, Drawing.FontStyle.Regular)
 
     Public Sub New()
         pos = New OpenTK.Vector2(-Constants.DESIGN_WIDTH / 2, -Constants.DESIGN_HEIGHT / 2)
@@ -21,14 +22,14 @@
 
         Dim btnSize As New Drawing.Size(200 * Constants.DESIGN_SCALE_FACTOR, 50 * Constants.DESIGN_SCALE_FACTOR)
 
-        resumeBtn = New Button("Resume", New OpenTK.Vector2(-btnSize.Width / 2,
-                titleLabel.pos.Y + titleLabel.getHeight() + paddingY * 2), btnSize, btnStyle)
+        resumeBtn = New Button("RESUME", New OpenTK.Vector2(-btnSize.Width / 2,
+                titleLabel.pos.Y + titleLabel.getHeight() + paddingY * 2), btnFont, btnSize, btnStyle)
 
-        settingsBtn = New Button("Settings", New OpenTK.Vector2(-btnSize.Width / 2,
-                resumeBtn.pos.Y + btnSize.Height + paddingY * 2), btnSize, btnStyle)
+        settingsBtn = New Button("SETTINGS", New OpenTK.Vector2(-btnSize.Width / 2,
+                resumeBtn.pos.Y + btnSize.Height + paddingY * 2), btnFont, btnSize, btnStyle)
 
-        quitBtn = New Button("Quit", New OpenTK.Vector2(-btnSize.Width / 2,
-                settingsBtn.pos.Y + btnSize.Height + paddingY * 2), btnSize, btnStyle)
+        quitBtn = New Button("QUIT", New OpenTK.Vector2(-btnSize.Width / 2,
+                settingsBtn.pos.Y + btnSize.Height + paddingY * 2), btnFont, btnSize, btnStyle)
         resumeBtn.setOnClickListener(AddressOf onResumeClicked)
         settingsBtn.setOnClickListener(AddressOf onSettingsClicked)
         quitBtn.setOnClickListener(AddressOf onQuitClicked)
@@ -41,8 +42,11 @@
     End Sub
 
     Private Sub onQuitClicked()
-        'Not implemented
-        'GameScreen.getInstance().CurrentState = GameScreen.State.PLAY
+        Dim result = MsgBox("Are you sure you want to quit?", MsgBoxStyle.YesNoCancel)
+        If result = MsgBoxResult.Yes Then
+            GameScreen.getInstance().restart()
+            Game.getInstance().currentScreen = LevelSelectScreen.getInstance()
+        End If
     End Sub
 
     Private Sub onResumeClicked()

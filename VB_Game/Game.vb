@@ -37,7 +37,6 @@ Public Class Game : Inherits GameWindow : Implements KeyListener
 
     Private Sub New()
         MyBase.New(Constants.DESIGN_WIDTH, Constants.DESIGN_HEIGHT, New GraphicsMode(32, 0, 0, Constants.NUM_FSAA_SAMPLES))
-        currentScreen = LevelSelectScreen.getInstance()
         'Initialise OpenGL Settings
         GL.Enable(EnableCap.Texture2D)
         GL.Enable(EnableCap.Blend)
@@ -56,6 +55,8 @@ Public Class Game : Inherits GameWindow : Implements KeyListener
         TileMapHandler.getInstance()
         camera = New Camera(New Vector2(0.5, 0.5), 0, 1)
         VSync = True
+
+        currentScreen = LevelSelectScreen.getInstance()
     End Sub
 
     Protected Overrides Sub OnLoad(ByVal e As EventArgs)

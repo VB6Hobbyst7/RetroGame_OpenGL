@@ -454,7 +454,7 @@ VB_Game
  Represents a tile map consisting of a grid of tiles
  </summary>
 </member>
-<member name="M:VB_Game.Map.checkPreviewImage">
+<member name="M:VB_Game.Map.loadPreviewImage">
  <summary>
  Check if preview image exists otherwise create
  </summary>
@@ -496,10 +496,23 @@ VB_Game
  Handles map resources
  </summary>
 </member>
+<member name="M:VB_Game.TileMapHandler.loadMap(System.Int32)">
+ <summary>
+ Loads map based on map index for maps array
+ </summary>
+ <param name="mapIndex"></param>
+</member>
 <member name="M:VB_Game.TileMapHandler.loadAllTileTextures">
  <summary>
  Loads all tile textures fomr res/img/tiles into memory
  </summary>
+</member>
+<member name="M:VB_Game.TileMapHandler.getTileCopyByName(System.String)">
+ <summary>
+ Returns a tile based on name cloned from loaded texture to reduce memory usage
+ </summary>
+ <param name="name"></param>
+ <returns></returns>
 </member>
 <member name="F:VB_Game.Constants.COLLISION_CATEGORIES">
  <summary>
