@@ -25,6 +25,7 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
     Private scoreLabel As TextLabel
     Private scoreLabelBackground As ShapeTexture
 
+    Public isTutorial As Boolean
     Public CurrentState As State = State.PLAY
 
     Private gameObjects As New List(Of GameObject)
@@ -48,6 +49,7 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
     End Sub
 
     Public Sub onSettingsBack()
+        Debug.WriteLine("Game screen settings back")
         CurrentState = State.PAUSE
     End Sub
 
@@ -168,6 +170,13 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
                 CurrentState = State.PLAY
             End If
         End If
+    End Sub
+
+    ''' <summary>
+    ''' Function called when this screen is switched to as the current displayed screen
+    ''' </summary>
+    Public Overrides Sub onShow()
+        settingsOverlay.setOnBackAction(AddressOf onSettingsBack)
     End Sub
 
     Public Function getScore() As Integer

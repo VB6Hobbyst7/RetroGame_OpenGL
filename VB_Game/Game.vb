@@ -12,6 +12,7 @@ Public Class Game : Inherits GameWindow : Implements KeyListener
     Private camera As Camera
     Private audioMaster As AudioMaster
     Private maxDelta As Double = 0
+    Public gameTime As Double = 0
 
     Private _currentScreen As Screen
     Public Property currentScreen() As Screen
@@ -20,6 +21,7 @@ Public Class Game : Inherits GameWindow : Implements KeyListener
         End Get
         Set(ByVal value As Screen)
             _currentScreen = value
+            _currentScreen.onShow()
         End Set
     End Property
 
@@ -56,7 +58,7 @@ Public Class Game : Inherits GameWindow : Implements KeyListener
         camera = New Camera(New Vector2(0.5, 0.5), 0, 1)
         VSync = True
 
-        currentScreen = TutorialScreen.getInstance()
+        currentScreen = StartScreen.getInstance()
     End Sub
 
     Protected Overrides Sub OnLoad(ByVal e As EventArgs)
@@ -72,6 +74,7 @@ Public Class Game : Inherits GameWindow : Implements KeyListener
             camera.update()
             _currentScreen.update(e.Time)
             DebugHandler.update(e.Time)
+            gameTime += e.Time
             'maxDelta = Math.Max(e.Time, maxDelta)
             'Debug.WriteLine(maxDelta)
         End If

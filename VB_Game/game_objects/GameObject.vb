@@ -96,12 +96,7 @@ Public Class GameObject
     ''' Removes GameObject from all relevant containers
     ''' </summary>
     Public Overridable Sub dispose()
-        If Game.getInstance().currentScreen.GetType.IsAssignableFrom(GetType(GameScreen)) Then
-            GameScreen.getInstance().removeGameObject(Me)
-        Else
-            TutorialScreen.getInstance().removeGameObject(Me)
-        End If
-
+        GameScreen.getInstance().removeGameObject(Me)
         PhysicsHandler.scheduleDispose(Me)
     End Sub
 

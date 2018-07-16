@@ -36,7 +36,7 @@ Public Class Control
     Private _visible As Boolean = False
     Public Property Visible() As Boolean
         Get
-            Return _visible
+            Return Game.getInstance().gameTime - lastRenderTime < RENDER_HIDE_TIME_THRESHOLD
         End Get
         Set(ByVal value As Boolean)
             _visible = value
@@ -59,8 +59,9 @@ Public Class Control
         scale = New Vector2(scale.X, texture.height / height)
     End Sub
 
-    Private timeSinceLastRender As Double = 0
-    Private RENDER_HIDE_TIME_THRESHOLD = 0.3 'Time needed since last render to disable controls
+    Private stopwatch As New Stopwatch()
+    Private lastRenderTime As Double = 0
+    Private RENDER_HIDE_TIME_THRESHOLD = 0.2 'Time needed since last render to disable controls
 
     ''' <summary>
     ''' Scale property defaulting to (1, 1)
@@ -79,17 +80,7 @@ Public Class Control
         If Not customRender Then
             SpriteBatch.drawControl(Me)
         End If
-        timeSinceLastRender = 0
-    End Sub
-
-    Public Overridable Sub tick(delta As Double)
-        timeSinceLastRender += delta
-        'Debug.WriteLine(Me.Visible)
-        If timeSinceLastRender > RENDER_HIDE_TIME_THRESHOLD Then
-            Me.Visible = False
-        Else
-            Me.Visible = True
-        End If
+        lastRenderTime = Game.getInstance().gameTime
     End Sub
 
 End Class

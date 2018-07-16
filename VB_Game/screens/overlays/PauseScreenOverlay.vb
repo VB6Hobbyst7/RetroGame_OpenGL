@@ -37,7 +37,6 @@
     End Sub
 
     Private Sub onSettingsClicked()
-        Dim g = GameScreen.getInstance()
         GameScreen.getInstance().CurrentState = GameScreen.State.SETTINGS
     End Sub
 
@@ -45,13 +44,12 @@
         Dim result = MsgBox("Are you sure you want to quit?", MsgBoxStyle.YesNoCancel)
         If result = MsgBoxResult.Yes Then
             GameScreen.getInstance().restart()
-            Game.getInstance().currentScreen = LevelSelectScreen.getInstance()
+            Game.getInstance().currentScreen = StartScreen.getInstance()
         End If
     End Sub
 
     Private Sub onResumeClicked()
         GameScreen.getInstance().CurrentState = GameScreen.State.PLAY
-        Debug.WriteLine(GameScreen.getInstance().CurrentState)
     End Sub
 
     Public Sub render(delta)
@@ -63,9 +61,6 @@
     End Sub
 
     Public Sub tick(delta)
-        resumeBtn.tick(delta)
-        settingsBtn.tick(delta)
-        quitBtn.tick(delta)
     End Sub
 
 

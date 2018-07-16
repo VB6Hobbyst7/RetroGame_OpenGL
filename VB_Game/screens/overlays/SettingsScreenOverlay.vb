@@ -73,8 +73,6 @@
     End Sub
 
     Public Sub tick(delta)
-        backBtn.tick(delta)
-        volumeSlider.tick(delta)
     End Sub
 
 End Class

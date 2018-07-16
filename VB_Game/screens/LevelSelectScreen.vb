@@ -102,15 +102,15 @@ Public Class LevelSelectScreen : Inherits Screen
     End Sub
 
     Public Overrides Sub update(delta As Double)
-        startGameBtn.tick(delta)
-        backBtn.tick(delta)
     End Sub
 
     Private Sub onBackClicked()
+        Debug.WriteLine("on back level select")
         Game.getInstance().currentScreen = StartScreen.getInstance()
     End Sub
 
     Private Sub onStartClicked()
+        Debug.WriteLine("on start level select")
         TileMapHandler.getInstance().loadMap(currentMapChosenIndex)
         Game.getInstance().currentScreen = GameScreen.getInstance()
     End Sub
@@ -129,4 +129,7 @@ Public Class LevelSelectScreen : Inherits Screen
         Return instance
     End Function
 
+    Public Overrides Sub onShow()
+        Debug.WriteLine("Showing level select screen")
+    End Sub
 End Class

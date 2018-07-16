@@ -53,6 +53,7 @@ Public Class Slider : Inherits Control : Implements MouseListener
     Public Overrides Sub render(delta As Double)
         MyBase.render(delta)
         SpriteBatch.drawTexture(sliderTexture, pos)
+        Debug.WriteLine(Visible)
     End Sub
 
     Public Sub MouseScroll(e As MouseWheelEventArgs) Implements MouseListener.MouseScroll
@@ -76,7 +77,7 @@ Public Class Slider : Inherits Control : Implements MouseListener
     Public Sub MouseMove(e As MouseMoveEventArgs) Implements MouseListener.MouseMove
 
         hoveredOver = PhysicUtils.pointWithin(SpriteBatch.normaliseScreenCoords(e.X, e.Y),
-                                   New BoundingRect(New Vector2(Me.getWidth(), Me.getWidth()), Me.pos))
+                                   New BoundingRect(New Vector2(Me.getWidth(), Me.getHeight()), Me.pos))
         If grabbedSlider And Visible Then
             Value = ((SpriteBatch.normaliseScreenX(e.X) - pos.X) / Me.getWidth()) * 100
         End If

@@ -30,13 +30,9 @@ Public Class Gun : Inherits Item
         End If
 
         Dim projectile As New SimpleProjectile(New OpenTK.Vector2(startX, startY), holder.getXOrient())
-        If Game.getInstance().currentScreen.GetType.IsAssignableFrom(GetType(GameScreen)) Then
-            GameScreen.getInstance().addPhysicsBasedObject(projectile,
+        GameScreen.getInstance().addPhysicsBasedObject(projectile,
             Constants.Physics_CATEGORY.PROJECTILE, Constants.Physics_COLLISION.PROJECTILE)
-        Else
-            TutorialScreen.getInstance().addPhysicsBasedObject(projectile,
-            Constants.Physics_CATEGORY.PROJECTILE, Constants.Physics_COLLISION.PROJECTILE)
-        End If
+
     End Sub
 
     Public Overrides Sub update(delta As Double)

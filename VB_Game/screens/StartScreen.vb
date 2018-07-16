@@ -15,6 +15,7 @@ Public Class StartScreen : Inherits Screen
     Private btnStyle = New ButtonStyle(Drawing.Brushes.White, Drawing.Color.FromArgb(255, 64, 64, 64))
 
     Private Sub startGame()
+        Debug.WriteLine("on start game start")
         Game.getInstance().currentScreen = LevelSelectScreen.getInstance()
     End Sub
 
@@ -23,7 +24,7 @@ Public Class StartScreen : Inherits Screen
     End Sub
 
     Private Sub startTutorial()
-        Game.getInstance().currentScreen = TutorialScreen.getInstance()
+        Game.getInstance().currentScreen = GameScreen.getInstance()
     End Sub
 
 
@@ -77,9 +78,6 @@ Public Class StartScreen : Inherits Screen
     End Sub
 
     Public Overrides Sub update(delta As Double)
-        startGameBtn.tick(delta)
-        settingsBtn.tick(delta)
-        tutorialBtn.tick(delta)
         settingsOverlay.tick(delta)
     End Sub
 
@@ -87,6 +85,14 @@ Public Class StartScreen : Inherits Screen
     End Sub
 
     Public Overrides Sub onResize()
+    End Sub
+
+    ''' <summary>
+    ''' Function called when this screen is switched to as the current displayed screen
+    ''' </summary>
+    Public Overrides Sub onShow()
+        Debug.WriteLine("Showing start screen")
+        settingsOverlay.setOnBackAction(AddressOf onSettingsBack)
     End Sub
 
     Public Shared Function getInstance() As StartScreen

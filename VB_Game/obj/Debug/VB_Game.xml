@@ -303,6 +303,11 @@ VB_Game
  </summary>
  <param name="obj"></param>
 </member>
+<member name="M:VB_Game.GameScreen.onShow">
+ <summary>
+ Function called when this screen is switched to as the current displayed screen
+ </summary>
+</member>
 <member name="T:VB_Game.Screen">
  <summary>
  Represents a screen in the game (e.g. gamescreen, pausescreen)
@@ -514,22 +519,6 @@ VB_Game
  <param name="name"></param>
  <returns></returns>
 </member>
-<member name="T:VB_Game.TutorialScreen">
- <summary>
- Main screen where the game is run
- </summary>
-</member>
-<member name="M:VB_Game.TutorialScreen.restart">
- <summary>
- Restarts game resetting everything to default states
- </summary>
-</member>
-<member name="M:VB_Game.TutorialScreen.removeGameObjectNextFrame(VB_Game.GameObject)">
- <summary>
- Adds objects to be removed next frame to improve visuals
- </summary>
- <param name="obj"></param>
-</member>
 <member name="F:VB_Game.Constants.COLLISION_CATEGORIES">
  <summary>
  All possible collidable obj bit mask signatures
@@ -553,6 +542,11 @@ VB_Game
 <member name="M:VB_Game.Constants.saveSettings">
  <summary>
  Saves all settings to .settings file
+ </summary>
+</member>
+<member name="M:VB_Game.StartScreen.onShow">
+ <summary>
+ Function called when this screen is switched to as the current displayed screen
  </summary>
 </member>
 </members>
