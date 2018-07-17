@@ -11,13 +11,36 @@ Public Class AudioMaster : Implements IDisposable
 
     Private buffers As List(Of Integer)
     Private context As AudioContext
-    Private source As Source
+    Private sources As New List(Of Source)
     Private Shared instance As AudioMaster
+    Private enabled As Boolean
+    Private volumeLevel As Double
+
+    Public Function isEnabled() As Boolean
+        Return enabled
+    End Function
+
+    Public Sub setVolume(level As Integer)
+        volumeLevel = (level / 100) 'gain expects value from 0 to 1
+        For i = 0 To sources.Count - 1
+            sources(i).gain = volumeLevel
+        Next
+    End Sub
+
+    Public Function getVolume() As Integer
+        Return CInt(volumeLevel * 100)
+    End Function
 
     Public Sub New()
-        context = New AudioContext()
-        context.MakeCurrent()
-        setListenerData()
+        Try
+            context = New AudioContext()
+            context.MakeCurrent()
+            setListenerData()
+        Catch ex As Exception
+            enabled = False
+            'Audio disabled
+        End Try
+
 
         'Dim buffer = ContentPipe.loadWave(".\res\test.wav")
         'Dim buffer2 = ContentPipe.loadWave(".\res\test2.wav")

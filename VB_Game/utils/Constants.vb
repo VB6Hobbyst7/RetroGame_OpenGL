@@ -26,6 +26,7 @@ Public Class Constants
     End Property
 
     'Graphics constants
+    Public Shared CURRENT_GRAPHICS_PRESET As String
     Public Shared GRAPHICS_PRESETS As New Dictionary(Of String, Single())
     Public Shared NUM_FSAA_SAMPLES = 4
     Public Shared DESIGN_WIDTH As Integer = 720 * DESIGN_SCALE_FACTOR
@@ -112,9 +113,28 @@ Public Class Constants
         Dim graphicsSettings = CType(settingsObj.GetValue("graphics"), JObject)
 
         If Not graphicsSettings.GetValue("preset") Is Nothing Then
-            NUM_FSAA_SAMPLES = GRAPHICS_PRESETS(graphicsSettings.GetValue("preset"))(1)
-            DESIGN_SCALE_FACTOR = GRAPHICS_PRESETS(graphicsSettings.GetValue("preset"))(0)
+            Dim preset = graphicsSettings.GetValue("preset").ToString().ToUpper()
+            NUM_FSAA_SAMPLES = GRAPHICS_PRESETS(preset)(1)
+            DESIGN_SCALE_FACTOR = GRAPHICS_PRESETS(preset)(0)
+            CURRENT_GRAPHICS_PRESET = preset
         End If
+
+        If Not graphicsSettings.GetValue("windowed_mode") Is Nothing Then
+            If graphicsSettings.GetValue("windowed_mode").ToString().ToLower() = "windowed" Then
+                Game.getInstance().WindowState = OpenTK.WindowState.Normal
+            ElseIf graphicsSettings.GetValue("windowed_mode").ToString().ToLower() = "fullscreen" Then
+                Game.getInstance().WindowState = OpenTK.WindowState.Fullscreen
+            End If
+        End If
+
+        Dim volumeSettings = CType(settingsObj.GetValue("volume"), JObject)
+        If Not volumeSettings.GetValue("vol_level") Is Nothing Then
+            'set volume
+            If AudioMaster.getInstance().isEnabled() Then
+                AudioMaster.getInstance().setVolume(CInt(volumeSettings.GetValue("vol_level")))
+            End If
+        End If
+
     End Sub
 
     ''' <summary>
@@ -122,11 +142,21 @@ Public Class Constants
     ''' </summary>
     Public Shared Sub saveSettings()
         Dim settings As New JObject
+        Dim volumeSettings As New JObject()
+
+        volumeSettings.Add(New JProperty("vol_level", AudioMaster.getInstance().getVolume()))
+
         Dim graphicsSettings As New JObject()
-        graphicsSettings.Add(New JProperty("fsaa_samples", NUM_FSAA_SAMPLES))
-        graphicsSettings.Add(New JProperty("resolution_design_scale", DESIGN_SCALE_FACTOR))
+        graphicsSettings.Add(New JProperty("preset", CURRENT_GRAPHICS_PRESET))
+
+        If Game.getInstance().WindowState = OpenTK.WindowState.Normal Then
+            graphicsSettings.Add(New JProperty("windowed_mode", "windowed"))
+        ElseIf Game.getInstance().WindowState = OpenTK.WindowState.Fullscreen Then
+            graphicsSettings.Add(New JProperty("windowed_mode", "fullscreen"))
+        End If
 
         settings.Add(New JProperty("graphics", graphicsSettings))
+        settings.Add(New JProperty("volume", volumeSettings))
 
         Dim writer As New JsonTextWriter(New System.IO.StreamWriter("./.settings"))
         settings.WriteTo(writer)

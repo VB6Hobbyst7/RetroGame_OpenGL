@@ -10,7 +10,6 @@ Public Class Game : Inherits GameWindow : Implements KeyListener
 
     Private Shared instance As Game
     Private camera As Camera
-    Private audioMaster As AudioMaster
     Private maxDelta As Double = 0
     Public gameTime As Double = 0
 
@@ -29,27 +28,12 @@ Public Class Game : Inherits GameWindow : Implements KeyListener
         Return camera
     End Function
 
-    Public Function getAudioMaster()
-        Return audioMaster
-    End Function
-
-    Public Function isAudioEnabled() As Boolean
-        Return Not audioMaster Is Nothing
-    End Function
-
     Private Sub New()
         MyBase.New(Constants.DESIGN_WIDTH, Constants.DESIGN_HEIGHT, New GraphicsMode(32, 0, 0, Constants.NUM_FSAA_SAMPLES))
         'Initialise OpenGL Settings
         GL.Enable(EnableCap.Texture2D)
         GL.Enable(EnableCap.Blend)
         GL.BlendFunc(CType(BlendingFactorSrc.SrcAlpha, BlendingFactor), CType(BlendingFactorSrc.OneMinusSrcAlpha, BlendingFactor))
-        Try
-            audioMaster = AudioMaster.getInstance()
-        Catch ex As Exception
-            Debug.WriteLine("Error: loading audio")
-            audioMaster = Nothing
-        End Try
-
         InputHandler.init(Me)
         DebugHandler.init()
         InputHandler.keyListeners.Add(Me)
@@ -57,7 +41,6 @@ Public Class Game : Inherits GameWindow : Implements KeyListener
         TileMapHandler.getInstance()
         camera = New Camera(New Vector2(0.5, 0.5), 0, 1)
         VSync = True
-
         currentScreen = StartScreen.getInstance()
     End Sub
 
@@ -98,7 +81,7 @@ Public Class Game : Inherits GameWindow : Implements KeyListener
     Public Overloads Sub Dispose()
         MyBase.Dispose()
         _currentScreen.dispose()
-        audioMaster.Dispose()
+        AudioMaster.getInstance().Dispose()
     End Sub
 
     Public Shared Function getInstance() As Game

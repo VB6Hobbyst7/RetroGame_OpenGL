@@ -19,11 +19,16 @@
     Private applyChangesBtn As Button
 
     'Currently chosen settings - not necessarily saved yet
-    Private settingsChanged As Boolean = False
+
     Private hasGraphicSettingsChanged As Boolean = False
     Private initialGraphicsQuality As String
+    Private initVolumeLevel As Integer
     Private volumeLevel As Integer
     Private graphicsQuality As String
+
+    Private Function hasSettingsChanged() As Boolean
+        Return hasGraphicSettingsChanged Or initVolumeLevel <> volumeLevel
+    End Function
 
     Public Sub New()
         pos = New OpenTK.Vector2(-Constants.DESIGN_WIDTH / 2, -Constants.DESIGN_HEIGHT / 2)
@@ -34,13 +39,13 @@
                                   Drawing.Brushes.White)
         titleLabel.pos = New OpenTK.Vector2(-titleLabel.getWidth() / 2, pos.Y + paddingY)
 
-        Dim btnSize As New Drawing.Size(250 * Constants.DESIGN_SCALE_FACTOR, 45 * Constants.DESIGN_SCALE_FACTOR)
+        Dim btnSize As New Drawing.Size(250 * Constants.DESIGN_SCALE_FACTOR, 40 * Constants.DESIGN_SCALE_FACTOR)
 
         backBtn = New Button("BACK", New OpenTK.Vector2(-btnSize.Width / 2,
                 Constants.DESIGN_HEIGHT / 2 - btnSize.Height * 1.5), mainFont, btnSize, btnStyle)
         backBtn.setOnClickListener(AddressOf onBackClicked)
 
-        applyChangesBtn = New Button("BACK", New OpenTK.Vector2(backBtn.pos.X, backBtn.pos.Y - backBtn.getHeight()),
+        applyChangesBtn = New Button("APPLY", New OpenTK.Vector2(backBtn.pos.X, backBtn.pos.Y - backBtn.getHeight() * 1.5),
                                      mainFont, btnSize, btnStyle)
         applyChangesBtn.setOnClickListener(AddressOf applySettingsChanges)
 
@@ -67,11 +72,30 @@
     End Sub
 
     Public Sub applySettingsChanges()
+        Dim msgResult = Nothing
+        If hasGraphicSettingsChanged Then
+            msgResult = MsgBox("Are you sure you want to apply changes?
+Changing graphic options requires a restart and any ongoing game progress will be lost",
+                               MsgBoxStyle.OkCancel, "Apply Changes")
+        End If
 
+        AudioMaster.getInstance().setVolume(volumeLevel)
+        initVolumeLevel = volumeLevel
+
+        If msgResult = MsgBoxResult.Ok Then
+            Constants.CURRENT_GRAPHICS_PRESET = graphicsQuality
+            Constants.saveSettings()
+            System.Diagnostics.Process.Start(System.AppDomain.CurrentDomain.FriendlyName)
+            Environment.Exit(0)
+        End If
+        Constants.saveSettings()
     End Sub
 
     Public Sub loadValuesFromSettings()
-
+        volumeSlider.Value = CInt(AudioMaster.getInstance().getVolume() * 100)
+        graphicsSwitch.setSelectedIndex(Array.IndexOf(Constants.GRAPHICS_PRESETS.Keys.ToArray(),
+                                              Constants.CURRENT_GRAPHICS_PRESET))
+        initialGraphicsQuality = graphicsSwitch.getSelectedValue()
     End Sub
 
     Public Sub onGraphicsQualityChanged(val As Object)
@@ -111,7 +135,7 @@
         volumeTitleLabel.render(delta)
         graphicsSwitch.render(delta)
         graphicsQualityTitleLabel.render(delta)
-        If settingsChanged Then
+        If hasSettingsChanged() Then
             applyChangesBtn.render(delta)
         End If
     End Sub

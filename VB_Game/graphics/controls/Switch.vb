@@ -18,6 +18,10 @@ Public Class Switch : Inherits Control : Implements MouseListener
     Private valueChangeListener As OnValueChanged
     Private lastSelectedIndex As Integer = 0
 
+    Public Function getSelectedValue() As String
+        Return selectedValue
+    End Function
+
     ''' <summary>
     ''' Creates new switch for number of values specified
     ''' </summary>
