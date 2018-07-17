@@ -13,6 +13,7 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
         PAUSE = 1
         GAMEOVER = 2
         SETTINGS = 3
+        SHOW_INSTRUCTIONS = 4
     End Enum
 
     Private Shared instance As GameScreen
@@ -22,9 +23,10 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
     Private gameOverOverlay As New GameOverOverlay() 'Screen overlay showing game over message
     Private pauseScreen As New PauseScreenOverlay()
     Private settingsOverlay As New SettingsScreenOverlay()
+    Private tutorialOverlay As New TutorialScreenOverlay()
     Private scoreLabel As TextLabel
     Private scoreLabelBackground As ShapeTexture
-
+    Private tutorialEnemy As Enemy
     Public isTutorial As Boolean
     Public CurrentState As State = State.PLAY
 
@@ -81,6 +83,10 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
 
     Public Sub gameOver()
         CurrentState = State.GAMEOVER
+        'Sets new highscore if it is achieved
+        If player.Score > getCurrentMap.Highscore Then
+            getCurrentMap().Highscore = player.Score
+        End If
     End Sub
 
     Public Shared Function getInstance() As GameScreen
@@ -109,6 +115,8 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
             pauseScreen.render(delta)
         ElseIf CurrentState = State.SETTINGS Then
             settingsOverlay.render(delta)
+        ElseIf CurrentState = State.SHOW_INSTRUCTIONS Then
+            tutorialOverlay.render(delta)
         End If
 
         For i = 0 To nextFrameRemovalList.Count - 1
@@ -121,7 +129,9 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
             For i = 0 To gameObjects.Count - 1
                 gameObjects(i).tick(delta)
             Next
-            EnemyFactory.tick(delta)
+            If Not isTutorial Then
+                EnemyFactory.tick(delta)
+            End If
             PhysicsHandler.update(delta)
         End If
 
@@ -166,7 +176,7 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
             'Toggle Pause Screen
             If CurrentState = State.PLAY Then
                 CurrentState = State.PAUSE
-            Else
+            ElseIf CurrentState <> State.SHOW_INSTRUCTIONS Then
                 CurrentState = State.PLAY
             End If
         End If
@@ -182,4 +192,18 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
     Public Function getScore() As Integer
         Return player.Score
     End Function
+
+    Public Sub configureNormal()
+        isTutorial = False
+    End Sub
+
+    Public Sub configureTutorial()
+        isTutorial = True
+        CurrentState = State.SHOW_INSTRUCTIONS
+        getCurrentMap().getChest().setPos(New Vector2(7 * Constants.TILE_SIZE, -2 * Constants.TILE_SIZE))
+        player.pos = New Vector2(player.pos.X, 2 * Constants.TILE_SIZE - 3)
+        tutorialEnemy = New Enemy(New Vector2(0, -6 * Constants.TILE_SIZE - 1), New ShapeTexture(Constants.TILE_SIZE, Constants.TILE_SIZE,
+            Drawing.Color.ForestGreen, ShapeTexture.ShapeType.Rectangle), 0)
+        addPhysicsBasedObject(tutorialEnemy, Constants.Physics_CATEGORY.ENEMY, Constants.Physics_COLLISION.ENEMY)
+    End Sub
 End Class

@@ -87,7 +87,7 @@ Public Class LevelSelectScreen : Inherits Screen
         mapPreviewView.scale = New Vector2(mapPreviewSize.X / currentDisplayedMap.getPreviewImg().width,
                                            mapPreviewSize.Y / currentDisplayedMap.getPreviewImg().height)
         mapNameLabel.Text = currentDisplayedMap.getName()
-        highScoreLabel.Text = "Highscore: 0"
+        highScoreLabel.Text = "Highscore: " + CStr(currentDisplayedMap.Highscore)
     End Sub
 
     Public Overrides Sub render(delta As Double)
@@ -105,13 +105,12 @@ Public Class LevelSelectScreen : Inherits Screen
     End Sub
 
     Private Sub onBackClicked()
-        Debug.WriteLine("on back level select")
         Game.getInstance().currentScreen = StartScreen.getInstance()
     End Sub
 
     Private Sub onStartClicked()
-        Debug.WriteLine("on start level select")
         TileMapHandler.getInstance().loadMap(currentMapChosenIndex)
+        GameScreen.getInstance().configureNormal()
         Game.getInstance().currentScreen = GameScreen.getInstance()
     End Sub
 
@@ -130,6 +129,6 @@ Public Class LevelSelectScreen : Inherits Screen
     End Function
 
     Public Overrides Sub onShow()
-        Debug.WriteLine("Showing level select screen")
+        highScoreLabel.Text = "Highscore: " + CStr(currentDisplayedMap.Highscore)
     End Sub
 End Class

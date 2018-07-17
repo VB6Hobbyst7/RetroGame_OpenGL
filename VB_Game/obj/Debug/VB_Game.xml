@@ -308,6 +308,11 @@ VB_Game
  Function called when this screen is switched to as the current displayed screen
  </summary>
 </member>
+<member name="T:VB_Game.TutorialScreenOverlay">
+ <summary>
+ Overlay showing tutorial instructions
+ </summary>
+</member>
 <member name="T:VB_Game.Screen">
  <summary>
  Represents a screen in the game (e.g. gamescreen, pausescreen)
@@ -459,6 +464,11 @@ VB_Game
  Represents a tile map consisting of a grid of tiles
  </summary>
 </member>
+<member name="F:VB_Game.Map._highScore">
+ <summary>
+ Map highscore
+ </summary>
+</member>
 <member name="M:VB_Game.Map.loadPreviewImage">
  <summary>
  Check if preview image exists otherwise create
@@ -483,6 +493,11 @@ VB_Game
 <member name="M:VB_Game.Map.generateSnapshot(System.Object)">
  <summary>
  Creates a map snapshot and exports it to an img: used for map previews
+ </summary>
+</member>
+<member name="M:VB_Game.Map.saveHighScore">
+ <summary>
+ Takes current highscore and saves it to the file
  </summary>
 </member>
 <member name="T:VB_Game.Tile">

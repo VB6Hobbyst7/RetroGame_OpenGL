@@ -6,14 +6,14 @@
     Public Shared NORMAL_ENEMY_TEXTURE 'texture for normal enemy
     Public Shared FAST_ENEMY_TEXTURE 'texture for faster enemy
 
-    Private Shared DIFFICULTY_FACTOR = 1.02 'Difficulty factor which increases over time increasing spawn rates
+    Private Shared DIFFICULTY_FACTOR = 1.01 'Difficulty factor which increases over time increasing spawn rates
 
-    Private Const DOUBLE_SPAWN_CHANCE = 30 'chance of two enemies spawning at once
+    Private Const DOUBLE_SPAWN_CHANCE = 20 'chance of two enemies spawning at once
     Private Shared random As New Random()
     Private Shared SPAWN_RATE = 30 'number per minute
     Private Shared timeToNextSpawn = Math.Round(60 / SPAWN_RATE)
 
-    Private Const queueSpawnCooldown = 0.5 'time needed for enemies to move out of way before spawning new
+    Private Const queueSpawnCooldown = 0.35 'time needed for enemies to move out of way before spawning new
     Private Shared timeSinceLastSpawn = 0
 
     Private Shared spawnQueue As New Queue(Of Enemy)

@@ -24,6 +24,8 @@ Public Class StartScreen : Inherits Screen
     End Sub
 
     Private Sub startTutorial()
+        TileMapHandler.getInstance().loadMap(0)
+        GameScreen.getInstance().configureTutorial()
         Game.getInstance().currentScreen = GameScreen.getInstance()
     End Sub
 

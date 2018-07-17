@@ -74,12 +74,12 @@ Public Class Player : Inherits Entity : Implements KeyListener
         If objB.GetType.IsAssignableFrom(GetType(Chest)) Then
             If Not GameScreen.getInstance().isTutorial Then
                 GameScreen.getInstance().getCurrentMap().spawnRandomChest()
-                incrementScore()
-                GameScreen.getInstance().updateScoreLabel()
             Else
                 'hacky hide by moving off screen
                 GameScreen.getInstance().getCurrentMap().getChest().setPos(New Vector2(-9999))
             End If
+            incrementScore()
+            GameScreen.getInstance().updateScoreLabel()
         Else
             Dim deltaL = Math.Abs(pos.X + getWidth() - objB.pos.X)
             Dim deltaR = Math.Abs(pos.X - (objB.pos.X + objB.getWidth()))

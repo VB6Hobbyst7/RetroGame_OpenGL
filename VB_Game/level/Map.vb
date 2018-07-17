@@ -1,4 +1,5 @@
 ﻿Imports Newtonsoft.Json
+Imports Newtonsoft.Json.Linq
 Imports System.IO
 Imports OpenTK
 
@@ -18,6 +19,20 @@ Public Class Map
     Private chest As Chest
     Private Shared random As New Random()
     Private Shared previewImg As ImageTexture
+
+    ''' <summary>
+    ''' Map highscore
+    ''' </summary>
+    Private _highScore As Integer = 0 '0 by default in case property is not part of file
+    Public Property Highscore() As Integer
+        Get
+            Return _highScore
+        End Get
+        Set(ByVal value As Integer)
+            _highScore = value
+            saveHighScore()
+        End Set
+    End Property
 
     Public Function getName() As String
         Return name
@@ -80,6 +95,9 @@ Public Class Map
                     Case "mapName"
                         reader.Read()
                         Me.name = reader.Value
+                    Case "highscore"
+                        reader.Read()
+                        Me._highScore = reader.Value
                     Case "n"
                         reader.Read()
                         If reader.Value = "" Then
@@ -189,6 +207,29 @@ Public Class Map
         Next
         outImg.Save(Constants.MAP_RES_DIR + outputFile)
         previewImg = ContentPipe.loadTexture(outImg)
+    End Sub
+
+    ''' <summary>
+    ''' Takes current highscore and saves it to the file
+    ''' </summary>
+    Private Sub saveHighScore()
+        Dim mapsStr As String = ""
+        Try
+            mapsStr = System.IO.File.ReadAllText(Constants.MAP_RES_DIR + mapFileName)
+        Catch ex As Exception
+            Debug.WriteLine(ex)
+            'Failed to read
+            Return
+        End Try
+        Dim mapsObj = JObject.Parse(mapsStr)
+        If mapsObj("highscore") Is Nothing Then
+            mapsObj.Add("highscore", Highscore)
+        Else
+            mapsObj("highscore") = Highscore
+        End If
+        Dim writer As New JsonTextWriter(New System.IO.StreamWriter(Constants.MAP_RES_DIR + mapFileName))
+        mapsObj.WriteTo(writer)
+        writer.Close()
     End Sub
 
 End Class
