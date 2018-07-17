@@ -94,6 +94,8 @@
     <Compile Include="graphics\controls\ButtonStyle.vb" />
     <Compile Include="graphics\controls\Control.vb" />
     <Compile Include="graphics\controls\Slider.vb" />
+    <Compile Include="graphics\controls\Switch.vb" />
+    <Compile Include="graphics\controls\SwitchStyle.vb" />
     <Compile Include="graphics\texture\TextureAtlas.vb" />
     <Compile Include="physics\BoundingRect.vb" />
     <Compile Include="physics\PhysicUtils.vb" />

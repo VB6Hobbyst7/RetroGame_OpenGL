@@ -14,6 +14,16 @@
     Private volumeLabel As TextLabel
     Private volumeTitleLabel As TextLabel
     Dim controlSize As New OpenTK.Vector2(280 * Constants.DESIGN_SCALE_FACTOR, 44 * Constants.DESIGN_SCALE_FACTOR)
+    Private graphicsSwitch As Switch
+    Private graphicsQualityTitleLabel As TextLabel
+    Private applyChangesBtn As Button
+
+    'Currently chosen settings - not necessarily saved yet
+    Private settingsChanged As Boolean = False
+    Private hasGraphicSettingsChanged As Boolean = False
+    Private initialGraphicsQuality As String
+    Private volumeLevel As Integer
+    Private graphicsQuality As String
 
     Public Sub New()
         pos = New OpenTK.Vector2(-Constants.DESIGN_WIDTH / 2, -Constants.DESIGN_HEIGHT / 2)
@@ -30,6 +40,10 @@
                 Constants.DESIGN_HEIGHT / 2 - btnSize.Height * 1.5), mainFont, btnSize, btnStyle)
         backBtn.setOnClickListener(AddressOf onBackClicked)
 
+        applyChangesBtn = New Button("BACK", New OpenTK.Vector2(backBtn.pos.X, backBtn.pos.Y - backBtn.getHeight()),
+                                     mainFont, btnSize, btnStyle)
+        applyChangesBtn.setOnClickListener(AddressOf applySettingsChanges)
+
         'Volume settings controls
         volumeSlider = New Slider(New OpenTK.Vector2(-controlSize.X / 5,
                                                      titleLabel.pos.Y + titleLabel.getHeight() * 3), controlSize)
@@ -40,10 +54,35 @@
         volumeTitleLabel = New TextLabel("Volume", mainFont, Drawing.Brushes.White)
         volumeTitleLabel.pos = New OpenTK.Vector2(volumeSlider.pos.X - volumeSlider.getWidth() / 8 - volumeTitleLabel.getWidth(),
                                              volumeSlider.pos.Y)
+
+        'Configure Graphics Settings
+        graphicsSwitch = New Switch(New OpenTK.Vector2(volumeSlider.pos.X, volumeSlider.pos.Y + controlSize.Y * 3),
+                                    controlSize, Constants.GRAPHICS_PRESETS.Keys.ToArray())
+        graphicsSwitch.setOnValueChangeListener(AddressOf onGraphicsQualityChanged)
+
+        graphicsQualityTitleLabel = New TextLabel("Graphics Quality", mainFont, Drawing.Brushes.White)
+        graphicsQualityTitleLabel.pos = New OpenTK.Vector2(graphicsSwitch.pos.X - graphicsSwitch.getWidth() / 8 - graphicsQualityTitleLabel.getWidth(),
+                                             graphicsSwitch.pos.Y)
+        loadValuesFromSettings()
+    End Sub
+
+    Public Sub applySettingsChanges()
+
+    End Sub
+
+    Public Sub loadValuesFromSettings()
+
+    End Sub
+
+    Public Sub onGraphicsQualityChanged(val As Object)
+        Debug.WriteLine(val)
+        graphicsQuality = CStr(val)
+        hasGraphicSettingsChanged = (graphicsQuality <> initialGraphicsQuality)
     End Sub
 
     Public Sub onVolumeChanged(val As Object)
         volumeLabel.Text = CStr(val)
+        volumeLevel = CInt(val)
     End Sub
 
     Public Sub New(renderOverlay As Boolean)
@@ -70,6 +109,11 @@
         volumeSlider.render(delta)
         volumeLabel.render(delta)
         volumeTitleLabel.render(delta)
+        graphicsSwitch.render(delta)
+        graphicsQualityTitleLabel.render(delta)
+        If settingsChanged Then
+            applyChangesBtn.render(delta)
+        End If
     End Sub
 
     Public Sub tick(delta)

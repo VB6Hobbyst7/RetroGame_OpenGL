@@ -1,6 +1,6 @@
 ﻿Module Module1
     Sub Main()
-        Constants.loadSettings()
+        Constants.init()
         Dim game = VB_Game.Game.getInstance()
         game.Run()
     End Sub

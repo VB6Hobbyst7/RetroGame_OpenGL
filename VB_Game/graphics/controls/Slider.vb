@@ -53,12 +53,10 @@ Public Class Slider : Inherits Control : Implements MouseListener
     Public Overrides Sub render(delta As Double)
         MyBase.render(delta)
         SpriteBatch.drawTexture(sliderTexture, pos)
-        Debug.WriteLine(Visible)
     End Sub
 
     Public Sub MouseScroll(e As MouseWheelEventArgs) Implements MouseListener.MouseScroll
         If hoveredOver And Visible Then
-            Debug.WriteLine(Value)
             Value += e.DeltaPrecise * SCROLL_SPEED
         End If
     End Sub

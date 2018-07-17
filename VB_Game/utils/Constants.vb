@@ -26,6 +26,7 @@ Public Class Constants
     End Property
 
     'Graphics constants
+    Public Shared GRAPHICS_PRESETS As New Dictionary(Of String, Single())
     Public Shared NUM_FSAA_SAMPLES = 4
     Public Shared DESIGN_WIDTH As Integer = 720 * DESIGN_SCALE_FACTOR
     Public Shared DESIGN_HEIGHT As Integer = 540 * DESIGN_SCALE_FACTOR
@@ -86,6 +87,16 @@ Public Class Constants
 #End Region
 
     ''' <summary>
+    ''' Initialises constants - loading settings
+    ''' </summary>
+    Public Shared Sub init()
+        GRAPHICS_PRESETS.Add("HIGH", {2.0, 32.0})
+        GRAPHICS_PRESETS.Add("MED", {1.0, 8.0})
+        GRAPHICS_PRESETS.Add("LOW", {0.5, 4})
+        loadSettings()
+    End Sub
+
+    ''' <summary>
     ''' Loads settings from .settings file
     ''' </summary>
     Public Shared Sub loadSettings()
@@ -100,14 +111,10 @@ Public Class Constants
         Dim settingsObj = JObject.Parse(settingsStr)
         Dim graphicsSettings = CType(settingsObj.GetValue("graphics"), JObject)
 
-        If Not graphicsSettings.GetValue("fsaa_samples") Is Nothing Then
-            NUM_FSAA_SAMPLES = graphicsSettings.GetValue("fsaa_samples")
+        If Not graphicsSettings.GetValue("preset") Is Nothing Then
+            NUM_FSAA_SAMPLES = GRAPHICS_PRESETS(graphicsSettings.GetValue("preset"))(1)
+            DESIGN_SCALE_FACTOR = GRAPHICS_PRESETS(graphicsSettings.GetValue("preset"))(0)
         End If
-
-        If Not graphicsSettings.GetValue("resolution_design_scale") Is Nothing Then
-            DESIGN_SCALE_FACTOR = graphicsSettings.GetValue("resolution_design_scale")
-        End If
-
     End Sub
 
     ''' <summary>

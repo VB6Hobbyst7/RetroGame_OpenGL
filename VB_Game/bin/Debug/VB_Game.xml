@@ -163,6 +163,21 @@ VB_Game
  Scale property defaulting to (1, 1)
  </summary>
 </member>
+<member name="M:VB_Game.Switch.#ctor(OpenTK.Vector2,OpenTK.Vector2,System.String[],VB_Game.SwitchStyle)">
+ <summary>
+ Creates new switch for number of values specified
+ </summary>
+ <param name="pos"></param>
+ <param name="size"></param>
+ <param name="values">Switch values</param>
+</member>
+<member name="M:VB_Game.Switch.getSegmentByXRel(System.Int32)">
+ <summary>
+ Gives the index of the segment based on the x value relative to the start of the switch (left edge = 0)
+ </summary>
+ <param name="x"></param>
+ <returns></returns>
+</member>
 <member name="T:VB_Game.TextureAtlas">
  <summary>
  Loads in and stores a collection of sub images from one image
@@ -547,6 +562,11 @@ VB_Game
 <member name="T:VB_Game.Constants.Physics_COLLISION">
  <summary>
  Different types of physics bodies mapping to collision bitmasks
+ </summary>
+</member>
+<member name="M:VB_Game.Constants.init">
+ <summary>
+ Initialises constants - loading settings
  </summary>
 </member>
 <member name="M:VB_Game.Constants.loadSettings">

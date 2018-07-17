@@ -132,7 +132,7 @@ Public Class TextLabel : Inherits GameObject
         'Dim texture As New ImageTexture()
         Dim f As Font = font
         If f Is Nothing Then
-            f = New Font("Arial", fontSize, FontStyle.Regular)
+            f = New Font("Impact", fontSize, FontStyle.Regular)
         End If
 
         Dim TestSize As Size = TextRenderer.MeasureText(_text, f)
@@ -145,11 +145,11 @@ Public Class TextLabel : Inherits GameObject
     End Sub
 
     Private Function findSuitableSize(boundingSize As Size) As Font
-        Dim lastWorkingFont As New Font("Arial", 1, FontStyle.Regular)
+        Dim lastWorkingFont As New Font("Impact", 1, FontStyle.Regular)
         Dim curSize = 1
         Dim testFont As Font
         While True
-            testFont = New Font("Arial", curSize, FontStyle.Regular)
+            testFont = New Font("Impact", curSize, FontStyle.Regular)
             Dim size = TextRenderer.MeasureText(_text, testFont)
             If size.Width < boundingSize.Width And size.Height < boundingSize.Height Then
                 lastWorkingFont = testFont
