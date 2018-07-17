@@ -3,7 +3,7 @@
     Private overlayBackground As ShapeTexture
     Private pos As OpenTK.Vector2
     Private titleLabel As TextLabel
-    Private Const paddingY As Integer = 32
+    Private paddingY As Integer = 24 * Constants.DESIGN_SCALE_FACTOR
 
     Private resumeBtn As Button
     Private settingsBtn As Button

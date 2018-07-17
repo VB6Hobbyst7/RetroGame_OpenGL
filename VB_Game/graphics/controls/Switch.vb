@@ -63,6 +63,10 @@ Public Class Switch : Inherits Control : Implements MouseListener
     End Sub
 
     Public Sub setSelectedIndex(index As Integer)
+        setSelectedIndex(index, True)
+    End Sub
+
+    Public Sub setSelectedIndex(index As Integer, triggerEvent As Boolean)
         For i = 0 To values.Count - 1
             If i = index Then
                 switchSegments(i).color = style.selectedColor
@@ -74,7 +78,9 @@ Public Class Switch : Inherits Control : Implements MouseListener
         Me.selectedValue = values(selectedIndex)
         If Not valueChangeListener Is Nothing And index <> lastSelectedIndex Then
             lastSelectedIndex = index
-            valueChangeListener.Invoke(selectedValue)
+            If triggerEvent Then
+                valueChangeListener.Invoke(selectedValue)
+            End If
         End If
     End Sub
 

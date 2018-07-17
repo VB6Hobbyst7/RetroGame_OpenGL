@@ -31,6 +31,8 @@ Public Class Constants
     Public Shared NUM_FSAA_SAMPLES = 4
     Public Shared DESIGN_WIDTH As Integer = 720 * DESIGN_SCALE_FACTOR
     Public Shared DESIGN_HEIGHT As Integer = 540 * DESIGN_SCALE_FACTOR
+    Public Shared WINDOW_START_WIDTH = 720
+    Public Shared WINDOW_START_HEIGHT = 540
     Public Const ASPECT_RATIO As Decimal = 4.0F / 3.0F
 
     'Drawing Constants
@@ -91,9 +93,9 @@ Public Class Constants
     ''' Initialises constants - loading settings
     ''' </summary>
     Public Shared Sub init()
-        GRAPHICS_PRESETS.Add("HIGH", {2.0, 32.0})
-        GRAPHICS_PRESETS.Add("MED", {1.0, 8.0})
-        GRAPHICS_PRESETS.Add("LOW", {0.5, 4})
+        GRAPHICS_PRESETS.Add("HIGH", {3.0, 32.0})
+        GRAPHICS_PRESETS.Add("MED", {2, 8.0})
+        GRAPHICS_PRESETS.Add("LOW", {1, 4.0})
         loadSettings()
     End Sub
 
@@ -115,16 +117,8 @@ Public Class Constants
         If Not graphicsSettings.GetValue("preset") Is Nothing Then
             Dim preset = graphicsSettings.GetValue("preset").ToString().ToUpper()
             NUM_FSAA_SAMPLES = GRAPHICS_PRESETS(preset)(1)
-            DESIGN_SCALE_FACTOR = GRAPHICS_PRESETS(preset)(0)
+            DESIGN_SCALE_FACTOR = CDbl(GRAPHICS_PRESETS(preset)(0))
             CURRENT_GRAPHICS_PRESET = preset
-        End If
-
-        If Not graphicsSettings.GetValue("windowed_mode") Is Nothing Then
-            If graphicsSettings.GetValue("windowed_mode").ToString().ToLower() = "windowed" Then
-                Game.getInstance().WindowState = OpenTK.WindowState.Normal
-            ElseIf graphicsSettings.GetValue("windowed_mode").ToString().ToLower() = "fullscreen" Then
-                Game.getInstance().WindowState = OpenTK.WindowState.Fullscreen
-            End If
         End If
 
         Dim volumeSettings = CType(settingsObj.GetValue("volume"), JObject)
@@ -132,6 +126,14 @@ Public Class Constants
             'set volume
             If AudioMaster.getInstance().isEnabled() Then
                 AudioMaster.getInstance().setVolume(CInt(volumeSettings.GetValue("vol_level")))
+            End If
+        End If
+
+        If Not graphicsSettings.GetValue("windowed_mode") Is Nothing Then
+            If graphicsSettings.GetValue("windowed_mode").ToString().ToLower() = "windowed" Then
+                Game.getInstance().WindowState = OpenTK.WindowState.Normal
+            ElseIf graphicsSettings.GetValue("windowed_mode").ToString().ToLower() = "fullscreen" Then
+                Game.getInstance().WindowState = OpenTK.WindowState.Fullscreen
             End If
         End If
 

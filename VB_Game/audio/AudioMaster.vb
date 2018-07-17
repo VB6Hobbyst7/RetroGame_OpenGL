@@ -20,6 +20,10 @@ Public Class AudioMaster : Implements IDisposable
         Return enabled
     End Function
 
+    ''' <summary>
+    ''' Sets volume as a range between 0 and 100
+    ''' </summary>
+    ''' <param name="level"></param>
     Public Sub setVolume(level As Integer)
         volumeLevel = (level / 100) 'gain expects value from 0 to 1
         For i = 0 To sources.Count - 1
@@ -27,6 +31,10 @@ Public Class AudioMaster : Implements IDisposable
         Next
     End Sub
 
+    ''' <summary>
+    ''' Gets volume as a range between 0 and 100
+    ''' </summary>
+    ''' <returns></returns>
     Public Function getVolume() As Integer
         Return CInt(volumeLevel * 100)
     End Function
@@ -36,6 +44,7 @@ Public Class AudioMaster : Implements IDisposable
             context = New AudioContext()
             context.MakeCurrent()
             setListenerData()
+            enabled = True
         Catch ex As Exception
             enabled = False
             'Audio disabled

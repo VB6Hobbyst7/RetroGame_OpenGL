@@ -23,9 +23,11 @@ Public Class PhysicsHandler
     Private Shared categoryBitMaskBodies As New Dictionary(Of Integer, List(Of RigidBody))
 
     Public Shared Sub init()
-        For Each categoryBitmask In Constants.COLLISION_CATEGORIES
-            categoryBitMaskBodies.Add(categoryBitmask, New List(Of RigidBody))
-        Next
+        If categoryBitMaskBodies.Count = 0 Then
+            For Each categoryBitmask In Constants.COLLISION_CATEGORIES
+                categoryBitMaskBodies.Add(categoryBitmask, New List(Of RigidBody))
+            Next
+        End If
     End Sub
 
     ''' <summary>

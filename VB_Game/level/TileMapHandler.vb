@@ -44,7 +44,9 @@ Public Class TileMapHandler
     Public Sub loadAllMaps()
         Dim dir As New DirectoryInfo(".\res\maps\")
         For Each file In dir.GetFiles()
-            maps.Add(New Map(Me, file.Name))
+            If file.Extension.ToLower() = ".ldat" Then
+                maps.Add(New Map(Me, file.Name))
+            End If
         Next
     End Sub
 

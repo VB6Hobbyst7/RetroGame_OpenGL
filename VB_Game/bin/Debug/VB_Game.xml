@@ -27,6 +27,18 @@ VB_Game
  Manages all game audio and the audio context
  </summary>
 </member>
+<member name="M:VB_Game.AudioMaster.setVolume(System.Int32)">
+ <summary>
+ Sets volume as a range between 0 and 100
+ </summary>
+ <param name="level"></param>
+</member>
+<member name="M:VB_Game.AudioMaster.getVolume">
+ <summary>
+ Gets volume as a range between 0 and 100
+ </summary>
+ <returns></returns>
+</member>
 <member name="F:VB_Game.Gun.FIRE_RATE">
  <summary>
  Fire rate of gun in seconds

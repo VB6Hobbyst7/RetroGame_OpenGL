@@ -29,7 +29,8 @@ Public Class Game : Inherits GameWindow : Implements KeyListener
     End Function
 
     Private Sub New()
-        MyBase.New(Constants.DESIGN_WIDTH, Constants.DESIGN_HEIGHT, New GraphicsMode(32, 0, 0, Constants.NUM_FSAA_SAMPLES))
+        MyBase.New(Constants.WINDOW_START_WIDTH, Constants.WINDOW_START_HEIGHT,
+                   New GraphicsMode(32, 0, 0, Constants.NUM_FSAA_SAMPLES))
         'Initialise OpenGL Settings
         GL.Enable(EnableCap.Texture2D)
         GL.Enable(EnableCap.Blend)

@@ -28,7 +28,18 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
     Private scoreLabelBackground As ShapeTexture
     Private tutorialEnemy As Enemy
     Public isTutorial As Boolean
-    Public CurrentState As State = State.PLAY
+    Private _CurrentStae As State = State.PLAY
+    Public Property CurrentState() As State
+        Get
+            Return _CurrentStae
+        End Get
+        Set(ByVal value As State)
+            _CurrentStae = value
+            If value = State.SETTINGS Then
+                settingsOverlay.load()
+            End If
+        End Set
+    End Property
 
     Private gameObjects As New List(Of GameObject)
 

@@ -73,7 +73,7 @@ Public Class Map
     Public Sub spawnRandomChest()
         Dim distance = 0
         Dim newPoint As Vector2 = chestSpawnPositions(random.Next(chestSpawnPositions.Count))
-        While PhysicUtils.calcDistance(chest.pos, newPoint) < Constants.MIN_CHEST_GAP
+        While PhysicUtils.calcDistance(chest.pos, newPoint) < Constants.MIN_CHEST_GAP * Constants.DESIGN_SCALE_FACTOR
             newPoint = chestSpawnPositions(random.Next(chestSpawnPositions.Count))
         End While
         chest.setPos(newPoint)
@@ -147,7 +147,6 @@ Public Class Map
                 End If
             Next
         Next
-
 
         'Create chest object and move to initial pos
         chest = New Chest()

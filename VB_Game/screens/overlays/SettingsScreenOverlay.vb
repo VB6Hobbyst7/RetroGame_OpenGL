@@ -17,17 +17,20 @@
     Private graphicsSwitch As Switch
     Private graphicsQualityTitleLabel As TextLabel
     Private applyChangesBtn As Button
+    Private windowModeSwitch As Switch
+    Private windowModeLabel As TextLabel
 
     'Currently chosen settings - not necessarily saved yet
 
-    Private hasGraphicSettingsChanged As Boolean = False
     Private initialGraphicsQuality As String
     Private initVolumeLevel As Integer
     Private volumeLevel As Integer
     Private graphicsQuality As String
+    Private windowMode As String
+    Private initialWindowMode As String
 
     Private Function hasSettingsChanged() As Boolean
-        Return hasGraphicSettingsChanged Or initVolumeLevel <> volumeLevel
+        Return graphicsQuality <> initialGraphicsQuality Or initVolumeLevel <> volumeLevel Or windowMode <> initialWindowMode
     End Function
 
     Public Sub New()
@@ -61,19 +64,29 @@
                                              volumeSlider.pos.Y)
 
         'Configure Graphics Settings
-        graphicsSwitch = New Switch(New OpenTK.Vector2(volumeSlider.pos.X, volumeSlider.pos.Y + controlSize.Y * 3),
+        graphicsSwitch = New Switch(New OpenTK.Vector2(volumeSlider.pos.X, volumeSlider.pos.Y + controlSize.Y * 1.5),
                                     controlSize, Constants.GRAPHICS_PRESETS.Keys.ToArray())
         graphicsSwitch.setOnValueChangeListener(AddressOf onGraphicsQualityChanged)
 
         graphicsQualityTitleLabel = New TextLabel("Graphics Quality", mainFont, Drawing.Brushes.White)
         graphicsQualityTitleLabel.pos = New OpenTK.Vector2(graphicsSwitch.pos.X - graphicsSwitch.getWidth() / 8 - graphicsQualityTitleLabel.getWidth(),
                                              graphicsSwitch.pos.Y)
-        loadValuesFromSettings()
+
+        windowModeSwitch = New Switch(New OpenTK.Vector2(volumeSlider.pos.X, volumeSlider.pos.Y + controlSize.Y * 3),
+                                    controlSize, {"FULLSCREEN", "WINDOWED"}, New SwitchStyle(Drawing.Color.FromArgb(255, 64, 64, 64),
+                                                  Drawing.Color.FromArgb(255, 112, 112, 112),
+                                                  Drawing.Color.FromArgb(32, 255, 255, 255),
+                                                  15 * Constants.DESIGN_SCALE_FACTOR))
+        windowModeSwitch.setOnValueChangeListener(AddressOf onWindowModeChanged)
+
+        windowModeLabel = New TextLabel("Window Mode", mainFont, Drawing.Brushes.White)
+        windowModeLabel.pos = New OpenTK.Vector2(windowModeSwitch.pos.X - windowModeSwitch.getWidth() / 8 - windowModeLabel.getWidth(),
+                                             windowModeSwitch.pos.Y)
     End Sub
 
     Public Sub applySettingsChanges()
         Dim msgResult = Nothing
-        If hasGraphicSettingsChanged Then
+        If graphicsQuality <> initialGraphicsQuality Then
             msgResult = MsgBox("Are you sure you want to apply changes?
 Changing graphic options requires a restart and any ongoing game progress will be lost",
                                MsgBoxStyle.OkCancel, "Apply Changes")
@@ -81,6 +94,14 @@ Changing graphic options requires a restart and any ongoing game progress will b
 
         AudioMaster.getInstance().setVolume(volumeLevel)
         initVolumeLevel = volumeLevel
+
+        If windowMode.ToLower() = "windowed" Then
+            Game.getInstance().WindowState = OpenTK.WindowState.Normal
+        ElseIf windowMode.ToLower() = "fullscreen" Then
+            Game.getInstance().WindowState = OpenTK.WindowState.Fullscreen
+        End If
+
+        initialWindowMode = windowMode.ToLower()
 
         If msgResult = MsgBoxResult.Ok Then
             Constants.CURRENT_GRAPHICS_PRESET = graphicsQuality
@@ -92,17 +113,37 @@ Changing graphic options requires a restart and any ongoing game progress will b
     End Sub
 
     Public Sub loadValuesFromSettings()
-        volumeSlider.Value = CInt(AudioMaster.getInstance().getVolume() * 100)
+        Debug.WriteLine("loading")
+        volumeSlider.Value = AudioMaster.getInstance().getVolume()
+        volumeLevel = volumeSlider.Value
+        initVolumeLevel = volumeSlider.Value
         graphicsSwitch.setSelectedIndex(Array.IndexOf(Constants.GRAPHICS_PRESETS.Keys.ToArray(),
-                                              Constants.CURRENT_GRAPHICS_PRESET))
+                                              Constants.CURRENT_GRAPHICS_PRESET), False)
         initialGraphicsQuality = graphicsSwitch.getSelectedValue()
+        graphicsQuality = initialGraphicsQuality
+
+        If Game.getInstance().WindowState = OpenTK.WindowState.Normal Then
+            initialWindowMode = "windowed"
+            windowModeSwitch.setSelectedIndex(1, False)
+        ElseIf Game.getInstance().WindowState = OpenTK.WindowState.Fullscreen Then
+            initialWindowMode = "fullscreen"
+            windowModeSwitch.setSelectedIndex(0, False)
+        End If
+        windowMode = initialWindowMode
+    End Sub
+
+    Public Sub load()
+        loadValuesFromSettings()
     End Sub
 
     Public Sub onGraphicsQualityChanged(val As Object)
-        Debug.WriteLine(val)
         graphicsQuality = CStr(val)
-        hasGraphicSettingsChanged = (graphicsQuality <> initialGraphicsQuality)
     End Sub
+
+    Public Sub onWindowModeChanged(val As Object)
+        windowMode = CStr(val)
+    End Sub
+
 
     Public Sub onVolumeChanged(val As Object)
         volumeLabel.Text = CStr(val)
@@ -135,6 +176,8 @@ Changing graphic options requires a restart and any ongoing game progress will b
         volumeTitleLabel.render(delta)
         graphicsSwitch.render(delta)
         graphicsQualityTitleLabel.render(delta)
+        windowModeSwitch.render(delta)
+        windowModeLabel.render(delta)
         If hasSettingsChanged() Then
             applyChangesBtn.render(delta)
         End If

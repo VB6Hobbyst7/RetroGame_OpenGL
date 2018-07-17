@@ -16,14 +16,17 @@ Public Class StartScreen : Inherits Screen
 
     Private Sub startGame()
         Debug.WriteLine("on start game start")
+        settingsOverlay.load()
         Game.getInstance().currentScreen = LevelSelectScreen.getInstance()
     End Sub
 
     Private Sub goToSettings()
+        settingsOverlay.load()
         showSettings = True
     End Sub
 
     Private Sub startTutorial()
+        settingsOverlay.load()
         TileMapHandler.getInstance().loadMap(0)
         GameScreen.getInstance().configureTutorial()
         Game.getInstance().currentScreen = GameScreen.getInstance()
@@ -98,6 +101,7 @@ Public Class StartScreen : Inherits Screen
     End Sub
 
     Public Shared Function getInstance() As StartScreen
+        Debug.WriteLine("get instance")
         If instance Is Nothing Then
             instance = New StartScreen()
         End If
