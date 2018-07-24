@@ -19,6 +19,7 @@
     Private applyChangesBtn As Button
     Private windowModeSwitch As Switch
     Private windowModeLabel As TextLabel
+    Private audioDisabledStatus As TextLabel 'shows whether audio is enabled and supported on machine
 
     'Currently chosen settings - not necessarily saved yet
 
@@ -63,6 +64,9 @@
         volumeTitleLabel.pos = New OpenTK.Vector2(volumeSlider.pos.X - volumeSlider.getWidth() / 8 - volumeTitleLabel.getWidth(),
                                              volumeSlider.pos.Y)
 
+        audioDisabledStatus = New TextLabel("Audio Disabled - OpenAL not installed", mainFont, Drawing.Brushes.White)
+        audioDisabledStatus.pos = New OpenTK.Vector2(-audioDisabledStatus.getWidth() / 2, volumeSlider.pos.Y)
+
         'Configure Graphics Settings
         graphicsSwitch = New Switch(New OpenTK.Vector2(volumeSlider.pos.X, volumeSlider.pos.Y + controlSize.Y * 1.5),
                                     controlSize, Constants.GRAPHICS_PRESETS.Keys.ToArray())
@@ -92,16 +96,17 @@ Changing graphic options requires a restart and any ongoing game progress will b
                                MsgBoxStyle.OkCancel, "Apply Changes")
         End If
 
-        AudioMaster.getInstance().setVolume(volumeLevel)
-        initVolumeLevel = volumeLevel
+        If msgResult = MsgBoxResult.Ok Or msgResult = Nothing Then
+            AudioMaster.getInstance().setVolume(volumeLevel)
+            initVolumeLevel = volumeLevel
+            If windowMode = "windowed" Then
+                Game.getInstance().WindowState = OpenTK.WindowState.Normal
+            ElseIf windowMode = "fullscreen" Then
+                Game.getInstance().WindowState = OpenTK.WindowState.Fullscreen
+            End If
 
-        If windowMode.ToLower() = "windowed" Then
-            Game.getInstance().WindowState = OpenTK.WindowState.Normal
-        ElseIf windowMode.ToLower() = "fullscreen" Then
-            Game.getInstance().WindowState = OpenTK.WindowState.Fullscreen
+            initialWindowMode = windowMode
         End If
-
-        initialWindowMode = windowMode.ToLower()
 
         If msgResult = MsgBoxResult.Ok Then
             Constants.CURRENT_GRAPHICS_PRESET = graphicsQuality
@@ -141,7 +146,7 @@ Changing graphic options requires a restart and any ongoing game progress will b
     End Sub
 
     Public Sub onWindowModeChanged(val As Object)
-        windowMode = CStr(val)
+        windowMode = CStr(val).ToLower()
     End Sub
 
 
@@ -171,14 +176,19 @@ Changing graphic options requires a restart and any ongoing game progress will b
         End If
         titleLabel.render(delta)
         backBtn.render(delta)
-        volumeSlider.render(delta)
-        volumeLabel.render(delta)
-        volumeTitleLabel.render(delta)
+        If AudioMaster.getInstance().isEnabled Then
+            volumeSlider.render(delta)
+            volumeLabel.render(delta)
+            volumeTitleLabel.render(delta)
+        Else
+            audioDisabledStatus.render(delta)
+        End If
         graphicsSwitch.render(delta)
         graphicsQualityTitleLabel.render(delta)
         windowModeSwitch.render(delta)
         windowModeLabel.render(delta)
         If hasSettingsChanged() Then
+            Debug.WriteLine(initialWindowMode = windowMode)
             applyChangesBtn.render(delta)
         End If
     End Sub
