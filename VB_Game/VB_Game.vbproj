@@ -93,6 +93,7 @@
     <Compile Include="graphics\controls\Button.vb" />
     <Compile Include="graphics\controls\ButtonStyle.vb" />
     <Compile Include="graphics\controls\Control.vb" />
+    <Compile Include="graphics\controls\Dialog.vb" />
     <Compile Include="graphics\controls\Slider.vb" />
     <Compile Include="graphics\controls\Switch.vb" />
     <Compile Include="graphics\controls\SwitchStyle.vb" />
