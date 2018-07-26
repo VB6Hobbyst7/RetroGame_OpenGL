@@ -14,6 +14,7 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
         GAMEOVER = 2
         SETTINGS = 3
         SHOW_INSTRUCTIONS = 4
+        TUTORIAL_COMPLETED = 5
     End Enum
 
     Private Shared instance As GameScreen
@@ -90,6 +91,9 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
         EnemyFactory.reset()
         getCurrentMap().spawnRandomChest()
         CurrentState = State.PLAY
+        If isTutorial Then
+            configureTutorial()
+        End If
     End Sub
 
     Public Sub gameOver()
@@ -128,6 +132,8 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
             settingsOverlay.render(delta)
         ElseIf CurrentState = State.SHOW_INSTRUCTIONS Then
             tutorialOverlay.render(delta)
+        ElseIf CurrentState = State.TUTORIAL_COMPLETED Then
+            'TODO: Render tutorial completed screen
         End If
 
         For i = 0 To nextFrameRemovalList.Count - 1
@@ -142,6 +148,8 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
             Next
             If Not isTutorial Then
                 EnemyFactory.tick(delta)
+            Else
+                checkTutorialCompletion()
             End If
             PhysicsHandler.update(delta)
         End If
@@ -208,6 +216,9 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
         isTutorial = False
     End Sub
 
+    ''' <summary>
+    ''' Configures everything for tutorial setting up entities and shows instructions
+    ''' </summary>
     Public Sub configureTutorial()
         isTutorial = True
         CurrentState = State.SHOW_INSTRUCTIONS
@@ -216,5 +227,14 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
         tutorialEnemy = New Enemy(New Vector2(0, -6 * Constants.TILE_SIZE - 1), New ShapeTexture(Constants.TILE_SIZE, Constants.TILE_SIZE,
             Drawing.Color.ForestGreen, ShapeTexture.ShapeType.Rectangle), 0)
         addPhysicsBasedObject(tutorialEnemy, Constants.Physics_CATEGORY.ENEMY, Constants.Physics_COLLISION.ENEMY)
+    End Sub
+
+    ''' <summary>
+    ''' Checks whether the tutorial objectives have been completed
+    ''' </summary>
+    Public Sub checkTutorialCompletion()
+        If getScore() > 0 And tutorialEnemy.isAlive() = False Then
+            Debug.WriteLine("tutorial completed")
+        End If
     End Sub
 End Class

@@ -80,7 +80,7 @@ Public Class StartScreen : Inherits Screen
             tutorialBtn.render(delta)
             titleLabel.render(delta)
         End If
-        testDialog.render(delta)
+        'testDialog.render(delta)
     End Sub
 
     Public Overrides Sub update(delta As Double)

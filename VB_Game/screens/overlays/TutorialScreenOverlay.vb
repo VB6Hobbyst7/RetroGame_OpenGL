@@ -9,6 +9,7 @@ Public Class TutorialScreenOverlay
     Private msgBackgrounds(3) As ShapeTexture
     Private msgBackgroundsPos(3) As OpenTK.Vector2
     Private msgPadding = 10
+    Private continueBtn As Button
 
     Public Sub New()
         labels(0) = New TextLabel("This is an enemy", mainFont, Drawing.Brushes.White)
@@ -39,6 +40,14 @@ Public Class TutorialScreenOverlay
                                              msgBackgroundColor, ShapeTexture.ShapeType.Rectangle)
         msgBackgroundsPos(2) = New OpenTK.Vector2(labels(3).pos.X - msgPadding, labels(3).pos.Y - msgPadding)
 
+        continueBtn = New Button("CONTINUE", New OpenTK.Vector2(0, 0), New Drawing.Size(150 * Constants.DESIGN_SCALE_FACTOR,
+                    45 * Constants.DESIGN_SCALE_FACTOR), New ButtonStyle(Drawing.Brushes.White, Drawing.Color.FromArgb(255, 64, 64, 64)))
+        continueBtn.setOnClickListener(AddressOf onContinuePressed)
+
+    End Sub
+
+    Public Sub onContinuePressed()
+        GameScreen.getInstance().CurrentState = GameScreen.State.PLAY
     End Sub
 
     Public Sub render(delta)
@@ -48,6 +57,7 @@ Public Class TutorialScreenOverlay
         For i = 0 To 4
             labels(i).render(delta)
         Next
+        continueBtn.render(delta)
     End Sub
 
 End Class
