@@ -56,6 +56,7 @@ Public Class Player : Inherits Entity : Implements KeyListener
         If InputHandler.isKeyDown(Key.W) And isGrounded And Me.velocity.Y < GROUNDED_VEL_THRESHOLD Then
             Me.velocity = New Vector2(Me.velocity.X, -JUMP_FORCE)
             isGrounded = False
+            SoundEffects.bounce.play()
         End If
 
         pos = New Vector2(pos.X + velocity.X * delta, pos.Y + velocity.Y * delta)

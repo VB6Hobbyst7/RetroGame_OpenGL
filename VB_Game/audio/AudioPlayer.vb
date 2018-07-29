@@ -22,7 +22,7 @@ Public Class AudioPlayer
 
     Private Sub load(fileName As String)
         reader = New AudioFileReader(Constants.AUDIO_RES_DIR + fileName)
-        player = New DirectSoundOut()
+        player = New WaveOutEvent()
         player.Init(reader)
     End Sub
 
