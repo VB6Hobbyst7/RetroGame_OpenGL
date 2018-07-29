@@ -61,9 +61,6 @@ W:\Student Work\Industrial Arts\2018 Submissions\11SDs\HOLMSTROM Eric-431149621\
 W:\Student Work\Industrial Arts\2018 Submissions\11SDs\HOLMSTROM Eric-431149621\Git\Projects\RetroGame_OpenGL\VB_Game\bin\Debug\res\test2.wav
 W:\Student Work\Industrial Arts\2018 Submissions\11SDs\HOLMSTROM Eric-431149621\Git\Projects\RetroGame_OpenGL\VB_Game\bin\Debug\res\test.wav
 W:\Student Work\Industrial Arts\2018 Submissions\11SDs\HOLMSTROM Eric-431149621\Git\Projects\RetroGame_OpenGL\VB_Game\bin\Debug\res\HappySans.ttf
-W:\Student Work\Industrial Arts\2018 Submissions\11SDs\HOLMSTROM Eric-431149621\Git\Projects\RetroGame_OpenGL\VB_Game\bin\Debug\res\maps\map1.ldat
-W:\Student Work\Industrial Arts\2018 Submissions\11SDs\HOLMSTROM Eric-431149621\Git\Projects\RetroGame_OpenGL\VB_Game\bin\Debug\res\maps\map2.ldat
-W:\Student Work\Industrial Arts\2018 Submissions\11SDs\HOLMSTROM Eric-431149621\Git\Projects\RetroGame_OpenGL\VB_Game\bin\Debug\res\maps\map3.ldat
 W:\Student Work\Industrial Arts\2018 Submissions\11SDs\HOLMSTROM Eric-431149621\Git\Projects\RetroGame_OpenGL\VB_Game\bin\Debug\VB_Game.exe.config
 W:\Student Work\Industrial Arts\2018 Submissions\11SDs\HOLMSTROM Eric-431149621\Git\Projects\RetroGame_OpenGL\VB_Game\bin\Debug\VB_Game.exe
 W:\Student Work\Industrial Arts\2018 Submissions\11SDs\HOLMSTROM Eric-431149621\Git\Projects\RetroGame_OpenGL\VB_Game\bin\Debug\VB_Game.pdb
@@ -85,3 +82,17 @@ C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\bin\Debug\res\img\tiles\til
 C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\bin\Debug\res\img\tiles\chest.png
 C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\bin\Debug\res\img\tiles\startscreen_background.png
 C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\bin\Debug\res\img\tiles\map5_background.png
+W:\Student Work\Industrial Arts\2018 Submissions\11SDs\HOLMSTROM Eric-431149621\Git\Projects\RetroGame_OpenGL\VB_Game\bin\Debug\res\img\tiles\chest.png
+W:\Student Work\Industrial Arts\2018 Submissions\11SDs\HOLMSTROM Eric-431149621\Git\Projects\RetroGame_OpenGL\VB_Game\bin\Debug\res\img\tiles\map5_background.png
+W:\Student Work\Industrial Arts\2018 Submissions\11SDs\HOLMSTROM Eric-431149621\Git\Projects\RetroGame_OpenGL\VB_Game\bin\Debug\res\img\tiles\startscreen_background.png
+W:\Student Work\Industrial Arts\2018 Submissions\11SDs\HOLMSTROM Eric-431149621\Git\Projects\RetroGame_OpenGL\VB_Game\bin\Debug\res\img\tiles\tile_2.png
+W:\Student Work\Industrial Arts\2018 Submissions\11SDs\HOLMSTROM Eric-431149621\Git\Projects\RetroGame_OpenGL\VB_Game\bin\Debug\res\maps\map5.ldat
+C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\bin\Debug\res\audio\bounce.wav
+C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\bin\Debug\res\audio\chest.wav
+C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\bin\Debug\res\audio\hit_enemy.wav
+C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\bin\Debug\res\audio\menu_navigate.wav
+C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\bin\Debug\res\audio\pause_in.wav
+C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\bin\Debug\res\audio\pause_out.wav
+C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\bin\Debug\res\audio\weapon_fire.wav
+C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\bin\Debug\NAudio.dll
+C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\bin\Debug\NAudio.xml

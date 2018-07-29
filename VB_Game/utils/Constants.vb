@@ -53,6 +53,7 @@ Public Class Constants
     Public Const MAP_RES_DIR As String = "./res/maps/"
     Public Const IMG_RES_DIR As String = "./res/img/"
     Public Const TILE_RES_DIR = IMG_RES_DIR + "tiles/"
+    Public Const AUDIO_RES_DIR As String = "./res/audio/"
 
     'Gameplay Constants
     Public Shared MIN_CHEST_GAP = TILE_SIZE * 10 'Minimum spacing between chests spawns
@@ -108,6 +109,9 @@ Public Class Constants
             settingsStr = System.IO.File.ReadAllText("./.settings")
         Catch ex As Exception
             Debug.WriteLine(ex)
+            Debug.WriteLine("no settings file present: creating default")
+            genDefaultSettings()
+            saveSettings()
             'Failed reading settings use default settings
             Return
         End Try
@@ -146,7 +150,12 @@ Public Class Constants
         Dim settings As New JObject
         Dim volumeSettings As New JObject()
 
-        volumeSettings.Add(New JProperty("vol_level", AudioMaster.getInstance().getVolume()))
+        If AudioMaster.getInstance().isEnabled() Then
+            volumeSettings.Add(New JProperty("vol_level", AudioMaster.getInstance().getVolume()))
+        Else
+            volumeSettings.Add(New JProperty("vol_level", 0))
+        End If
+
 
         Dim graphicsSettings As New JObject()
         graphicsSettings.Add(New JProperty("preset", CURRENT_GRAPHICS_PRESET))
@@ -163,6 +172,16 @@ Public Class Constants
         Dim writer As New JsonTextWriter(New System.IO.StreamWriter("./.settings"))
         settings.WriteTo(writer)
         writer.Close()
+    End Sub
+
+    Private Shared Sub genDefaultSettings()
+        Game.getInstance().WindowState = OpenTK.WindowState.Normal
+        If AudioMaster.getInstance().isEnabled() Then
+            AudioMaster.getInstance().setVolume(0)
+        End If
+        CURRENT_GRAPHICS_PRESET = "LOW"
+        NUM_FSAA_SAMPLES = GRAPHICS_PRESETS(CURRENT_GRAPHICS_PRESET)(1)
+        DESIGN_SCALE_FACTOR = CDbl(GRAPHICS_PRESETS(CURRENT_GRAPHICS_PRESET)(0))
     End Sub
 
 End Class

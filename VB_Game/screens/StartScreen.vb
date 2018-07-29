@@ -13,6 +13,7 @@ Public Class StartScreen : Inherits Screen
     Private btnFont As New Drawing.Font("Impact", 26 * Constants.DESIGN_SCALE_FACTOR, Drawing.FontStyle.Regular)
     Private titleLabel As TextLabel
     Private btnStyle = New ButtonStyle(Drawing.Brushes.White, Drawing.Color.FromArgb(255, 64, 64, 64))
+    Private testDialog As New Dialog()
 
     Private Sub startGame()
         Debug.WriteLine("on start game start")
@@ -79,7 +80,7 @@ Public Class StartScreen : Inherits Screen
             tutorialBtn.render(delta)
             titleLabel.render(delta)
         End If
-
+        'testDialog.render(delta)
     End Sub
 
     Public Overrides Sub update(delta As Double)

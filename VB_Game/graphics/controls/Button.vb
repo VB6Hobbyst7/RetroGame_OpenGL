@@ -102,6 +102,7 @@ Public Class Button : Inherits Control : Implements MouseListener
 
     Public Sub MouseButtonDown(e As MouseEventArgs) Implements MouseListener.MouseButtonDown
         If hoveredOver And Visible And Not clickListener Is Nothing Then
+            SoundEffects.menu_navigate.play()
             clickListener.Invoke()
         End If
     End Sub

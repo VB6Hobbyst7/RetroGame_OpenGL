@@ -7,6 +7,7 @@ Public Class Enemy : Inherits Entity
     Private started As Boolean = False 'flag indicating whether enemy has hit the ground initially
     Private leftDir As Boolean = False
     Private spawnPos As Vector2
+    Private alive As Boolean = True
 
     ''' <summary>
     ''' Creates new enemy
@@ -20,6 +21,14 @@ Public Class Enemy : Inherits Entity
         Me.leftDir = leftDir
         spawnPos = pos
     End Sub
+
+    ''' <summary>
+    ''' Returns whether the enemy is still alive
+    ''' </summary>
+    ''' <returns></returns>
+    Public Function isAlive() As Boolean
+        Return alive
+    End Function
 
     Public Overrides Sub onCollide(objB As GameObject)
         'Distances needed to stop colliding (smallest gives which side is most likely colliding, not full proof solution)
@@ -64,6 +73,7 @@ Public Class Enemy : Inherits Entity
         End If
 
         If objB.GetType.IsAssignableFrom(GetType(SimpleProjectile)) Then
+            alive = False
             Me.dispose()
         End If
     End Sub

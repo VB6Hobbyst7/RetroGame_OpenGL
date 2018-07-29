@@ -14,6 +14,7 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
         GAMEOVER = 2
         SETTINGS = 3
         SHOW_INSTRUCTIONS = 4
+        TUTORIAL_COMPLETED = 5
     End Enum
 
     Private Shared instance As GameScreen
@@ -24,6 +25,7 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
     Private pauseScreen As New PauseScreenOverlay()
     Private settingsOverlay As New SettingsScreenOverlay()
     Private tutorialOverlay As New TutorialScreenOverlay()
+    Private tutorialCompleteOverlay As New TutorialCompleteOverlay()
     Private scoreLabel As TextLabel
     Private scoreLabelBackground As ShapeTexture
     Private tutorialEnemy As Enemy
@@ -90,6 +92,9 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
         EnemyFactory.reset()
         getCurrentMap().spawnRandomChest()
         CurrentState = State.PLAY
+        If isTutorial Then
+            configureTutorial()
+        End If
     End Sub
 
     Public Sub gameOver()
@@ -128,6 +133,8 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
             settingsOverlay.render(delta)
         ElseIf CurrentState = State.SHOW_INSTRUCTIONS Then
             tutorialOverlay.render(delta)
+        ElseIf CurrentState = State.TUTORIAL_COMPLETED Then
+            tutorialCompleteOverlay.render(delta)
         End If
 
         For i = 0 To nextFrameRemovalList.Count - 1
@@ -142,6 +149,8 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
             Next
             If Not isTutorial Then
                 EnemyFactory.tick(delta)
+            Else
+                checkTutorialCompletion()
             End If
             PhysicsHandler.update(delta)
         End If
@@ -190,6 +199,8 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
             ElseIf CurrentState <> State.SHOW_INSTRUCTIONS Then
                 CurrentState = State.PLAY
             End If
+        ElseIf CurrentState = State.TUTORIAL_COMPLETED And e.Key = Key.Enter Then
+            Game.getInstance().currentScreen = StartScreen.getInstance()
         End If
     End Sub
 
@@ -206,15 +217,30 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
 
     Public Sub configureNormal()
         isTutorial = False
+        Me.CurrentState = State.PLAY
     End Sub
 
+    ''' <summary>
+    ''' Configures everything for tutorial setting up entities and shows instructions
+    ''' </summary>
     Public Sub configureTutorial()
         isTutorial = True
+        player.Score = 0
+        updateScoreLabel()
         CurrentState = State.SHOW_INSTRUCTIONS
         getCurrentMap().getChest().setPos(New Vector2(7 * Constants.TILE_SIZE, -2 * Constants.TILE_SIZE))
         player.pos = New Vector2(player.pos.X, 2 * Constants.TILE_SIZE - 3)
         tutorialEnemy = New Enemy(New Vector2(0, -6 * Constants.TILE_SIZE - 1), New ShapeTexture(Constants.TILE_SIZE, Constants.TILE_SIZE,
             Drawing.Color.ForestGreen, ShapeTexture.ShapeType.Rectangle), 0)
         addPhysicsBasedObject(tutorialEnemy, Constants.Physics_CATEGORY.ENEMY, Constants.Physics_COLLISION.ENEMY)
+    End Sub
+
+    ''' <summary>
+    ''' Checks whether the tutorial objectives have been completed
+    ''' </summary>
+    Public Sub checkTutorialCompletion()
+        If getScore() > 0 And tutorialEnemy.isAlive() = False Then
+            Me.CurrentState = State.TUTORIAL_COMPLETED
+        End If
     End Sub
 End Class

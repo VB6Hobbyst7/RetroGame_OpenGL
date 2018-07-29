@@ -49,6 +49,9 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NAudio, Version=1.9.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.1.9.0-preview1\lib\net35\NAudio.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -79,6 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="audio\AudioMaster.vb" />
+    <Compile Include="audio\AudioPlayer.vb" />
     <Compile Include="audio\Source.vb" />
     <Compile Include="game_objects\entities\EnemyFactory.vb" />
     <Compile Include="game_objects\items\Gun.vb" />
@@ -93,6 +97,7 @@
     <Compile Include="graphics\controls\Button.vb" />
     <Compile Include="graphics\controls\ButtonStyle.vb" />
     <Compile Include="graphics\controls\Control.vb" />
+    <Compile Include="graphics\controls\Dialog.vb" />
     <Compile Include="graphics\controls\Slider.vb" />
     <Compile Include="graphics\controls\Switch.vb" />
     <Compile Include="graphics\controls\SwitchStyle.vb" />
@@ -106,6 +111,7 @@
     <Compile Include="screens\overlays\GameOverOverlay.vb" />
     <Compile Include="screens\overlays\PauseScreenOverlay.vb" />
     <Compile Include="screens\overlays\SettingsScreenOverlay.vb" />
+    <Compile Include="screens\overlays\TutorialCompleteOverlay.vb" />
     <Compile Include="screens\overlays\TutorialScreenOverlay.vb" />
     <Compile Include="screens\Screen.vb" />
     <Compile Include="game_objects\entities\Entity.vb" />
@@ -171,6 +177,27 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="res\audio\bounce.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\audio\chest.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\audio\hit_enemy.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\audio\menu_navigate.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\audio\pause_in.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\audio\pause_out.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\audio\weapon_fire.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="res\img\tiles\chest.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

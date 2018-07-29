@@ -39,6 +39,12 @@ VB_Game
  </summary>
  <returns></returns>
 </member>
+<member name="M:VB_Game.AudioPlayer.#ctor(System.String,System.Single)">
+ <summary>
+ Creates new audio player instance for a sound file
+ </summary>
+ <param name="fileName"></param>
+</member>
 <member name="F:VB_Game.Gun.FIRE_RATE">
  <summary>
  Fire rate of gun in seconds
@@ -110,6 +116,12 @@ VB_Game
  <param name="pos"></param>
  <param name="texture"></param>
  <param name="leftDir">Should go left first</param>
+</member>
+<member name="M:VB_Game.Enemy.isAlive">
+ <summary>
+ Returns whether the enemy is still alive
+ </summary>
+ <returns></returns>
 </member>
 <member name="M:VB_Game.Enemy.respawn">
  <summary>
@@ -333,6 +345,16 @@ VB_Game
 <member name="M:VB_Game.GameScreen.onShow">
  <summary>
  Function called when this screen is switched to as the current displayed screen
+ </summary>
+</member>
+<member name="M:VB_Game.GameScreen.configureTutorial">
+ <summary>
+ Configures everything for tutorial setting up entities and shows instructions
+ </summary>
+</member>
+<member name="M:VB_Game.GameScreen.checkTutorialCompletion">
+ <summary>
+ Checks whether the tutorial objectives have been completed
  </summary>
 </member>
 <member name="T:VB_Game.TutorialScreenOverlay">
