@@ -19,6 +19,9 @@ Public Class TextureAtlas
         loadAtlas()
     End Sub
 
+    '''
+    ''' Loads in a texture atlas from a single image
+    '''
     Public Sub loadAtlas()
         Dim img As New Bitmap(path)
         Dim imgsAcross = CInt(img.Width / imgSize.X)

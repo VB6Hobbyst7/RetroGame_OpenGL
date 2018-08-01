@@ -70,6 +70,12 @@ Public Class PhysicUtils
         Return pointWithin(pos.X, pos.Y, bounding)
     End Function
 
+    ''' <summary>
+    ''' Calculates the absolute distance between 2  2-dimensional vectors
+    ''' </summary>
+    ''' <param name="Vector A"></param>
+    ''' <param name="Vector B"></param>
+    ''' <returns>Distance</returns>
     Public Shared Function calcDistance(a As OpenTK.Vector2, b As OpenTK.Vector2) As Double
         Return Math.Sqrt(Math.Pow(a.X + b.X, 2) + Math.Pow(a.Y + b.Y, 2))
     End Function

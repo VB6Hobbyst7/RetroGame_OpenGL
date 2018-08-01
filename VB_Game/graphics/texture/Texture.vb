@@ -1,3 +1,6 @@
+'''
+''' Represents a base texture that is rendered on screen
+'''
 ﻿Public Class Texture
 
     Private _width As Integer

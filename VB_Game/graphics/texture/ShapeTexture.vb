@@ -1,6 +1,9 @@
 ﻿Imports System.Drawing
 Imports VB_Game
 
+'''
+''' A texture consisting of a shape filled in by a color
+'''
 Public Class ShapeTexture : Inherits Texture
 
 #Region "Member Variables"
