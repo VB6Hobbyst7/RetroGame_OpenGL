@@ -6,6 +6,9 @@ Imports OpenTK.Graphics
 Imports OpenTK.Graphics.OpenGL
 Imports OpenTK.Input
 
+'''
+''' Base game class which runs the whole game managing all screen and loading of game
+'''
 Public Class Game : Inherits GameWindow : Implements KeyListener
 
     Private Shared instance As Game
@@ -96,20 +99,22 @@ Public Class Game : Inherits GameWindow : Implements KeyListener
     End Sub
 
     Private Sub KeyListener_KeyDown(e As KeyboardKeyEventArgs) Implements KeyListener.KeyDown
-        If e.Key = Key.Q Then
-            Me.Close()
-        End If
-
-        If e.Key = Key.F Then
-            If WindowState = OpenTK.WindowState.Fullscreen Then
-                WindowState = OpenTK.WindowState.Normal
-            Else
-                WindowState = OpenTK.WindowState.Fullscreen
+        If Not Constants.RELEASE Then
+            If e.Key = Key.Q Then
+                Me.Close()
             End If
-        End If
 
-        If e.Key = Key.End Then
+            If e.Key = Key.F Then
+                If WindowState = OpenTK.WindowState.Fullscreen Then
+                    WindowState = OpenTK.WindowState.Normal
+                Else
+                    WindowState = OpenTK.WindowState.Fullscreen
+                End If
+            End If
 
+            If e.Key = Key.End Then
+
+            End If
         End If
     End Sub
 End Class

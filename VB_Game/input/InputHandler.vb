@@ -1,10 +1,17 @@
 ﻿Imports OpenTK
 Imports OpenTK.Input
 
+'''
+'''Handles the input for the game passing over events to controls
+'''
 Public Class InputHandler
 
-    Public Shared keyListeners As New List(Of KeyListener)
+    'If the override mouse listener is set then pass only events to it
+    'Used for dialogs as a workaround to disable focus being given to other controls
+    Private Shared overrideMouseListener As MouseListener
+
     Public Shared mouseListeners As New List(Of MouseListener)
+    Public Shared keyListeners As New List(Of KeyListener)
     Private Shared WithEvents game As Game
     Private Shared keys As New Dictionary(Of Integer, Boolean)
 
@@ -19,21 +26,33 @@ Public Class InputHandler
     End Sub
 
     Private Shared Sub MouseButtonDown(sender As Object, e As MouseButtonEventArgs) Handles game.MouseDown
-        For i = 0 To mouseListeners.Count - 1
-            mouseListeners(i).MouseButtonDown(e)
-        Next
+        If Not overrideMouseListener Is Nothing Then
+            overrideMouseListener.MouseButtonDown(e)
+        Else
+            For i = 0 To mouseListeners.Count - 1
+                mouseListeners(i).MouseButtonDown(e)
+            Next
+        End If
     End Sub
 
     Private Shared Sub MouseButtonUp(sender As Object, e As MouseButtonEventArgs) Handles game.MouseUp
-        For i = 0 To mouseListeners.Count - 1
-            mouseListeners(i).MouseButtonUp(e)
-        Next
+        If Not overrideMouseListener Is Nothing Then
+            overrideMouseListener.MouseButtonDown(e)
+        Else
+            For i = 0 To mouseListeners.Count - 1
+                mouseListeners(i).MouseButtonUp(e)
+            Next
+        End If
     End Sub
 
     Private Shared Sub MouseMove(sender As Object, e As MouseMoveEventArgs) Handles game.MouseMove
-        For i = 0 To mouseListeners.Count - 1
-            mouseListeners(i).MouseMove(e)
-        Next
+        If Not overrideMouseListener Is Nothing Then
+            overrideMouseListener.MouseButtonDown(e)
+        Else
+            For i = 0 To mouseListeners.Count - 1
+                mouseListeners(i).MouseMove(e)
+            Next
+        End If
     End Sub
 
     Private Shared Sub KeyDown(sender As Object, e As KeyboardKeyEventArgs) Handles game.KeyDown
@@ -56,13 +75,18 @@ Public Class InputHandler
     ''' <param name="keyCode"></param>
     ''' <returns></returns>
     Public Shared Function isKeyDown(keyCode As Integer) As Boolean
-
         If Not keys.Keys.Contains(keyCode) Then
             Return False
         End If
         Return keys.Item(keyCode)
     End Function
 
+    Public Shared Sub registerOverrideListener(listener As MouseListener)
+        overrideMouseListener = listener
+    End Sub
 
+    Public Shared Sub unregisterOverrideListener()
+        overrideMouseListener = Nothing
+    End Sub
 
 End Class

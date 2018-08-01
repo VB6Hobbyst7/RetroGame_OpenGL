@@ -2,6 +2,7 @@
 Imports System.Windows.Forms
 ''' <summary>
 ''' Represents a text string drawn on screen
+''' Does software based rendering to a bitmap which is then rendered using OpenGL
 ''' </summary>
 Public Class TextLabel : Inherits GameObject
 
@@ -121,7 +122,7 @@ Public Class TextLabel : Inherits GameObject
 #End Region
 
     ''' <summary>
-    ''' Generates new font texture
+    ''' Generates new text texture for the text and loads it into application for rendering
     ''' </summary>
     Private Sub genTexture()
         'Me.scale = New OpenTK.Vector2(1 / DEFAULT_UPSCALE, 1 / DEFAULT_UPSCALE)

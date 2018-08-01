@@ -1,11 +1,14 @@
 ﻿Imports Newtonsoft.Json
 Imports Newtonsoft.Json.Linq
 
+'''
+''' Holds Game Constants and loads user settings
+'''
 Public Class Constants
 
     Public Const FPS_DEBUG = False
     Public Const MAX_FRAME_DELTA_TIME = 0.1 'Prevents issues with window grabbing
-
+    Public Const RELEASE = False 'If its release disable developer features
 
     Private Shared _DESIGN_SCALE_FACTOR As Single = 1
     Public Shared Property DESIGN_SCALE_FACTOR() As Single

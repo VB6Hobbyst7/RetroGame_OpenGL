@@ -1,3 +1,6 @@
+'''
+''' Handles FPS debugging for game rendering FPS count to screen
+'''
 ﻿Public Class DebugHandler
 
     Private Shared frame As Integer = 0
