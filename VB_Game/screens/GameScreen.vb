@@ -30,13 +30,13 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
     Private scoreLabelBackground As ShapeTexture
     Private tutorialEnemy As Enemy
     Public isTutorial As Boolean
-    Private _CurrentStae As State = State.PLAY
+    Private _CurrentState As State = State.PLAY
     Public Property CurrentState() As State
         Get
-            Return _CurrentStae
+            Return _CurrentState
         End Get
         Set(ByVal value As State)
-            _CurrentStae = value
+            _CurrentState = value
             If value = State.SETTINGS Then
                 settingsOverlay.load()
             End If
@@ -99,6 +99,7 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
 
     Public Sub gameOver()
         CurrentState = State.GAMEOVER
+        SoundEffects.gameover.play()
         'Sets new highscore if it is achieved
         If player.Score > getCurrentMap.Highscore Then
             getCurrentMap().Highscore = player.Score
@@ -209,6 +210,7 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
     ''' </summary>
     Public Overrides Sub onShow()
         settingsOverlay.setOnBackAction(AddressOf onSettingsBack)
+        restart()
     End Sub
 
     Public Function getScore() As Integer

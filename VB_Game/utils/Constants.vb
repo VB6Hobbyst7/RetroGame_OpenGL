@@ -6,7 +6,7 @@ Imports Newtonsoft.Json.Linq
 '''
 Public Class Constants
 
-    Public Const FPS_DEBUG = False
+    Public Const FPS_DEBUG = True
     Public Const MAX_FRAME_DELTA_TIME = 0.1 'Prevents issues with window grabbing
     Public Const RELEASE = False 'If its release disable developer features
 

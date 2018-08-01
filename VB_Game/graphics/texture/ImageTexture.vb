@@ -1,11 +1,5 @@
-'''
-''' Texture consisting of an image loaded from file
-'''
-﻿Public Class ImageTexture : Inherits Texture
+Public Class ImageTexture : Inherits Texture
 
-    '''
-    ''' The OpenGL texture id assigned to the texture
-    '''
     Private _id As Integer
     Public Property id() As Integer
         Get

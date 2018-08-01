@@ -75,6 +75,7 @@ Public Class Enemy : Inherits Entity
         If objB.GetType.IsAssignableFrom(GetType(SimpleProjectile)) Then
             alive = False
             Me.dispose()
+            SoundEffects.hit_enemy.play()
         End If
     End Sub
 

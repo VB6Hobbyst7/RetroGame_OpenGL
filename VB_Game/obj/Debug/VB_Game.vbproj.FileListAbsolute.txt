@@ -96,3 +96,4 @@ C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\bin\Debug\res\audio\pause_o
 C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\bin\Debug\res\audio\weapon_fire.wav
 C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\bin\Debug\NAudio.dll
 C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\bin\Debug\NAudio.xml
+C:\Users\erich\source\repos\RetroGame_OpenGL\VB_Game\bin\Debug\res\audio\gameover.wav

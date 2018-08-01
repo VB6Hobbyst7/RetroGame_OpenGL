@@ -79,6 +79,7 @@ Public Class Player : Inherits Entity : Implements KeyListener
                 'hacky hide by moving off screen
                 GameScreen.getInstance().getCurrentMap().getChest().setPos(New Vector2(-9999))
             End If
+            SoundEffects.chest.play()
             incrementScore()
             GameScreen.getInstance().updateScoreLabel()
         Else

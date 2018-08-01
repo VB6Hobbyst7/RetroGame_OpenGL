@@ -14,7 +14,7 @@ Public Class Gun : Inherits Item
 
     Public Overrides Sub useItem()
         If timeSinceLastFire > CDbl(1 / FIRE_RATE) Then
-            Debug.WriteLine("fire")
+            SoundEffects.weapon_fire.play()
             timeSinceLastFire = 0
             createProjectile()
         End If

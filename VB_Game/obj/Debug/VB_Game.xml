@@ -109,6 +109,11 @@ VB_Game
  <param name="bits"></param>
  <returns></returns>
 </member>
+<member name="T:VB_Game.Game">
+
+ Base game class which runs the whole game managing all screen and loading of game
+
+</member>
 <member name="M:VB_Game.Enemy.#ctor(OpenTK.Vector2,VB_Game.Texture,System.Boolean)">
  <summary>
  Creates new enemy
@@ -187,6 +192,11 @@ VB_Game
  Scale property defaulting to (1, 1)
  </summary>
 </member>
+<member name="M:VB_Game.Dialog.onCancelClicked">
+ <summary>
+ Runs when cancel btn is clicked dismissing dialog
+ </summary>
+</member>
 <member name="M:VB_Game.Switch.#ctor(OpenTK.Vector2,OpenTK.Vector2,System.String[],VB_Game.SwitchStyle)">
  <summary>
  Creates new switch for number of values specified
@@ -206,6 +216,11 @@ VB_Game
  <summary>
  Loads in and stores a collection of sub images from one image
  </summary>
+</member>
+<member name="M:VB_Game.TextureAtlas.loadAtlas">
+
+ Loads in a texture atlas from a single image
+
 </member>
 <member name="T:VB_Game.BoundingRect">
  <summary>
@@ -240,6 +255,14 @@ VB_Game
  <param name="objA"></param>
  <param name="objB"></param>
  <returns>Collide</returns>
+</member>
+<member name="M:VB_Game.PhysicUtils.calcDistance(OpenTK.Vector2,OpenTK.Vector2)">
+ <summary>
+ Calculates the absolute distance between 2  2-dimensional vectors
+ </summary>
+ <param name="Vector A"></param>
+ <param name="Vector B"></param>
+ <returns>Distance</returns>
 </member>
 <member name="T:VB_Game.PhysicsHandler">
  <summary>
@@ -375,6 +398,7 @@ VB_Game
 <member name="T:VB_Game.TextLabel">
  <summary>
  Represents a text string drawn on screen
+ Does software based rendering to a bitmap which is then rendered using OpenGL
  </summary>
 </member>
 <member name="M:VB_Game.TextLabel.#ctor(System.String,System.Drawing.Size,System.Drawing.Brush)">
@@ -387,7 +411,7 @@ VB_Game
 </member>
 <member name="M:VB_Game.TextLabel.genTexture">
  <summary>
- Generates new font texture
+ Generates new text texture for the text and loads it into application for rendering
  </summary>
 </member>
 <member name="T:VB_Game.GameObject">
@@ -491,6 +515,16 @@ VB_Game
  <param name="x"></param>
  <returns>Normalised Coord</returns>
 </member>
+<member name="T:VB_Game.ShapeTexture">
+
+ A texture consisting of a shape filled in by a color
+
+</member>
+<member name="T:VB_Game.InputHandler">
+
+Handles the input for the game passing over events to controls
+
+</member>
 <member name="M:VB_Game.InputHandler.isKeyDown(System.Int32)">
  <summary>
  Returns whether specified key is currently pressed
@@ -582,6 +616,11 @@ VB_Game
  </summary>
  <param name="name"></param>
  <returns></returns>
+</member>
+<member name="T:VB_Game.Constants">
+
+ Holds Game Constants and loads user settings
+
 </member>
 <member name="F:VB_Game.Constants.COLLISION_CATEGORIES">
  <summary>

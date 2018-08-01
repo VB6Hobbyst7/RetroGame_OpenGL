@@ -37,7 +37,7 @@ Public Class InputHandler
 
     Private Shared Sub MouseButtonUp(sender As Object, e As MouseButtonEventArgs) Handles game.MouseUp
         If Not overrideMouseListener Is Nothing Then
-            overrideMouseListener.MouseButtonDown(e)
+            overrideMouseListener.MouseButtonUp(e)
         Else
             For i = 0 To mouseListeners.Count - 1
                 mouseListeners(i).MouseButtonUp(e)
@@ -47,7 +47,7 @@ Public Class InputHandler
 
     Private Shared Sub MouseMove(sender As Object, e As MouseMoveEventArgs) Handles game.MouseMove
         If Not overrideMouseListener Is Nothing Then
-            overrideMouseListener.MouseButtonDown(e)
+            overrideMouseListener.MouseMove(e)
         Else
             For i = 0 To mouseListeners.Count - 1
                 mouseListeners(i).MouseMove(e)

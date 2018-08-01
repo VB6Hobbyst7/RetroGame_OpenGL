@@ -1,7 +1,4 @@
-'''
-''' Handles FPS debugging for game rendering FPS count to screen
-'''
-﻿Public Class DebugHandler
+Public Class DebugHandler
 
     Private Shared frame As Integer = 0
     Private Shared fpsLabel As New TextLabel("FPS", 16)
@@ -28,8 +25,10 @@
                 maxFPS = Math.Max(maxFPS, fps)
                 fpsLabel.Text = String.Format(
 "FPS: {0}, Avg {1}
-Min {2}, Max {3}",
-                                              fps, Math.Round(totalFPS / count), minFPS, maxFPS)
+Min {2}, Max {3}", fps, Math.Round(totalFPS / count), minFPS, maxFPS)
+                Debug.WriteLine(String.Format(
+"FPS: {0}, Avg {1}
+Min {2}, Max {3}", fps, Math.Round(totalFPS / count), minFPS, maxFPS))
 
                 updateTime = 0
             End If

@@ -36,4 +36,5 @@ Public Class SoundEffects
     Public Shared pause_in As New AudioPlayer("pause_in.wav")
     Public Shared pause_out As New AudioPlayer("pause_out.wav")
     Public Shared weapon_fire As New AudioPlayer("weapon_fire.wav")
+    Public Shared gameover As New AudioPlayer("gameover.wav")
 End Class
