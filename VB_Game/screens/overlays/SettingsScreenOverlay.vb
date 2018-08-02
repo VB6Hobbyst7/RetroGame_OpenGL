@@ -29,6 +29,9 @@
     Private graphicsQuality As String
     Private windowMode As String
     Private initialWindowMode As String
+    Private confirmDialog As Dialog = New Dialog({"Are you sure you want to apply changes?",
+            "Changing graphic options requires a restart", "and any ongoing game progress will be lost"}, 12, 15 * Constants.DESIGN_SCALE_FACTOR)
+    Private showDialog As Boolean = False
 
     Private Function hasSettingsChanged() As Boolean
         Return graphicsQuality <> initialGraphicsQuality Or initVolumeLevel <> volumeLevel Or windowMode <> initialWindowMode
@@ -86,17 +89,41 @@
         windowModeLabel = New TextLabel("Window Mode", mainFont, Drawing.Brushes.White)
         windowModeLabel.pos = New OpenTK.Vector2(windowModeSwitch.pos.X - windowModeSwitch.getWidth() / 8 - windowModeLabel.getWidth(),
                                              windowModeSwitch.pos.Y)
+        confirmDialog.registerResultListeners(AddressOf dialogOk, AddressOf dialogCancel)
+    End Sub
+
+    Private Sub dialogOk()
+        showDialog = False
+        AudioMaster.getInstance().setVolume(volumeLevel)
+        initVolumeLevel = volumeLevel
+        If windowMode = "windowed" Then
+            Game.getInstance().WindowState = OpenTK.WindowState.Normal
+        ElseIf windowMode = "fullscreen" Then
+            Game.getInstance().WindowState = OpenTK.WindowState.Fullscreen
+        End If
+
+        initialWindowMode = windowMode
+        Constants.CURRENT_GRAPHICS_PRESET = graphicsQuality
+        Constants.saveSettings()
+        System.Diagnostics.Process.Start(System.AppDomain.CurrentDomain.FriendlyName)
+        Environment.Exit(0)
+    End Sub
+
+    Private Sub dialogCancel()
+        showDialog = False
     End Sub
 
     Public Sub applySettingsChanges()
         Dim msgResult = Nothing
         If graphicsQuality <> initialGraphicsQuality Then
-            msgResult = MsgBox("Are you sure you want to apply changes?
-Changing graphic options requires a restart and any ongoing game progress will be lost",
-                               MsgBoxStyle.OkCancel, "Apply Changes")
+            showDialog = True
+            confirmDialog.show()
+            '            msgResult = MsgBox("Are you sure you want to apply changes?
+            'Changing graphic options requires a restart and any ongoing game progress will be lost",
+            '                               MsgBoxStyle.OkCancel, "Apply Changes")
         End If
 
-        If msgResult = MsgBoxResult.Ok Or msgResult = Nothing Then
+        If showDialog = False Then
             AudioMaster.getInstance().setVolume(volumeLevel)
             initVolumeLevel = volumeLevel
             If windowMode = "windowed" Then
@@ -108,12 +135,6 @@ Changing graphic options requires a restart and any ongoing game progress will b
             initialWindowMode = windowMode
         End If
 
-        If msgResult = MsgBoxResult.Ok Then
-            Constants.CURRENT_GRAPHICS_PRESET = graphicsQuality
-            Constants.saveSettings()
-            System.Diagnostics.Process.Start(System.AppDomain.CurrentDomain.FriendlyName)
-            Environment.Exit(0)
-        End If
         Constants.saveSettings()
     End Sub
 
@@ -190,6 +211,10 @@ Changing graphic options requires a restart and any ongoing game progress will b
         If hasSettingsChanged() Then
             Debug.WriteLine(initialWindowMode = windowMode)
             applyChangesBtn.render(delta)
+        End If
+
+        If showDialog Then
+            confirmDialog.render(delta)
         End If
     End Sub
 

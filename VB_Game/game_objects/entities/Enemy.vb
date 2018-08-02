@@ -8,6 +8,7 @@ Public Class Enemy : Inherits Entity
     Private leftDir As Boolean = False
     Private spawnPos As Vector2
     Private alive As Boolean = True
+    Private random As New Random()
 
     ''' <summary>
     ''' Creates new enemy
@@ -56,6 +57,15 @@ Public Class Enemy : Inherits Entity
         If deltaD = smallest Then
             velocity = New Vector2(velocity.X, 0)
             pos = New Vector2(pos.X, objB.pos.Y - getHeight())
+            If isGrounded = False And Constants.RANDOMISE_ENEMY_DIR Then
+                Debug.WriteLine(random.Next(0, 2))
+                leftDir = random.Next(0, 2)
+                If leftDir Then
+                    velocity = New Vector2(-SPEED, 0)
+                Else
+                    velocity = New Vector2(SPEED, 0)
+                End If
+            End If
             isGrounded = True
             If started = False Then
                 started = True
@@ -80,7 +90,12 @@ Public Class Enemy : Inherits Entity
     End Sub
 
     Public Overrides Sub tick(delta As Double)
-        velocity = New Vector2(velocity.X, velocity.Y)
+        'velocity = New Vector2(velocity.X, velocity.Y)
+        If velocity.Y > 1 * Constants.DESIGN_SCALE_FACTOR Then
+            isGrounded = False
+        Else
+            isGrounded = True
+        End If
         pos = New Vector2(pos.X + velocity.X * delta, pos.Y + velocity.Y * delta)
 
         'Check if fallen below map

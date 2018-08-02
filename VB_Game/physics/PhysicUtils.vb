@@ -77,7 +77,7 @@ Public Class PhysicUtils
     ''' <param name="Vector B"></param>
     ''' <returns>Distance</returns>
     Public Shared Function calcDistance(a As OpenTK.Vector2, b As OpenTK.Vector2) As Double
-        Return Math.Sqrt(Math.Pow(a.X + b.X, 2) + Math.Pow(a.Y + b.Y, 2))
+        Return Math.Sqrt(Math.Pow(a.X - b.X, 2) + Math.Pow(a.Y - b.Y, 2))
     End Function
 
 End Class

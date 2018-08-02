@@ -39,6 +39,15 @@ Public Class PhysicsHandler
         init()
     End Sub
 
+    Public Shared Function containsObject(obj As GameObject) As Boolean
+        For i = 0 To physicsBodies.Count - 1
+            If physicsBodies(i).parent.Equals(obj) Then
+                Return True
+            End If
+        Next
+        Return False
+    End Function
+
     ''' <summary>
     ''' Adds body to physics bodies and does setup for bitmasks
     ''' </summary>

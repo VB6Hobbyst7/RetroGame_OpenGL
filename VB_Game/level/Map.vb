@@ -4,6 +4,18 @@ Imports System.IO
 Imports OpenTK
 
 ''' <summary>
+''' Represents a user high score entry
+''' </summary>
+Public Class ScoreEntry
+    Public name As String
+    Public score As Integer
+    Public Sub New(name, score)
+        Me.name = name
+        Me.score = score
+    End Sub
+End Class
+
+''' <summary>
 ''' Represents a tile map consisting of a grid of tiles
 ''' </summary>
 Public Class Map
@@ -17,8 +29,9 @@ Public Class Map
     Private background As Texture
     Private chestSpawnPositions As New List(Of Vector2)
     Private chest As Chest
-    Private Shared random As New Random()
-    Private Shared previewImg As ImageTexture
+    Private random As New Random()
+    Private previewImg As ImageTexture
+    Private scores As New List(Of ScoreEntry)
 
     ''' <summary>
     ''' Map highscore
@@ -83,7 +96,7 @@ Public Class Map
     ''' Loads Json Formatted map into memory
     ''' </summary>
     Public Sub loadMap()
-        Debug.WriteLine("loading map")
+        Debug.WriteLine("loading map: " + Me.mapFileName)
         Dim f As StreamReader = File.OpenText(Constants.MAP_RES_DIR + mapFileName)
         Dim reader As New JsonTextReader(f)
         Dim currentTile As Tile
@@ -229,6 +242,31 @@ Public Class Map
         Dim writer As New JsonTextWriter(New System.IO.StreamWriter(Constants.MAP_RES_DIR + mapFileName))
         mapsObj.WriteTo(writer)
         writer.Close()
+    End Sub
+
+    Private Sub loadScores()
+        Dim mapsScores As String = ""
+        Try
+            mapsScores = System.IO.File.ReadAllText(Constants.MAP_RES_DIR + mapFileName + ".scores")
+        Catch ex As Exception
+            Debug.WriteLine(ex)
+            'Failed to read
+            Return
+        End Try
+        Dim scoreLines = mapsScores.Split(new String() {Environment.NewLine}, StringSplitOptions.None)
+        scores.Clear()
+        For i = 0 To scoreLines.Length - 1
+            Dim scoreLineSplit = scoreLines(i).Split(":")
+            scores.Add(New ScoreEntry(scoreLineSplit(0), scoreLineSplit(1)))
+        Next
+    End Sub
+
+    Private Sub saveScores()
+        Dim objWriter As New System.IO.StreamWriter(Constants.MAP_RES_DIR + mapFileName + ".scores")
+        For i = 0 To scores.Count() - 1
+            objWriter.WriteLine(scores(i).name + ":" + CStr(scores(i).score))
+        Next
+        objWriter.Close()
     End Sub
 
 End Class

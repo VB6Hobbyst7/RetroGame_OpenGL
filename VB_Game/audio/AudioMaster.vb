@@ -17,7 +17,8 @@ Public Class AudioMaster : Implements IDisposable
     Private volumeLevel As Double
 
     Public Function isEnabled() As Boolean
-        Return enabled
+        'Return enabled
+        Return True
     End Function
 
     ''' <summary>
@@ -26,9 +27,11 @@ Public Class AudioMaster : Implements IDisposable
     ''' <param name="level"></param>
     Public Sub setVolume(level As Integer)
         volumeLevel = (level / 100) 'gain expects value from 0 to 1
-        For i = 0 To sources.Count - 1
-            sources(i).gain = volumeLevel
-        Next
+        'For i = 0 To sources.Count - 1
+        '    sources(i).gain = volumeLevel
+        'Next
+        'Pass volume over to naudio
+        SoundEffects.setVolume(volumeLevel)
     End Sub
 
     ''' <summary>
@@ -49,7 +52,6 @@ Public Class AudioMaster : Implements IDisposable
             enabled = False
             'Audio disabled
         End Try
-
 
         'Dim buffer = ContentPipe.loadWave(".\res\test.wav")
         'Dim buffer2 = ContentPipe.loadWave(".\res\test2.wav")

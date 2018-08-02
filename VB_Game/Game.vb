@@ -6,6 +6,10 @@ Imports OpenTK.Graphics
 Imports OpenTK.Graphics.OpenGL
 Imports OpenTK.Input
 
+'TODO: custom dialog
+'      additional instructions - tutorial what to do, space to shoot
+'      esc for pause screen, additional sounds
+
 '''
 ''' Base game class which runs the whole game managing all screen and loading of game
 '''
@@ -46,6 +50,7 @@ Public Class Game : Inherits GameWindow : Implements KeyListener
         camera = New Camera(New Vector2(0.5, 0.5), 0, 1)
         VSync = True
         currentScreen = StartScreen.getInstance()
+        Me.Title = "Bounce"
     End Sub
 
     Protected Overrides Sub OnLoad(ByVal e As EventArgs)

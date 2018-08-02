@@ -181,6 +181,11 @@ VB_Game
  <param name="size">Overall button dimensions</param>
  <param name="style">Button Appearance style</param>
 </member>
+<member name="M:VB_Game.Button.applyTextPadding(System.Int32)">
+ <summary>
+ Applies padding in case text gets cut off
+ </summary>
+</member>
 <member name="M:VB_Game.Button.setOnClickListener(VB_Game.Button.OnClick)">
  <summary>
  Sets a click listener which is called when the button is clicked
@@ -192,9 +197,19 @@ VB_Game
  Scale property defaulting to (1, 1)
  </summary>
 </member>
+<member name="M:VB_Game.Dialog.configureText(System.String[])">
+ <summary>
+ Configures the dialog text
+ </summary>
+</member>
 <member name="M:VB_Game.Dialog.onCancelClicked">
  <summary>
  Runs when cancel btn is clicked dismissing dialog
+ </summary>
+</member>
+<member name="M:VB_Game.Dialog.onOkClicked">
+ <summary>
+ Runs when ok btn is clicked dismissing dialog
  </summary>
 </member>
 <member name="M:VB_Game.Switch.#ctor(OpenTK.Vector2,OpenTK.Vector2,System.String[],VB_Game.SwitchStyle)">
@@ -414,6 +429,11 @@ VB_Game
  Generates new text texture for the text and loads it into application for rendering
  </summary>
 </member>
+<member name="M:VB_Game.TextLabel.applyTextPadding(System.Int32)">
+ <summary>
+ Applies padding in case text gets cut off
+ </summary>
+</member>
 <member name="T:VB_Game.GameObject">
  <summary>
  Represents any graphical game object
@@ -540,6 +560,11 @@ Handles the input for the game passing over events to controls
 <member name="T:VB_Game.MouseListener">
  <summary>
  Interface providing ability to register for mouse events
+ </summary>
+</member>
+<member name="T:VB_Game.ScoreEntry">
+ <summary>
+ Represents a user high score entry
  </summary>
 </member>
 <member name="T:VB_Game.Map">

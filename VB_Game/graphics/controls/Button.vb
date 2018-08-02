@@ -48,6 +48,13 @@ Public Class Button : Inherits Control : Implements MouseListener
         Me.customRender = True
     End Sub
 
+    ''' <summary>
+    ''' Applies padding in case text gets cut off
+    ''' </summary>
+    Public Sub applyTextPadding(padding As Integer)
+        Me.label.applyTextPadding(padding)
+    End Sub
+
     Public Sub New(text As String, pos As Vector2, font As Drawing.Font, size As Drawing.Size, style As ButtonStyle)
         Me.style = style
         Me.size = New Vector2(size.Width, size.Height)

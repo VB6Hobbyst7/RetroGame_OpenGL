@@ -27,8 +27,10 @@ Public Class TileMapHandler
     ''' </summary>
     ''' <param name="mapIndex"></param>
     Public Sub loadMap(mapIndex As Integer)
-        maps(0).loadMap()
-        currentMap = maps(0)
+        'Clear anything existing
+        PhysicsHandler.clearBodies()
+        maps(mapIndex).loadMap()
+        currentMap = maps(mapIndex)
     End Sub
 
     ''' <summary>

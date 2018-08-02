@@ -1,7 +1,7 @@
 Public Class DebugHandler
 
     Private Shared frame As Integer = 0
-    Private Shared fpsLabel As New TextLabel("FPS", 16)
+    Private Shared fpsLabel As New TextLabel("FPS", 16 * Constants.DESIGN_SCALE_FACTOR)
     Private Shared updateTime = 0
     Private Shared minFPS = Integer.MaxValue
     Private Shared maxFPS = 0

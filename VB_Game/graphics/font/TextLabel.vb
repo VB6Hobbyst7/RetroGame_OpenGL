@@ -145,6 +145,30 @@ Public Class TextLabel : Inherits GameObject
         Me.texture = ContentPipe.loadTexture(bitmap)
     End Sub
 
+    ''' <summary>
+    ''' Applies padding in case text gets cut off
+    ''' </summary>
+    Public Sub applyTextPadding(padding As Integer)
+        'Me.scale = New OpenTK.Vector2(1 / DEFAULT_UPSCALE, 1 / DEFAULT_UPSCALE)
+        If refreshingTexture Then
+            OpenTK.Graphics.OpenGL.GL.DeleteTexture(CType(texture, ImageTexture).id)
+        End If
+        refreshingTexture = True
+        'Dim texture As New ImageTexture()
+        Dim f As Font = font
+        If f Is Nothing Then
+            f = New Font("Impact", fontSize, FontStyle.Regular)
+        End If
+
+        Dim TestSize As Size = TextRenderer.MeasureText(_text, f)
+        Dim bitmap As New Bitmap(TestSize.Width + padding, TestSize.Height)
+        Dim g As Graphics = Graphics.FromImage(bitmap)
+        g.TextRenderingHint = Drawing.Text.TextRenderingHint.AntiAlias
+        'g.TextRenderingHint = Drawing.Text.TextRenderingHint.AntiAliasGridFit
+        g.DrawString(_text, f, brush, 0, 0)
+        Me.texture = ContentPipe.loadTexture(bitmap)
+    End Sub
+
     Private Function findSuitableSize(boundingSize As Size) As Font
         Dim lastWorkingFont As New Font("Impact", 1, FontStyle.Regular)
         Dim curSize = 1

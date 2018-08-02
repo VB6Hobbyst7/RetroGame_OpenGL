@@ -1,4 +1,5 @@
 ﻿Imports System.IO
+Imports System.Reflection
 Imports NAudio.Wave
 
 Public Class AudioPlayer
@@ -26,6 +27,10 @@ Public Class AudioPlayer
         player.Init(reader)
     End Sub
 
+    Public Sub setVolume(volume As Single)
+        Me.player.Volume = volume
+    End Sub
+
 End Class
 
 Public Class SoundEffects
@@ -37,4 +42,13 @@ Public Class SoundEffects
     Public Shared pause_out As New AudioPlayer("pause_out.wav")
     Public Shared weapon_fire As New AudioPlayer("weapon_fire.wav")
     Public Shared gameover As New AudioPlayer("gameover.wav")
+
+    Public Shared Sub setVolume(volume As Single)
+        Dim properties() As FieldInfo = GetType(SoundEffects).GetFields()
+        For i = 0 To properties.Count - 1
+            Dim s = properties(i).GetValue(Nothing)
+            Dim audioObj As AudioPlayer = CType(properties(i).GetValue(Nothing), AudioPlayer)
+            audioObj.setVolume(volume)
+        Next
+    End Sub
 End Class

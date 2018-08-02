@@ -6,7 +6,7 @@ Imports Newtonsoft.Json.Linq
 '''
 Public Class Constants
 
-    Public Const FPS_DEBUG = True
+    Public Const FPS_DEBUG = False
     Public Const MAX_FRAME_DELTA_TIME = 0.1 'Prevents issues with window grabbing
     Public Const RELEASE = False 'If its release disable developer features
 
@@ -60,6 +60,7 @@ Public Class Constants
 
     'Gameplay Constants
     Public Shared MIN_CHEST_GAP = TILE_SIZE * 10 'Minimum spacing between chests spawns
+    Public Shared RANDOMISE_ENEMY_DIR = False
 
 #Region "Physics Constants"
 
@@ -97,9 +98,9 @@ Public Class Constants
     ''' Initialises constants - loading settings
     ''' </summary>
     Public Shared Sub init()
-        GRAPHICS_PRESETS.Add("HIGH", {3.0, 32.0})
-        GRAPHICS_PRESETS.Add("MED", {2, 8.0})
         GRAPHICS_PRESETS.Add("LOW", {1, 4.0})
+        GRAPHICS_PRESETS.Add("MED", {2, 8.0})
+        GRAPHICS_PRESETS.Add("HIGH", {3.0, 32.0})
         loadSettings()
     End Sub
 

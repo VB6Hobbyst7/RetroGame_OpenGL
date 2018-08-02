@@ -77,6 +77,7 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
     ''' </summary>
     Public Sub restart()
         Dim i = 0
+        'Remove only enemies and projectiles
         While i < gameObjects.Count()
             If gameObjects(i).GetType.IsAssignableFrom(GetType(SimpleProjectile)) Or
                 gameObjects(i).GetType.IsAssignableFrom(GetType(Enemy)) Then
@@ -88,12 +89,17 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
         End While
         player.moveToSpawn()
         player.Score = 0
+        player.velocity = New Vector2(0, 0)
         updateScoreLabel()
         EnemyFactory.reset()
         getCurrentMap().spawnRandomChest()
         CurrentState = State.PLAY
         If isTutorial Then
             configureTutorial()
+        End If
+        If Not PhysicsHandler.containsObject(player) Then
+            PhysicsHandler.addPhysicsBody(New RigidBody(player,
+            Constants.Physics_CATEGORY.NO_COLLISION, Constants.Physics_COLLISION.PLAYER))
         End If
     End Sub
 

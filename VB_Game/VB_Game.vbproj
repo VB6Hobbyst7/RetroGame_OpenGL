@@ -101,6 +101,7 @@
     <Compile Include="graphics\controls\Slider.vb" />
     <Compile Include="graphics\controls\Switch.vb" />
     <Compile Include="graphics\controls\SwitchStyle.vb" />
+    <Compile Include="graphics\controls\TextField.vb" />
     <Compile Include="graphics\texture\TextureAtlas.vb" />
     <Compile Include="physics\BoundingRect.vb" />
     <Compile Include="physics\PhysicUtils.vb" />
@@ -174,6 +175,9 @@
     <None Include="res\maps\map5.ldat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="res\maps\map6.ldat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -202,6 +206,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="res\img\tiles\chest.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\img\tiles\map6_background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="res\img\tiles\map5_background.png">

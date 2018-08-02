@@ -13,7 +13,6 @@ Public Class StartScreen : Inherits Screen
     Private btnFont As New Drawing.Font("Impact", 26 * Constants.DESIGN_SCALE_FACTOR, Drawing.FontStyle.Regular)
     Private titleLabel As TextLabel
     Private btnStyle = New ButtonStyle(Drawing.Brushes.White, Drawing.Color.FromArgb(255, 64, 64, 64))
-    'Private testDialog As New Dialog()
 
     Private Sub startGame()
         Debug.WriteLine("on start game start")
@@ -33,7 +32,6 @@ Public Class StartScreen : Inherits Screen
         Game.getInstance().currentScreen = GameScreen.getInstance()
     End Sub
 
-
     Public Sub New()
         'Background image
         backgroundImg = New GameObject(False)
@@ -44,7 +42,7 @@ Public Class StartScreen : Inherits Screen
                                             Drawing.Color.FromArgb(68, 0, 0, 0), ShapeTexture.ShapeType.Rectangle)
 
         'Title
-        titleLabel = New TextLabel("GAME NAME", New Drawing.Font("IMPACT", 40 * Constants.DESIGN_SCALE_FACTOR, Drawing.FontStyle.Bold), Drawing.Brushes.White)
+        titleLabel = New TextLabel("BOUNCE", New Drawing.Font("IMPACT", 40 * Constants.DESIGN_SCALE_FACTOR, Drawing.FontStyle.Bold), Drawing.Brushes.White)
         titleLabel.pos = New Vector2(-titleLabel.getWidth() / 2, -titleLabel.getHeight() * 3)
         'Buttons
         Dim btnSize = New Drawing.Size(300 * Constants.DESIGN_SCALE_FACTOR, 45 * Constants.DESIGN_SCALE_FACTOR)
@@ -80,7 +78,6 @@ Public Class StartScreen : Inherits Screen
             tutorialBtn.render(delta)
             titleLabel.render(delta)
         End If
-        'testDialog.render(delta)
     End Sub
 
     Public Overrides Sub update(delta As Double)
