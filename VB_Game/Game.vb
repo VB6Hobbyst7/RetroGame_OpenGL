@@ -5,11 +5,6 @@ Imports OpenTK
 Imports OpenTK.Graphics
 Imports OpenTK.Graphics.OpenGL
 Imports OpenTK.Input
-
-'TODO: custom dialog
-'      additional instructions - tutorial what to do, space to shoot
-'      esc for pause screen, additional sounds
-
 '''
 ''' Base game class which runs the whole game managing all screen and loading of game
 '''

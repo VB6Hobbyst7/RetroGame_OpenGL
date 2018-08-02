@@ -8,11 +8,14 @@ Public Class StartScreen : Inherits Screen
     Private startGameBtn As Button
     Private settingsBtn As Button
     Private tutorialBtn As Button
+    Private quitBtn As Button
     Private backgroundImg As GameObject
     Private backgroundFilter As ShapeTexture
     Private btnFont As New Drawing.Font("Impact", 26 * Constants.DESIGN_SCALE_FACTOR, Drawing.FontStyle.Regular)
     Private titleLabel As TextLabel
     Private btnStyle = New ButtonStyle(Drawing.Brushes.White, Drawing.Color.FromArgb(255, 64, 64, 64))
+    Private confirmDialog As Dialog = New Dialog({"Are you sure you want to quit?"})
+    Private showDialog As Boolean = False
 
     Private Sub startGame()
         Debug.WriteLine("on start game start")
@@ -43,7 +46,7 @@ Public Class StartScreen : Inherits Screen
 
         'Title
         titleLabel = New TextLabel("BOUNCE", New Drawing.Font("IMPACT", 40 * Constants.DESIGN_SCALE_FACTOR, Drawing.FontStyle.Bold), Drawing.Brushes.White)
-        titleLabel.pos = New Vector2(-titleLabel.getWidth() / 2, -titleLabel.getHeight() * 3)
+        titleLabel.pos = New Vector2(-titleLabel.getWidth() / 2, -titleLabel.getHeight() * 4)
         'Buttons
         Dim btnSize = New Drawing.Size(300 * Constants.DESIGN_SCALE_FACTOR, 45 * Constants.DESIGN_SCALE_FACTOR)
 
@@ -59,11 +62,31 @@ Public Class StartScreen : Inherits Screen
                                   btnFont, btnSize, btnStyle)
         tutorialBtn.setOnClickListener(AddressOf startTutorial)
 
+        quitBtn = New Button("QUIT", New Vector2(-btnSize.Width / 2, tutorialBtn.pos.Y + tutorialBtn.getHeight() * 1.8),
+                                  btnFont, btnSize, btnStyle)
+        quitBtn.setOnClickListener(AddressOf onQuitClicked)
+
+        confirmDialog.registerResultListeners(AddressOf onDialogOk, AddressOf onDialogCancel)
+
         settingsOverlay = New SettingsScreenOverlay(False)
         settingsOverlay.setOnBackAction(AddressOf onSettingsBack)
     End Sub
 
-    Public Sub onSettingsBack()
+    Private Sub onDialogOk()
+        'Confirm quit
+        Environment.Exit(0)
+    End Sub
+
+    Private Sub onDialogCancel()
+        showDialog = False
+    End Sub
+
+    Private Sub onQuitClicked()
+        showDialog = True
+        confirmDialog.show()
+    End Sub
+
+    Private Sub onSettingsBack()
         showSettings = False
     End Sub
 
@@ -77,6 +100,11 @@ Public Class StartScreen : Inherits Screen
             settingsBtn.render(delta)
             tutorialBtn.render(delta)
             titleLabel.render(delta)
+            quitBtn.render(delta)
+        End If
+
+        If showDialog Then
+            confirmDialog.render(delta)
         End If
     End Sub
 

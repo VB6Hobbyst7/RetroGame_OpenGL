@@ -57,16 +57,20 @@ Public Class InputHandler
 
     Private Shared Sub KeyDown(sender As Object, e As KeyboardKeyEventArgs) Handles game.KeyDown
         keys.Item(e.Key) = True
-        For i = 0 To keyListeners.Count - 1
-            keyListeners(i).KeyDown(e)
-        Next
+        If overrideMouseListener Is Nothing Then
+            For i = 0 To keyListeners.Count - 1
+                keyListeners(i).KeyDown(e)
+            Next
+        End If
     End Sub
 
     Private Shared Sub KeyUp(sender As Object, e As KeyboardKeyEventArgs) Handles game.KeyUp
         keys.Item(e.Key) = False
-        For i = 0 To keyListeners.Count - 1
-            keyListeners(i).KeyUp(e)
-        Next
+        If overrideMouseListener Is Nothing Then
+            For i = 0 To keyListeners.Count - 1
+                keyListeners(i).KeyUp(e)
+            Next
+        End If
     End Sub
 
     ''' <summary>

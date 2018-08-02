@@ -113,6 +113,7 @@
     <Compile Include="screens\overlays\PauseScreenOverlay.vb" />
     <Compile Include="screens\overlays\SettingsScreenOverlay.vb" />
     <Compile Include="screens\overlays\TutorialCompleteOverlay.vb" />
+    <Compile Include="screens\overlays\TutorialObjectiveOverlay.vb" />
     <Compile Include="screens\overlays\TutorialScreenOverlay.vb" />
     <Compile Include="screens\Screen.vb" />
     <Compile Include="game_objects\entities\Entity.vb" />

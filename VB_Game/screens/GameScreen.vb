@@ -25,6 +25,7 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
     Private pauseScreen As New PauseScreenOverlay()
     Private settingsOverlay As New SettingsScreenOverlay()
     Private tutorialOverlay As New TutorialScreenOverlay()
+    Private tutorialObjectiveOverlay As New TutorialObjectiveOverlay()
     Private tutorialCompleteOverlay As New TutorialCompleteOverlay()
     Private scoreLabel As TextLabel
     Private scoreLabelBackground As ShapeTexture
@@ -144,6 +145,10 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
             tutorialCompleteOverlay.render(delta)
         End If
 
+        If isTutorial And Me.CurrentState = State.PLAY Then
+            tutorialObjectiveOverlay.render(delta)
+        End If
+
         For i = 0 To nextFrameRemovalList.Count - 1
             removeGameObject(nextFrameRemovalList(i))
         Next
@@ -232,6 +237,7 @@ Public Class GameScreen : Inherits Screen : Implements KeyListener
     ''' Configures everything for tutorial setting up entities and shows instructions
     ''' </summary>
     Public Sub configureTutorial()
+        Constants.RANDOMISE_ENEMY_DIR = False
         isTutorial = True
         player.Score = 0
         updateScoreLabel()
